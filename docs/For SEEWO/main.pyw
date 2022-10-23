@@ -1,3 +1,4 @@
+v="1.3.2-20221023"
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Separator
@@ -8,9 +9,9 @@ from time import *
 time = strftime("%Y-%m-%d")
 # 初始化
 tk = Tk()
-tk.title("郑博的小程序")
+tk.title("郑博的小程序For Seewo "+v)
 x = 200
-y = 300
+y = 295
 max_x = tk.winfo_screenwidth()
 max_y = tk.winfo_screenheight()
 now_x = (max_x - x) / 2
@@ -220,7 +221,9 @@ def b10():
 # txt = ttk.Label(tk, text="文字").place(x=100,y=,width=200,height=30,anchor="center")
 # b = ttk.Button(tk, text="按钮", style="TButton", command=b).place(x=,y=,width=100,height=30)
 # sep = Separator(tk, orient=HORIZONTAL).place(x=0,y=,width=5000,height=30)
-txt = ttk.Label(tk, text="实用工具").place(x=0, y=0, width=150, height=30)
+txt = ttk.Label(tk, text="实用工具").place(x=75, y=0, width=150, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=0, width=200, height=2)
+
 b3 = ttk.Button(tk, text="PPT小助手重启", style="TButton", command=b3).place(x=0, y=30, width=100, height=30)
 b4 = ttk.Button(tk, text="干掉PPT小助手", style="TButton", command=b4).place(x=100, y=30, width=100, height=30)
 b5 = ttk.Button(tk, text="清理扫描图片", style="TButton", command=b5).place(x=0, y=60, width=100, height=30)
@@ -228,10 +231,21 @@ b6 = ttk.Button(tk, text="打开CCTV-13", style="TButton", command=b6).place(x=1
 b9 = ttk.Button(tk, text="校园电视台", style="TButton", command=b9).place(x=0, y=90, width=100, height=30)
 b7 = ttk.Button(tk, text="清理回收站", style="TButton", command=b7).place(x=100, y=90, width=100, height=30)
 b8 = ttk.Button(tk, text="整理桌面文件", style="TButton", command=b8).place(x=0, y=120, width=100, height=30)
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=155, width=5000, height=30)
-txt = ttk.Label(tk, text="夹带私货").place(x=0, y=160, width=150, height=30)
-b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=190, width=100, height=30)
-b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=190, width=100, height=30)
-txt = ttk.Label(tk, text="郑博编写的小程序").place(x=0, y=220, width=150, height=30)
-b10 = ttk.Button(tk, text="版本1.3.1-20221023", style="TButton", command=b10).place(x=0, y=240, width=150, height=30)
+
+
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=155, width=200, height=30)
+
+txt = ttk.Label(tk, text="郑博的小程序For Seewo").place(x=30, y=160, width=150, height=30)
+
+b10 = ttk.Button(tk, text=v, style="TButton", command=b10).place(x=50, y=190, width=100, height=30)
+
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=225, width=200, height=30)
+
+txt = ttk.Label(tk, text="夹带私货").place(x=75, y=230, width=150, height=30)
+
+b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=260, width=100, height=30)
+b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=260, width=100, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=295, width=200, height=30)
+sep = Separator(tk, orient=VERTICAL).place(x=0, y=0, width=2, height=295)
+sep = Separator(tk, orient=VERTICAL).place(x=200, y=0, width=2, height=295)
 tk.mainloop()

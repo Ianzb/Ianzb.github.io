@@ -1,17 +1,17 @@
-v="1.3.2-20221023"
+v = "1.3.3-20221023"
+from os import *
+from time import *
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Separator
-from os import *
 from webbrowser import *
-from time import *
 
 time = strftime("%Y-%m-%d")
 # 初始化
 tk = Tk()
-tk.title("郑博的小程序For Seewo "+v)
+tk.title("郑博的小程序For Seewo " + v)
 x = 200
-y = 295
+y = 225
 max_x = tk.winfo_screenwidth()
 max_y = tk.winfo_screenheight()
 now_x = (max_x - x) / 2
@@ -213,7 +213,7 @@ def b9():
 
 
 def b10():
-    import sys, os
+    import sys
     popen("update.pyw")
     sys.exit()
 
@@ -231,7 +231,6 @@ b6 = ttk.Button(tk, text="打开CCTV-13", style="TButton", command=b6).place(x=1
 b9 = ttk.Button(tk, text="校园电视台", style="TButton", command=b9).place(x=0, y=90, width=100, height=30)
 b7 = ttk.Button(tk, text="清理回收站", style="TButton", command=b7).place(x=100, y=90, width=100, height=30)
 b8 = ttk.Button(tk, text="整理桌面文件", style="TButton", command=b8).place(x=0, y=120, width=100, height=30)
-
 
 sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=155, width=200, height=30)
 

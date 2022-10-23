@@ -207,9 +207,14 @@ def b8():
             shutil.move(path + i[:i.rfind("(")], to + "文件夹/" + i)
 
 
-
 def b9():
     open("http://10.8.8.35:8080/SoMooc/live/viewDetails.action?live.id=8a8888a36569259c016569f1dfb0000c")
+
+
+def b10():
+    import sys, os
+    popen("update.pyw")
+    sys.exit()
 
 
 # txt = ttk.Label(tk, text="文字").place(x=100,y=,width=200,height=30,anchor="center")
@@ -227,6 +232,6 @@ sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=155, width=5000, height=30)
 txt = ttk.Label(tk, text="夹带私货").place(x=0, y=160, width=150, height=30)
 b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=190, width=100, height=30)
 b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=190, width=100, height=30)
-txt = ttk.Label(tk, text="郑博的小程序for SEEWO").place(x=0, y=220, width=150, height=30)
-txt = ttk.Label(tk, text="版本1.3.0-20221023").place(x=0, y=240, width=150, height=30)
+txt = ttk.Label(tk, text="郑博编写的小程序").place(x=0, y=220, width=150, height=30)
+b10 = ttk.Button(tk, text="版本1.3.1-20221023", style="TButton", command=b10).place(x=0, y=240, width=150, height=30)
 tk.mainloop()

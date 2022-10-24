@@ -1,4 +1,4 @@
-v = "1.3.3-20221023"
+v = "1.4.0-20221024"
 from os import *
 from time import *
 from tkinter import *
@@ -47,8 +47,7 @@ def b4():
 
 
 def b5():
-    import os
-    import shutil
+    import os, shutil
     list = os.walk(r"D:\\EasiCameraPhoto")
     list2 = []
     for i in list:
@@ -65,11 +64,31 @@ def b6():
 
 def b7():
     popen(r"echo Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin")
+    popen(r"rd /s %systemdrive%$Recycle.bin")
+    popen(
+        r"@echo off setlocal enabledelayedexpansion for %%a in (C D E F G H I J K L M N O P Q R S T U V W X Y Z) do ( if exist %%a:\$recycle.bin ( pushd %%a:\$recycle.bin for /f %%b in ('dir /b /a') do (rd /s /q %%b)))")
+
+
+def repeat_clear(path):
+    import os, filecmp, glob
+    file_lst = []
+
+    for i in glob.glob(path + '/**/*', recursive=True):
+        if os.path.isfile(i):
+            file_lst.append(i)
+
+    for x in file_lst:
+        for y in file_lst:
+            if x != y and os.path.exists(x) and os.path.exists(y):
+                if filecmp.cmp(x, y):
+                    if len(x) > len(y):
+                        os.remove(x)
+                    else:
+                        os.remove(y)
 
 
 def b8():
-    import os
-    import shutil
+    import os, shutil, stat
     from winreg import OpenKey, QueryValueEx, HKEY_CURRENT_USER
     key = OpenKey(HKEY_CURRENT_USER, r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
     path = QueryValueEx(key, "Desktop")[0] + r"\ "[0:-1]
@@ -154,38 +173,50 @@ def b8():
         os.makedirs(to + "压缩包/")
     for i in ppt:
         try:
+            os.chmod(path + i, stat.S_IWRITE)
             shutil.move(path + i, to + "PPT/" + i)
         except:
+            os.chmod(path + i[:i.rfind("(")], stat.S_IWRITE)
             shutil.move(path + i[:i.rfind("(")],
                         to + "PPT/" + i[:i.rfind(".")] + i[i.rfind("("):] + i[i.rfind("."):i.rfind("(")])
     for i in doc:
         try:
+            os.chmod(path + i, stat.S_IWRITE)
             shutil.move(path + i, to + "文档/" + i)
         except:
+            os.chmod(path + i[:i.rfind("(")], stat.S_IWRITE)
             shutil.move(path + i[:i.rfind("(")],
                         to + "文档/" + i[:i.rfind(".")] + i[i.rfind("("):] + i[i.rfind("."):i.rfind("(")])
     for i in xls:
         try:
+            os.chmod(path + i, stat.S_IWRITE)
             shutil.move(path + i, to + "表格/" + i)
         except:
+            os.chmod(path + i[:i.rfind("(")], stat.S_IWRITE)
             shutil.move(path + i[:i.rfind("(")],
                         to + "表格/" + i[:i.rfind(".")] + i[i.rfind("("):] + i[i.rfind("."):i.rfind("(")])
     for i in img:
         try:
+            os.chmod(path + i, stat.S_IWRITE)
             shutil.move(path + i, to + "图片/" + i)
         except:
+            os.chmod(path + i[:i.rfind("(")], stat.S_IWRITE)
             shutil.move(path + i[:i.rfind("(")],
                         to + "图片/" + i[:i.rfind(".")] + i[i.rfind("("):] + i[i.rfind("."):i.rfind("(")])
     for i in mp3:
         try:
+            os.chmod(path + i, stat.S_IWRITE)
             shutil.move(path + i, to + "音视频/" + i)
         except:
+            os.chmod(path + i[:i.rfind("(")], stat.S_IWRITE)
             shutil.move(path + i[:i.rfind("(")],
                         to + "音视频/" + i[:i.rfind(".")] + i[i.rfind("("):] + i[i.rfind("."):i.rfind("(")])
     for i in zip:
         try:
+            os.chmod(path + i, stat.S_IWRITE)
             shutil.move(path + i, to + "压缩包/" + i)
         except:
+            os.chmod(path + i[:i.rfind("(")], stat.S_IWRITE)
             shutil.move(path + i[:i.rfind("(")],
                         to + "压缩包/" + i[:i.rfind(".")] + i[i.rfind("("):] + i[i.rfind("."):i.rfind("(")])
     if not os.path.exists(to + "文件夹/"):
@@ -206,6 +237,13 @@ def b8():
             shutil.move(path + i, to + "文件夹/" + i)
         except:
             shutil.move(path + i[:i.rfind("(")], to + "文件夹/" + i)
+    repeat_clear(to + "PPT/")
+    repeat_clear(to + "表格/")
+    repeat_clear(to + "图片/")
+    repeat_clear(to + "文档/")
+    repeat_clear(to + "文件夹/")
+    repeat_clear(to + "压缩包/")
+    repeat_clear(to + "音视频/")
 
 
 def b9():
@@ -213,9 +251,10 @@ def b9():
 
 
 def b10():
-    import sys
-    popen("update.pyw")
-    sys.exit()
+    import sys, os
+    if os.path.exists("update.pyw"):
+        popen("update.pyw")
+        sys.exit()
 
 
 # txt = ttk.Label(tk, text="文字").place(x=100,y=,width=200,height=30,anchor="center")
@@ -245,6 +284,6 @@ txt = ttk.Label(tk, text="夹带私货").place(x=75, y=230, width=150, height=30
 b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=260, width=100, height=30)
 b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=260, width=100, height=30)
 sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=295, width=200, height=30)
-sep = Separator(tk, orient=VERTICAL).place(x=0, y=0, width=2, height=295)
+sep = Separator(tk, orient=VERTICAL).place(x=-1, y=0, width=2, height=295)
 sep = Separator(tk, orient=VERTICAL).place(x=200, y=0, width=2, height=295)
 tk.mainloop()

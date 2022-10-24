@@ -1,4 +1,4 @@
-v = "1.4.0-20221024"
+v = "1.4.1-20221025"
 from os import *
 from time import *
 from tkinter import *
@@ -247,7 +247,7 @@ def b8():
 
 
 def b9():
-    open("http://10.8.8.35:8080/SoMooc/live/viewDetails.action?live.id=8a8888a36569259c016569f1dfb0000c")
+    open("http://10.8.8.35:8443/live/31384275e5e0443fa4364714fcbf85fd")
 
 
 def b10():

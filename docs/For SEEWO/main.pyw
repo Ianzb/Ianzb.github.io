@@ -1,4 +1,4 @@
-v = "1.4.1-20221025"
+v = "1.4.2-20221025"
 from os import *
 from time import *
 from tkinter import *
@@ -11,7 +11,7 @@ time = strftime("%Y-%m-%d")
 tk = Tk()
 tk.title("郑博的小程序For Seewo " + v)
 x = 200
-y = 225
+y = 195
 max_x = tk.winfo_screenwidth()
 max_y = tk.winfo_screenheight()
 now_x = (max_x - x) / 2
@@ -34,28 +34,25 @@ def b2():
 
 def b3():
     import os
-    sleep(0.25)
     os.popen("taskkill -f -im PPTService.exe")
-    sleep(0.25)
+    sleep(0.2)
     os.popen("C:\Program Files (x86)\Seewo\PPTService\Main\PPTService.exe")
 
 
 def b4():
     import os
-    sleep(0.25)
     os.popen("taskkill -f -im PPTService.exe")
 
 
 def b5():
     import os, shutil
-    list = os.walk(r"D:\\EasiCameraPhoto")
+    list = os.walk(r"D:/EasiCameraPhoto")
     list2 = []
     for i in list:
         list2.append(i)
     list = list2[0][1]
     for i in list:
-        if i != time and os.path.exists(r"D:/EasiCameraPhoto/" + i):
-            shutil.rmtree(r"D:/EasiCameraPhoto/" + i)
+        if i != time and os.path.exists(r"D:/EasiCameraPhoto/" + i):shutil.rmtree(r"D:/EasiCameraPhoto/" + i)
 
 
 def b6():
@@ -63,10 +60,10 @@ def b6():
 
 
 def b7():
-    popen(r"echo Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin")
-    popen(r"rd /s %systemdrive%$Recycle.bin")
-    popen(
-        r"@echo off setlocal enabledelayedexpansion for %%a in (C D E F G H I J K L M N O P Q R S T U V W X Y Z) do ( if exist %%a:\$recycle.bin ( pushd %%a:\$recycle.bin for /f %%b in ('dir /b /a') do (rd /s /q %%b)))")
+    import sys, os
+    if os.path.exists("update.pyw"):
+        popen("update.pyw")
+        sys.exit()
 
 
 def repeat_clear(path):
@@ -74,17 +71,14 @@ def repeat_clear(path):
     file_lst = []
 
     for i in glob.glob(path + '/**/*', recursive=True):
-        if os.path.isfile(i):
-            file_lst.append(i)
+        if os.path.isfile(i):file_lst.append(i)
 
     for x in file_lst:
         for y in file_lst:
             if x != y and os.path.exists(x) and os.path.exists(y):
                 if filecmp.cmp(x, y):
-                    if len(x) > len(y):
-                        os.remove(x)
-                    else:
-                        os.remove(y)
+                    if len(x) > len(y):os.remove(x)
+                    else:os.remove(y)
 
 
 def b8():
@@ -105,18 +99,12 @@ def b8():
     zip = []
     to = r"D:/文件/"
     for i in list3:
-        if ".ppt" in i and os.path.exists(path + i):
-            ppt.append(i)
-        if (".doc" in i or ".txt" in i or ".pdf" in i) and os.path.exists(path + i):
-            doc.append(i)
-        if ".xls" in i and os.path.exists(path + i):
-            xls.append(i)
-        if (".png" in i or ".jpg" in i or ".jpeg" in i or ".webp" in i) and os.path.exists(path + i):
-            img.append(i)
-        if ".mp" in i and os.path.exists(path + i):
-            mp3.append(i)
-        if (".zip" in i or ".rar" in i or ".7z" in i) and os.path.exists(path + i):
-            zip.append(i)
+        if ".ppt" in i and os.path.exists(path + i):ppt.append(i)
+        if (".doc" in i or ".txt" in i or ".pdf" in i) and os.path.exists(path + i):doc.append(i)
+        if ".xls" in i and os.path.exists(path + i):xls.append(i)
+        if (".png" in i or ".jpg" in i or ".jpeg" in i or ".webp" in i) and os.path.exists(path + i):img.append(i)
+        if ".mp" in i and os.path.exists(path + i):mp3.append(i)
+        if (".zip" in i or ".rar" in i or ".7z" in i) and os.path.exists(path + i):zip.append(i)
     for i in range(len(ppt)):
         if os.path.exists(to + "PPT/" + ppt[i]):
             j = 1
@@ -159,18 +147,12 @@ def b8():
                     to + "压缩包/" + zip[i][:zip[i].rfind(".")] + "(" + str(j) + ")" + zip[i][zip[i].rfind("."):]):
                 j = j + 1
             zip[i] = zip[i] + "(" + str(j) + ")"
-    if not os.path.exists(to + "PPT/"):
-        os.makedirs(to + "PPT/")
-    if not os.path.exists(to + "表格/"):
-        os.makedirs(to + "表格/")
-    if not os.path.exists(to + "文档/"):
-        os.makedirs(to + "文档/")
-    if not os.path.exists(to + "图片/"):
-        os.makedirs(to + "图片/")
-    if not os.path.exists(to + "音视频/"):
-        os.makedirs(to + "音视频/")
-    if not os.path.exists(to + "压缩包/"):
-        os.makedirs(to + "压缩包/")
+    if not os.path.exists(to + "PPT/"):os.makedirs(to + "PPT/")
+    if not os.path.exists(to + "表格/"):os.makedirs(to + "表格/")
+    if not os.path.exists(to + "文档/"):os.makedirs(to + "文档/")
+    if not os.path.exists(to + "图片/"):os.makedirs(to + "图片/")
+    if not os.path.exists(to + "音视频/"):os.makedirs(to + "音视频/")
+    if not os.path.exists(to + "压缩包/"):os.makedirs(to + "压缩包/")
     for i in ppt:
         try:
             os.chmod(path + i, stat.S_IWRITE)
@@ -224,8 +206,7 @@ def b8():
     list3 = list2[0][1]
     fold = []
     for i in list3:
-        if i != "软件":
-            fold.append(i)
+        if i != "软件":fold.append(i)
     for i in range(len(fold)):
         if os.path.exists(to + "文件夹/" + fold[i]):
             j = 1
@@ -250,40 +231,32 @@ def b9():
     open("http://10.8.8.35:8443/live/31384275e5e0443fa4364714fcbf85fd")
 
 
-def b10():
-    import sys, os
-    if os.path.exists("update.pyw"):
-        popen("update.pyw")
-        sys.exit()
-
-
 # txt = ttk.Label(tk, text="文字").place(x=100,y=,width=200,height=30,anchor="center")
 # b = ttk.Button(tk, text="按钮", style="TButton", command=b).place(x=,y=,width=100,height=30)
 # sep = Separator(tk, orient=HORIZONTAL).place(x=0,y=,width=5000,height=30)
-txt = ttk.Label(tk, text="实用工具").place(x=75, y=0, width=150, height=30)
+txt = ttk.Label(tk, text="功能列表").place(x=75, y=0, width=150, height=30)
 sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=0, width=200, height=2)
 
-b3 = ttk.Button(tk, text="PPT小助手重启", style="TButton", command=b3).place(x=0, y=30, width=100, height=30)
-b4 = ttk.Button(tk, text="干掉PPT小助手", style="TButton", command=b4).place(x=100, y=30, width=100, height=30)
+b3 = ttk.Button(tk, text="重启PPT小助手", style="TButton", command=b3).place(x=0, y=30, width=100, height=30)
+b4 = ttk.Button(tk, text="关闭PPT小助手", style="TButton", command=b4).place(x=100, y=30, width=100, height=30)
 b5 = ttk.Button(tk, text="清理扫描图片", style="TButton", command=b5).place(x=0, y=60, width=100, height=30)
-b6 = ttk.Button(tk, text="打开CCTV-13", style="TButton", command=b6).place(x=100, y=60, width=100, height=30)
-b9 = ttk.Button(tk, text="校园电视台", style="TButton", command=b9).place(x=0, y=90, width=100, height=30)
-b7 = ttk.Button(tk, text="清理回收站", style="TButton", command=b7).place(x=100, y=90, width=100, height=30)
-b8 = ttk.Button(tk, text="整理桌面文件", style="TButton", command=b8).place(x=0, y=120, width=100, height=30)
+b8 = ttk.Button(tk, text="整理桌面文件", style="TButton", command=b8).place(x=100, y=60, width=100, height=30)
+b9 = ttk.Button(tk, text="校园电视台", style="TButton", command=b9).place(x=100, y=90, width=100, height=30)
+b6 = ttk.Button(tk, text="CCTV-13", style="TButton", command=b6).place(x=0, y=90, width=100, height=30)
 
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=155, width=200, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=125, width=200, height=30)
 
-txt = ttk.Label(tk, text="郑博的小程序For Seewo").place(x=30, y=160, width=150, height=30)
+txt = ttk.Label(tk, text="郑博的小程序For Seewo").place(x=30, y=130, width=150, height=30)
 
-b10 = ttk.Button(tk, text=v, style="TButton", command=b10).place(x=50, y=190, width=100, height=30)
+b7 = ttk.Button(tk, text=v, style="TButton", command=b7).place(x=50, y=160, width=100, height=30)
 
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=225, width=200, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=195, width=200, height=30)
 
-txt = ttk.Label(tk, text="夹带私货").place(x=75, y=230, width=150, height=30)
+txt = ttk.Label(tk, text="夹带私货").place(x=75, y=200, width=150, height=30)
 
-b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=260, width=100, height=30)
-b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=260, width=100, height=30)
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=295, width=200, height=30)
+b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=230, width=100, height=30)
+b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=230, width=100, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=265, width=200, height=30)
 sep = Separator(tk, orient=VERTICAL).place(x=-1, y=0, width=2, height=295)
 sep = Separator(tk, orient=VERTICAL).place(x=200, y=0, width=2, height=295)
 tk.mainloop()

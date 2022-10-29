@@ -1,15 +1,15 @@
-v = "1.6.0-20221027"
+v = "1.7.0-20221029"
 import os, webbrowser, time, send2trash, shutil, winshell, filecmp, glob, stat, requests, bs4, winreg, sys
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Separator
 
-time = time.strftime("%Y-%m-%d")
+date = time.strftime("%Y-%m-%d")
 # 初始化
 tk = Tk()
 tk.title("郑博的小程序For Seewo " + v)
 x = 200
-y = 255
+y = 285
 max_x = tk.winfo_screenwidth()
 max_y = tk.winfo_screenheight()
 now_x = (max_x - x) / 2
@@ -185,8 +185,20 @@ def move_files(old, new):
 
 
 # 功能
-def b1():
-    import time
+def b0():
+    print("检查更新")
+    if os.path.exists("update.pyw"):
+        os.popen("update.pyw")
+        sys.exit()
+
+
+def b100():
+    print("打开郑博网站")
+    webbrowser.open("https://ianzb.github.io/")
+
+
+def b101():
+    print("MC版本爬虫")
     b = []
     a = []
     v = {}
@@ -201,7 +213,7 @@ def b1():
         if i % 2 == 0: v[b[i]] = b[i + 1]
     pc_remove(v, "")
     for c in ["内部", "Windows", "macOS", "Linux", "即将到来", "ChromeOS", "PlayStation", "Nintendo", "Xbox", "Steam",
-              "demo", "教育版（iOS）", "Minecraft Dungeons（启动器版）","战斗测试"]: remove_if_in(v, c)
+              "demo", "教育版（iOS）", "Minecraft Dungeons（启动器版）", "战斗测试"]: remove_if_in(v, c)
     with open("mc.txt", "w", encoding="utf-8") as file:
         for (k, v) in v.items(): file.write(k + "版本：" + v + "\n")
     os.popen("mc.txt")
@@ -209,42 +221,52 @@ def b1():
     os.remove("mc.txt")
 
 
-def b2():
-    webbrowser.open("https://ianzb.github.io/")
-
-
-def b3():
-    import time
+def b1():
+    print("重启PPT小助手")
     os.popen("taskkill -f -im PPTService.exe")
     time.sleep(0.2)
     os.popen("C:\Program Files (x86)\Seewo\PPTService\Main\PPTService.exe")
 
 
-def b4():
+def b2():
+    print("关闭PPT小助手")
     os.popen("taskkill -f -im PPTService.exe")
 
 
-def b5():
-    list = os.walk(r"D:/EasiCameraPhoto")
-    list2 = []
-    for i in list: list2.append(i)
-    list = list2[0][1]
-    for i in list:
-        if i != time and os.path.exists(r"D:/EasiCameraPhoto/" + i): send2trash.send2trash(
-            os.path.join(r"D:\EasiCameraPhoto\ "[:-1] + i))
-
-
-def b6():
+def b3():
+    print("打开CCTV-13")
     webbrowser.open("https://tv.cctv.cn/live/cctv13/?spm=C28340.P4hQlpYBT2vN.ExidtyEJcS5K.25")
 
 
+def b4():
+    print("打开校园电视台")
+    webbrowser.open("http://10.8.8.35:8443/live/31384275e5e0443fa4364714fcbf85fd")
+
+
+def b5():
+    print("清理希沃视频展台文件")
+    try:
+        list = os.walk(r"D:/EasiCameraPhoto")
+        list2 = []
+        for i in list: list2.append(i)
+        list = list2[0][1]
+        for i in list:
+            if i != date and os.path.exists(r"D:/EasiCameraPhoto/" + i): send2trash.send2trash(
+                os.path.join(r"D:\EasiCameraPhoto\ "[:-1] + i))
+    except:
+        pass
+
+
+def b6():
+    print("清理回收站")
+    try:
+        winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=False)
+    except:
+        pass
+
+
 def b7():
-    if os.path.exists("update.pyw"):
-        os.popen("update.pyw")
-        sys.exit()
-
-
-def b8():
+    print("整理桌面文件")
     key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
     path = winreg.QueryValueEx(key, "Desktop")[0] + r"\ "[0:-1]
     move_files(path, "D:/文件/")
@@ -257,48 +279,41 @@ def b8():
     repeat_clear("D:/文件/音视频/")
 
 
-def b9():
-    webbrowser.open("http://10.8.8.35:8443/live/31384275e5e0443fa4364714fcbf85fd")
-
-
-def b10():
-    list = []
-    list2 = []
-    for i in os.walk("D:/WeChat Files/WeChat Files/"): list.append(i)
-    for i in list[0][1]:
-        if os.path.exists(os.path.join("D:/WeChat Files/WeChat Files/", i, "FileStorage\File")): list2.append(
-            os.path.join("D:/WeChat Files/WeChat Files/", i, "FileStorage\File"))
-    list = []
-    list3 = []
-    for i in range(len(list2)):
-        for j in os.walk(list2[i]): list.append(j)
-        for k in list[0][1]: list3.append(os.path.join(list2[i], k))
-    list = list3
-    for i in list: move_files(i + "/", "D:/文件/")
-    repeat_clear("D:/文件/PPT/")
-    repeat_clear("D:/文件/表格/")
-    repeat_clear("D:/文件/图片/")
-    repeat_clear("D:/文件/文档/")
-    repeat_clear("D:/文件/文件夹/")
-    repeat_clear("D:/文件/压缩包/")
-    repeat_clear("D:/文件/音视频/")
-
-
-def b11():
+def b8():
+    print("整理微信文件")
     try:
-        winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=False)
-    except:
-        pass
+        list = []
+        list2 = []
+        for i in os.walk("D:/WeChat Files/WeChat Files/"): list.append(i)
+        for i in list[0][1]:
+            if os.path.exists(os.path.join("D:/WeChat Files/WeChat Files/", i, "FileStorage\File")): list2.append(
+                os.path.join("D:/WeChat Files/WeChat Files/", i, "FileStorage\File"))
+        list = []
+        list3 = []
+        for i in range(len(list2)):
+            for j in os.walk(list2[i]): list.append(j)
+            for k in list[0][1]: list3.append(os.path.join(list2[i], k))
+        list = list3
+        for i in list: move_files(i + "/", "D:/文件/")
+        repeat_clear("D:/文件/PPT/")
+        repeat_clear("D:/文件/表格/")
+        repeat_clear("D:/文件/图片/")
+        repeat_clear("D:/文件/文档/")
+        repeat_clear("D:/文件/文件夹/")
+        repeat_clear("D:/文件/压缩包/")
+        repeat_clear("D:/文件/音视频/")
+    except:pass
 
-
-def b12():
+def b9():
+    print("清理整理文件")
     try:
         send2trash.send2trash(r"D:\文件")
     except:
         pass
 
 
-def b13():
+def b10():
+    print("清理系统缓存")
     list = []
     list1 = os.walk(os.getenv("TEMP"))
     for i in list1: list.append(i)
@@ -316,29 +331,106 @@ def b13():
             pass
 
 
+def b11():
+    print("重启文件资源管理器")
+    os.popen("taskkill /f /im explorer.exe")
+    time.sleep(0.2)
+    os.popen("start c:\windows\explorer.exe")
+
+
+def b12():
+    print("一键整理+清理")
+    print("重启PPT小助手")
+    os.popen("taskkill -f -im PPTService.exe")
+    time.sleep(0.1)
+    os.popen("C:\Program Files (x86)\Seewo\PPTService\Main\PPTService.exe")
+    print("清理希沃视频展台文件")
+    try:
+        list = os.walk(r"D:/EasiCameraPhoto")
+        list2 = []
+        for i in list: list2.append(i)
+        list = list2[0][1]
+        for i in list:
+            if i != date and os.path.exists(r"D:/EasiCameraPhoto/" + i): send2trash.send2trash(
+                os.path.join(r"D:\EasiCameraPhoto\ "[:-1] + i))
+    except:
+        pass
+    print("清理回收站")
+    try:
+        winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=False)
+    except:
+        pass
+    print("整理桌面文件")
+    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
+    path = winreg.QueryValueEx(key, "Desktop")[0] + r"\ "[0:-1]
+    move_files(path, "D:/文件/")
+    print("整理微信文件")
+    try:
+        list = []
+        list2 = []
+        for i in os.walk("D:/WeChat Files/WeChat Files/"): list.append(i)
+        for i in list[0][1]:
+            if os.path.exists(os.path.join("D:/WeChat Files/WeChat Files/", i, "FileStorage\File")): list2.append(
+                os.path.join("D:/WeChat Files/WeChat Files/", i, "FileStorage\File"))
+        list = []
+        list3 = []
+        for i in range(len(list2)):
+            for j in os.walk(list2[i]): list.append(j)
+            for k in list[0][1]: list3.append(os.path.join(list2[i], k))
+        list = list3
+        for i in list: move_files(i + "/", "D:/文件/")
+    except:pass
+    print("清理系统缓存")
+    list = []
+    list1 = os.walk(os.getenv("TEMP"))
+    for i in list1: list.append(i)
+    if list != []: list1 = list[0][1]
+    list2 = list[0][2]
+    for i in list1:
+        try:
+            shutil.rmtree(os.path.join(os.getenv("TEMP"), i))
+        except:
+            pass
+    for i in list2:
+        try:
+            os.remove(os.path.join(os.getenv("TEMP"), i))
+        except:
+            pass
+    repeat_clear("D:/文件/PPT/")
+    repeat_clear("D:/文件/表格/")
+    repeat_clear("D:/文件/图片/")
+    repeat_clear("D:/文件/文档/")
+    repeat_clear("D:/文件/文件夹/")
+    repeat_clear("D:/文件/压缩包/")
+    repeat_clear("D:/文件/音视频/")
+
+
 # txt = ttk.Label(tk, text="文字").place(x=100,y=,width=200,height=30,anchor="center")
 # b = ttk.Button(tk, text="按钮", style="TButton", command=b).place(x=,y=,width=100,height=30)
-# sep = Separator(tk, orient=HORIZONTAL).place(x=0,y=,width=5000,height=30)
+# sep = Separato3r(tk, orient=HORIZONTAL).place(x=0,y=,width=5000,height=30)
+
 txt = ttk.Label(tk, text="功能列表").place(x=75, y=0, width=150, height=30)
 sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=0, width=200, height=2)
-b3 = ttk.Button(tk, text="重启PPT小助手", style="TButton", command=b3).place(x=0, y=30, width=100, height=30)
-b4 = ttk.Button(tk, text="关闭PPT小助手", style="TButton", command=b4).place(x=100, y=30, width=100, height=30)
-b9 = ttk.Button(tk, text="校园电视台", style="TButton", command=b9).place(x=100, y=60, width=100, height=30)
-b6 = ttk.Button(tk, text="CCTV-13", style="TButton", command=b6).place(x=0, y=60, width=100, height=30)
+b1 = ttk.Button(tk, text="重启PPT小助手", style="TButton", command=b1).place(x=0, y=30, width=100, height=30)
+b2 = ttk.Button(tk, text="关闭PPT小助手", style="TButton", command=b2).place(x=100, y=30, width=100, height=30)
+b3 = ttk.Button(tk, text="CCTV-13", style="TButton", command=b3).place(x=0, y=60, width=100, height=30)
+b4 = ttk.Button(tk, text="校园电视台", style="TButton", command=b4).place(x=100, y=60, width=100, height=30)
 b5 = ttk.Button(tk, text="清理扫描图片", style="TButton", command=b5).place(x=0, y=90, width=100, height=30)
-b11 = ttk.Button(tk, text="清理回收站", style="TButton", command=b11).place(x=100, y=90, width=100, height=30)
-b8 = ttk.Button(tk, text="整理桌面文件", style="TButton", command=b8).place(x=0, y=120, width=100, height=30)
-b10 = ttk.Button(tk, text="整理微信文件", style="TButton", command=b10).place(x=100, y=120, width=100, height=30)
-b12 = ttk.Button(tk, text="清理整理文件", style="TButton", command=b12).place(x=0, y=150, width=100, height=30)
-b13 = ttk.Button(tk, text="清理系统缓存", style="TButton", command=b13).place(x=100, y=150, width=100, height=30)
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=185, width=200, height=30)
-txt = ttk.Label(tk, text="郑博的小程序For Seewo").place(x=30, y=190, width=150, height=30)
-b7 = ttk.Button(tk, text=v, style="TButton", command=b7).place(x=50, y=220, width=100, height=30)
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=255, width=200, height=30)
-txt = ttk.Label(tk, text="夹带私货").place(x=75, y=260, width=150, height=30)
-b2 = ttk.Button(tk, text="我的网站", style="TButton", command=b2).place(x=0, y=290, width=100, height=30)
-b1 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b1).place(x=100, y=290, width=100, height=30)
-sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=325, width=200, height=30)
+b6 = ttk.Button(tk, text="清理回收站", style="TButton", command=b6).place(x=100, y=90, width=100, height=30)
+b7 = ttk.Button(tk, text="整理桌面文件", style="TButton", command=b7).place(x=0, y=120, width=100, height=30)
+b8 = ttk.Button(tk, text="整理微信文件", style="TButton", command=b8).place(x=100, y=120, width=100, height=30)
+b9 = ttk.Button(tk, text="清理整理文件", style="TButton", command=b9).place(x=0, y=150, width=100, height=30)
+b10 = ttk.Button(tk, text="清理系统缓存", style="TButton", command=b10).place(x=100, y=150, width=100, height=30)
+b11 = ttk.Button(tk, text="重启资源管理器", style="TButton", command=b11).place(x=0, y=180, width=100, height=30)
+b12 = ttk.Button(tk, text="一键整理+清理", style="TButton", command=b12).place(x=100, y=180, width=100, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=215, width=200, height=30)
+txt = ttk.Label(tk, text="郑博的小程序For Seewo").place(x=30, y=220, width=150, height=30)
+b0 = ttk.Button(tk, text=v, style="TButton", command=b0).place(x=50, y=250, width=100, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=285, width=200, height=30)
+txt = ttk.Label(tk, text="夹带私货").place(x=75, y=290, width=150, height=30)
+b100 = ttk.Button(tk, text="我的网站", style="TButton", command=b100).place(x=0, y=320, width=100, height=30)
+b101 = ttk.Button(tk, text="MC版本爬虫", style="TButton", command=b101).place(x=100, y=320, width=100, height=30)
+sep = Separator(tk, orient=HORIZONTAL).place(x=0, y=355, width=200, height=30)
 sep = Separator(tk, orient=VERTICAL).place(x=-1, y=0, width=2, height=295)
 sep = Separator(tk, orient=VERTICAL).place(x=200, y=0, width=2, height=295)
 tk.mainloop()
@@ -349,5 +441,5 @@ tk.mainloop()
 # 2022-10-25：1.4.0：界面添加分割线，删除清理回收站
 # 2022-10-26：1.5.0：整理微信文件，重新添加清理回收站
 # 2022-10-27：1.6.0：删除文件到回收站，清理整理文件，清理系统缓存
-#
+# 2022-10-29：1.7.0：优化代码，新增重启资源管理器功能
 #

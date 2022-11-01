@@ -1,4 +1,4 @@
-v = "1.7.0-20221029"
+v = "1.7.1-20221101"
 import os, webbrowser, time, send2trash, shutil, winshell, filecmp, glob, stat, requests, bs4, winreg, sys
 from tkinter import *
 from tkinter import ttk
@@ -15,6 +15,7 @@ max_y = tk.winfo_screenheight()
 now_x = (max_x - x) / 2
 now_y = (max_y - y) / 2
 tk.geometry("%dx%d+%d+%d" % (x, y, now_x, now_y))
+tk.resizable(False, True)
 # 设置样式
 st = ttk.Style()
 st.configure("TButton")
@@ -236,11 +237,13 @@ def b2():
 def b3():
     print("打开CCTV-13")
     webbrowser.open("https://tv.cctv.cn/live/cctv13/?spm=C28340.P4hQlpYBT2vN.ExidtyEJcS5K.25")
+    sys.exit()
 
 
 def b4():
     print("打开校园电视台")
     webbrowser.open("http://10.8.8.35:8443/live/31384275e5e0443fa4364714fcbf85fd")
+    sys.exit()
 
 
 def b5():
@@ -442,4 +445,4 @@ tk.mainloop()
 # 2022-10-26：1.5.0：整理微信文件，重新添加清理回收站
 # 2022-10-27：1.6.0：删除文件到回收站，清理整理文件，清理系统缓存
 # 2022-10-29：1.7.0：优化代码，新增重启资源管理器功能
-#
+# 2022-11-01：1.7.1：打开链接后自动关闭窗口,禁止横向修改窗口大小

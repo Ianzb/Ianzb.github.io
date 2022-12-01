@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>辉辉的封面</title>
+    <link rel="icon" type="image/png" href="../Logo应用图标.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            width: 95%;
+            background: url(https://livefile.xesimg.com/programme/python_assets/3662e2a9b2be5c6bb0d3e7864f23d3c8.png);
+            background-size: 100%;
+            margin-top: 30px;
+            margin-left: 2.5%;
+        }
+
+        img {
+            width: 30%;
+            margin-top: 5px;
+        }
+
+        .bj {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 15px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        a:link {
+            color: #2461BA;
+        }
+
+        a:hover {
+            color: #3151FB;
+        }
+
+        a:active {
+            color: #FF3333;
+        }
+
+        a:visit {
+            color: #2461BA;
+        }
+
+        ul {
+            background-color: rgba(250, 250, 250, 1.0);
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="../index.html">返回</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled">辉辉的CM官网子页面</a>
+        </li>
+    </ul>
+    <h1 style="color:Blue;text-align:center;font-family:'KaiTi';">====辉辉的个人中心====</h1>
+    <script>
+        ! function () {
+            function o(w, v, i) {
+                return w.getAttribute(v) || i
+            }
+            function j(i) {
+                return document.getElementsByTagName(i)
+            }
+            function l() {
+                var i = j("script"),
+                    w = i.length,
+                    v = i[w - 1];
+                return {
+                    l: w,
+                    z: o(v, "zIndex", -1),
+                    o: o(v, "opacity", 0.7),
+                    c: o(v, "color", "10,90,100"),
+                    n: o(v, "count", 150)
+                }
+            }
+            function k() {
+                r = u.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, n = u.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            }
+            function b() {
+                e.clearRect(0, 0, r, n);
+                var w = [f].concat(t);
+                var x, v, A, B, z, y;
+                t.forEach(function (i) {
+                    i.x += i.xa, i.y += i.ya, i.xa *= i.x > r || i.x < 0 ? -1 : 1, i.ya *= i.y > n || i.y < 0 ? -1 : 1, e.fillRect(i.x - 0.5, i.y - 0.5, 1, 1);
+                    for (v = 0; v < w.length; v++) {
+                        x = w[v];
+                        if (i !== x && null !== x.x && null !== x.y) {
+                            B = i.x - x.x, z = i.y - x.y, y = B * B + z * z;
+                            y < x.max && (x === f && y >= x.max / 2 && (i.x -= 0.01 * B, i.y -= 0.01 * z), A = (x.max - y) / x.max, e.beginPath(), e.lineWidth = A / 2, e.strokeStyle = "rgba(" + s.c + "," + (A + 0.2) + ")", e.moveTo(i.x, i.y), e.lineTo(x.x, x.y), e.stroke())
+                        }
+                    }
+                    w.splice(w.indexOf(i), 1)
+                }), m(b)
+            }
+            var u = document.createElement("canvas"),
+                s = l(),
+                c = "c_n" + s.l,
+                e = u.getContext("2d"),
+                r, n, m = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (i) {
+                    window.setTimeout(i, 1000 / 45)
+                },
+                a = Math.random,
+                f = {
+                    x: null,
+                    y: null,
+                    max: 50000
+                };
+            u.id = c;
+            u.style.cssText = "position:fixed;top:0;left:0;z-index:" + s.z + ";opacity:" + s.o;
+            j("body")[0].appendChild(u);
+            k(), window.onresize = k;
+            window.onmousemove = function (i) {
+                i = i || window.event, f.x = i.clientX, f.y = i.clientY
+            }, window.onmouseout = function () {
+                f.x = null, f.y = null
+            };
+            for (var t = [], p = 0; s.n > p; p++) {
+                var h = a() * r,
+                    g = a() * n,
+                    q = 2 * a() - 1,
+                    d = 2 * a() - 1;
+                t.push({
+                    x: h,
+                    y: g,
+                    xa: q,
+                    ya: d,
+                    max: 7000
+                })
+            }
+            setTimeout(function () {
+                b()
+            }, 100)
+        }();
+    </script>
+    <div class="nav" style="background-color:rgb(255,193,7)">
+        <a class="nav-link" href="#introduce">个人简介</a>
+        <a class="nav-link" href="#music">最爱音乐</a>
+        <a class="nav-link" href="#program">编程代表作</a>
+        <a class="nav-link" href="#photo">个人相册</a>
+        <a class="nav-link" href="#phone">联系方式</a>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <div id="introduce" class="bj">
+                <h3><a href="https://code.xueersi.com/space/4888546?to=homepages" target="_blank">陆晖元</a></h3>
+                <p>民族：汉族</p>
+                <p>年龄：11岁</p>
+                <p>生日：2010.10.19</p>
+                <p>爱好：玩<a href="https://minecraft.net" target="_blank">Minecraft</a>,玩<a
+                        href="https://www.minecraft.net/zh-hans/about-dungeons" target="_blank">Minecraft 地下城</a>,编程</p>
+            </div>
+            <div id="music" class="bj">
+                <h3>最爱音乐</h3>
+                Stay:<a href="https://livefile.xesimg.com/programme/python_assets/f57f0a9de029f3e90239ef13ff0171d3.mp3"
+                    download>点我下载</a><audio
+                    src="https://livefile.xesimg.com/programme/python_assets/f57f0a9de029f3e90239ef13ff0171d3.mp3"
+                    controls="controls"></audio>
+                neveda:<a
+                    href="https://livefile.xesimg.com/programme/python_assets/8206532383cbcd06c94b50842b7955e1.mp3"
+                    download>点我下载</a><audio
+                    src="https://livefile.xesimg.com/programme/python_assets/8206532383cbcd06c94b50842b7955e1.mp3"
+                    controls="controls"></audio>
+                sunburst:<a
+                    href="https://livefile.xesimg.com/programme/python_assets/becb9e9950fb0bb4e41db601049f11f0.mp3"
+                    download>点我下载</a><audio
+                    src="https://livefile.xesimg.com/programme/python_assets/becb9e9950fb0bb4e41db601049f11f0.mp3"
+                    controls="controls"></audio>
+            </div>
+            <div id="program" class="bj">
+                <h3>编程代表作</h3>
+                <p><a href="https://https:code.xueersi.com/home/project/detail?lang=code&pid=24951202&version=python&form=python&langType=python"
+                        target='_blank'>我的世界1.17.1（V.0.8.2)</a></p>
+            </div>
+        </div>
+        <div class="col-10">
+            <div id="photo" class="bj">
+                <h3>个人相册</h3>
+                <a href="https://https:code.xueersi.com/space/4888546?to=homepages" target="_blank"><img
+                        src="https://livefile.xesimg.com/programme/python_assets/73b7f789e7a5b425294d9958e3482cc6.png"
+                        title="辉辉的头像"></a>
+                <a href="https://java.com/zh-CN/" target="_blank"><img
+                        src="https://livefile.xesimg.com/programme/python_assets/4e360d687b41e325430556b04ed3d0d5.jpeg"
+                        title="Java"></a>
+            </div>
+            <div id="phone" class="bj">
+                <h3>联系方式</h3>
+                <p>QQ:3094191558</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

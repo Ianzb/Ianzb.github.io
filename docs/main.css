@@ -1,7 +1,12 @@
 body {
-    background-image: url(img/bg.png);
-    background-size: 100%;
+    background-image: url(https://livefile.xesimg.com/programme/python_assets/3e820c2dcebb941bb776a8d98594efeb.png);
+    background-size: 150%;
     text-align: center;
+}
+
+div {
+    text-align: center;
+    margin: 15px;
 }
 
 .zb {

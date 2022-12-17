@@ -1,7 +1,12 @@
 body {
-    background-image: url(img/bg.png);
+    background-image: url(./img/bg.jpg);
     background-size: 100%;
     text-align: center;
+}
+
+div {
+    text-align: center;
+    margin: 15px;
 }
 
 .zb {

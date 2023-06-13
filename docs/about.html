@@ -6,30 +6,57 @@
     <link href="logo.ico" rel="icon">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    <script src="js/bootstrap.js"></script>
 </head>
 
 <body>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="index.html"><img src="img/home.png" height="20" width="20"> 主页</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="computer.html"><img src="img/computer.png" height="20" width="20"> 电脑</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="phone.html"><img src="img/phone.png" height="20" width="20"> 手机</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="game.html"><img src="img/game.png" height="20" width="20"> 游戏</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="tool.html"><img src="img/tool.png" height="20" width="20"> 工具</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active disabled" href="about.html"><img src="img/about.png" height="20" width="20">
-                关于</a>
-        </li>
-    </ul>
+    <nav class="navbar navbar-expand-sm sticky-top zb-top">
+        <img src="img/logo1.png" class="d-inline-block align-text-top" style="margin: 5px;" width="30" height="30">
+        <a class="navbar-brand">zb的个人网站</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: rgba(255, 255, 255, 0);">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.html">主页</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    计算机
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="https://ianzb.github.io/program/">zb小程序</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="phone.html">手机</a></li>
+                    <li><a class="dropdown-item" href="computer.html">电脑</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    游戏
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="game.html">Minecraft</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="https://ianzb.github.io/cm/">CM官网</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="tool.html">工具</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active disabled" aria-current="page" href="about.html">关于</a>
+            </li>
+        </ul>
+    </nav>
     <h3 class="zb-title"><img src="img/about.png" height="25" width="25">关于</h3>
     <div class="zb">
         <h5>子网站</h5>
@@ -91,9 +118,15 @@
         2023-05-21：3.15.1：更新资源分享链接<br>
         2023-05-27：3.16.0：添加软件下载工具，游戏页面图片更新<br>
         2023-06-04：3.17.0：更新Bootstrap到5.3.0，添加背景部分模糊效果<br>
-        即将到来：4.0.0-beta：添加背景位置固定、自适应窗口缩放、不进行密铺，重制导航栏和底栏<br>
+        即将到来：4.0.0-beta：添加背景位置固定、自适应窗口缩放、不进行密铺，重制导航栏和底栏，添加JS组件，更新Bootstrap库种类名称<br>
     </div>
-    <div class="zb">By Ianzb 2021-2023</div>
+    <ul class="nav nav-pills nav-justified zb-top">
+        <li class="nav-item">
+            <a class="nav-link disabled">
+                <font color="black">By Ianzb 2021-2023</font>
+            </a>
+        </li>
+    </ul>
 </body>
 
 </html>

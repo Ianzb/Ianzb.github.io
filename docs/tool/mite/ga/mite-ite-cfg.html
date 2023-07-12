@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>振金4.0配置文件生成器</title>
+		<!--月煮雪出品，禁止盗用-->
+	</head>
+	<body>	
+		<font color="blue" size=6>振金4.0配置文件生成器</font><br/>
+		<br/>
+		支持4.0-pre15，兼容旧版本<br/>
+		注意：点击最下方按钮你将会下载一个<font color="red">mite-ite-cfg.json</font><br/>
+		服务器：将此文件放在根目录<br/>
+		客户端：将此文件放在/.minecraft/<br/>
+		替换原有文件，重启游戏即可生效！<br>
+		<font color="lightgray"><i>纯手工录入，如有错误，欢迎反馈</i></font><br>
+		<br>
+		<script>
+			function getCount(){
+				return 68;
+			}
+		</script>
+		<script>
+		function ColorCC(){
+			var strTemp="";
+			var a;
+			var b;
+			for(var i=0;i<=getCount();i++){
+				strTemp = "ITE[" + i.toString() + "]";
+				a = document.getElementById(strTemp).value;
+				b = document.getElementById(strTemp).alt;
+				if (a == b){
+					document.getElementById(strTemp).style.color = "black";
+				}else{
+					document.getElementById(strTemp).style.color = "red";
+				}
+			}	
+		}
+		</script>
+		
+		
+		
+		<table border="1">
+<tr><th>表1</th><th><font color = "red">勾选表示启用</font></th><th></th></tr>
+<tr><td>地狱爬行者加强</td><td><input type="checkbox" id="ITE[0]" value=Boolean checked="checked" name="infernal_creeper_boost" oninput="ColorCC()" alt=true /></td><td>infernal_creeper_boost</td></tr>
+<tr><td>地狱岩灼烧伤害</td><td><input type="checkbox" id="ITE[1]" value=Boolean checked="checked" name="netherrack-damage" oninput="ColorCC()" alt=true /></td><td>netherrack-damage</td></tr>
+<tr><td>吸血蝙蝠攻击带毒</td><td><input type="checkbox" id="ITE[2]" value=Boolean checked="checked" name="bat_poison_attack" oninput="ColorCC()" alt=true /></td><td>bat_poison_attack</td></tr>
+<tr><td>骷髅三发弓箭</td><td><input type="checkbox" id="ITE[3]" value=Boolean checked="checked" name="skeleton_triple_shot" oninput="ColorCC()" alt=true /></td><td>skeleton_triple_shot</td></tr>
+<tr><td>骷髅死亡是否分裂</td><td><input type="checkbox" id="ITE[4]" value=Boolean checked="checked" name="compressed_skeleton" oninput="ColorCC()" alt=true /></td><td>compressed_skeleton</td></tr>
+<tr><td>第一天白天双倍时间</td><td><input type="checkbox" id="ITE[5]" value=Boolean checked="checked" name="first_day_longer_day_time" oninput="ColorCC()" alt=true /></td><td>first_day_longer_day_time</td></tr>
+<tr><td>僵尸猪人远程攻击</td><td><input type="checkbox" id="ITE[6]" value=Boolean checked="checked" name="zombie_pigman_use_bow" oninput="ColorCC()" alt=true /></td><td>zombie_pigman_use_bow</td></tr>
+<tr><td>主世界生成艾德曼</td><td><input type="checkbox" id="ITE[7]" value=Boolean checked="checked" name="overworld_adamantite_ore" oninput="ColorCC()" alt=true /></td><td>overworld_adamantite_ore</td></tr>
+<tr><td>地下世界会随机传送</td><td><input type="checkbox" id="ITE[8]" value=Boolean checked="checked" name="underworld-random-teleport" oninput="ColorCC()" alt=true /></td><td>underworld-random-teleport</td></tr>
+<tr><td>骷髅公爵血量攻击翻倍</td><td><input type="checkbox" id="ITE[9]" value=Boolean checked="checked" name="bone-lord-tweak" oninput="ColorCC()" alt=true /></td><td>bone-lord-tweak</td></tr>
+<tr><td>怪物是否格挡</td><td><input type="checkbox" id="ITE[10]" value=Boolean checked="checked" name="zombie_defense" oninput="ColorCC()" alt=true /></td><td>zombie_defense</td></tr>
+<tr><td>骷髅有几率强制近战</td><td><input type="checkbox" id="ITE[11]" value=Boolean checked="checked" name="skeleton_force_melee_attack" oninput="ColorCC()" alt=true /></td><td>skeleton_force_melee_attack</td></tr>
+<tr><td>狼攻击带肉玩家</td><td><input type="checkbox" id="ITE[12]" value=Boolean checked="checked" name="wolves_attack_players_with_meat" oninput="ColorCC()" alt=true /></td><td>wolves_attack_players_with_meat</td></tr>
+<tr><td>秘银块能强化铁傀儡</td><td><input type="checkbox" id="ITE[13]" value=Boolean checked="checked" name="can_boost_iron_golem" oninput="ColorCC()" alt=true /></td><td>can_boost_iron_golem</td></tr>
+<tr><td>刷怪笼加速刷怪</td><td><input type="checkbox" id="ITE[14]" value=Boolean checked="checked" name="mob_spawner_speed_up_with_players" oninput="ColorCC()" alt=true /></td><td>mob_spawner_speed_up_with_players</td></tr>
+<tr><td>地下世界会给疲劳效果</td><td><input type="checkbox" id="ITE[15]" value=Boolean checked="checked" name="underworld_debuff" oninput="ColorCC()" alt=true /></td><td>underworld_debuff</td></tr>
+<tr><td>地狱会给虚弱效果</td><td><input type="checkbox" id="ITE[16]" value=Boolean checked="checked" name="nether_debuff" oninput="ColorCC()" alt=true /></td><td>nether_debuff</td></tr>
+<tr><td>玩家过符文门通告</td><td><input type="checkbox" id="ITE[17]" value=Boolean checked="checked" name="log_players_interact_with_portal" oninput="ColorCC()" alt=true /></td><td>log_players_interact_with_portal</td></tr>
+</table>
+<br/>
+<table border="1">
+<tr><th>表2</th><th>本表数值=秒数x20</th><th></th></tr>
+<tr><td>雨中虚弱所需时间</td><td><input type="number" id="ITE[18]" value=3600 name="in_rain_debuff_time" oninput="ColorCC()" alt=3600 /></td><td>in_rain_debuff_time</td></tr>
+<tr><td>地下世界缓慢I所需时间</td><td><input type="number" id="ITE[19]" value=72000 name="underworld_debuff_period1" oninput="ColorCC()" alt=72000 /></td><td>underworld_debuff_period1</td></tr>
+<tr><td>地下世界缓慢II所需时间</td><td><input type="number" id="ITE[20]" value=108000 name="underworld_debuff_period2" oninput="ColorCC()" alt=108000 /></td><td>underworld_debuff_period2</td></tr>
+<tr><td>地下世界缓慢III所需时间</td><td><input type="number" id="ITE[21]" value=132000 name="underworld_debuff_period3" oninput="ColorCC()" alt=132000 /></td><td>underworld_debuff_period3</td></tr>
+<tr><td>地狱获得挖掘疲劳所需时间</td><td><input type="number" id="ITE[22]" value=72000 name="nether_debuff_time" oninput="ColorCC()" alt=72000 /></td><td>nether_debuff_time</td></tr>
+<tr><td>铁块烧秘银锭耗时</td><td><input type="number" id="ITE[23]" value=6000 name="iron_to_mithril_cook_time" oninput="ColorCC()" alt=6000 /></td><td>iron_to_mithril_cook_time</td></tr>
+<tr><td>秘银块烧艾德曼锭耗时</td><td><input type="number" id="ITE[24]" value=9000 name="mithril_to_adamantium_cook_time" oninput="ColorCC()" alt=9000 /></td><td>mithril_to_adamantium_cook_time</td></tr>
+<tr><td>地下世界随机传送冷却</td><td><input type="number" id="ITE[25]" value=36000.0 name="underworld-random-teleport-time" oninput="ColorCC()" alt=36000.0 /></td><td>underworld-random-teleport-time</td></tr>
+<tr><td>巨人僵尸召僵尸冷却时间</td><td><input type="number" id="ITE[26]" value=1200 name="giant_zombie_spawn_zombie_cooldown" oninput="ColorCC()" alt=1200 /></td><td>giant_zombie_spawn_zombie_cooldown</td></tr>
+<tr><td>动物生病到死亡的时间</td><td><input type="number" id="ITE[27]" value=144000 name="animal_ill_to_death_time" oninput="ColorCC()" alt=144000 /></td><td>animal_ill_to_death_time</td></tr>
+<tr><td>紧急守备附魔冷却时间</td><td><input type="number" id="ITE[28]" value=72000 name="emergency_cooldown" oninput="ColorCC()" alt=72000 /></td><td>emergency_cooldown</td></tr>
+</table>
+<br/>
+<table border="1">
+<tr><th>表3</th><th> </th><th></th></tr>
+<tr><td>蛋白纤维条偏移X</td><td><input type="number" id="ITE[29]" value=0 name="health_bar_x_offset" oninput="ColorCC()" alt=0 /></td><td>health_bar_x_offset</td></tr>
+<tr><td>蛋白纤维条偏移Y</td><td><input type="number" id="ITE[30]" value=0 name="health_bar_y_offset" oninput="ColorCC()" alt=0 /></td><td>health_bar_y_offset</td></tr>
+<tr><td>多少羊毛换绿宝石碎片</td><td><input type="number" id="ITE[31]" value=4 name="villager_wool_to_emerald_shard_count" oninput="ColorCC()" alt=4 /></td><td>villager_wool_to_emerald_shard_count</td></tr>
+<tr><td>羊毛换绿宝石碎片个数</td><td><input type="number" id="ITE[32]" value=1 name="villager_wool_to_emerald_shard_shard_count" oninput="ColorCC()" alt=1 /></td><td>villager_wool_to_emerald_shard_shard_count</td></tr>
+<tr><td>几个秘银块烧艾德曼锭</td><td><input type="number" id="ITE[33]" value=1 name="mithril_block_count_to_adamantium" oninput="ColorCC()" alt=1 /></td><td>mithril_block_count_to_adamantium</td></tr>
+<tr><td>鸡繁殖经验</td><td><input type="number" id="ITE[34]" value=3 name="breed_xp_chicken" oninput="ColorCC()" alt=3 /></td><td>breed_xp_chicken</td></tr>
+<tr><td>羊繁殖经验</td><td><input type="number" id="ITE[35]" value=5 name="breed_xp_sheep" oninput="ColorCC()" alt=5 /></td><td>breed_xp_sheep</td></tr>
+<tr><td>猪繁殖经验</td><td><input type="number" id="ITE[36]" value=15 name="breed_xp_pig" oninput="ColorCC()" alt=15 /></td><td>breed_xp_pig</td></tr>
+<tr><td>牛繁殖经验</td><td><input type="number" id="ITE[37]" value=25 name="breed_xp_cow" oninput="ColorCC()" alt=25 /></td><td>breed_xp_cow</td></tr>
+<tr><td>钓鱼经验倍率</td><td><input type="number" id="ITE[38]" value=3 name="fishing_xp_scale" oninput="ColorCC()" alt=3 /></td><td>fishing_xp_scale</td></tr>
+<tr><td>钻石经验值</td><td><input type="number" id="ITE[39]" value=300 name="diamond_exp" oninput="ColorCC()" alt=300 /></td><td>diamond_exp</td></tr>
+<tr><td>吃石英经验限制级数</td><td><input type="number" id="ITE[40]" value=55 name="quartz_max_exp_level" oninput="ColorCC()" alt=55 /></td><td>quartz_max_exp_level</td></tr>
+<tr><td>骷髅死亡分裂个数</td><td><input type="number" id="ITE[41]" value=5 name="compressed_skeleton_expand_count" oninput="ColorCC()" alt=5 /></td><td>compressed_skeleton_expand_count</td></tr>
+<tr><td>血月地表恶魂允许生成天数</td><td><input type="number" id="ITE[42]" value=128 name="ghast_spawn_limit_day" oninput="ColorCC()" alt=128 /></td><td>ghast_spawn_limit_day</td></tr>
+<tr><td>血月地表远古骷髅公爵允许生成天数</td><td><input type="number" id="ITE[43]" value=192 name="ancient_bone_lord_spawn_limit_day" oninput="ColorCC()" alt=192 /></td><td>ancient_bone_lord_spawn_limit_day</td></tr>
+<tr><td>暴击附魔每级平砍几率（数值x10%）</td><td><input type="number" id="ITE[44]" value=2 name="crit_enchantment_chance_boost_per_lvl" oninput="ColorCC()" alt=2 /></td><td>crit_enchantment_chance_boost_per_lvl</td></tr>
+<tr><td>暴击附魔每级暴击伤害</td><td><input type="number" id="ITE[45]" value=0.4 name="crit_enchantment_damage_boost_per_lvl" oninput="ColorCC()" alt=0.4 /></td><td>crit_enchantment_damage_boost_per_lvl</td></tr>
+<tr><td>主世界金矿生成权重</td><td><input type="number" id="ITE[46]" value=20 name="gold_frequency_overworld" oninput="ColorCC()" alt=20 /></td><td>gold_frequency_overworld</td></tr>
+<tr><td>主世界银矿生成权重</td><td><input type="number" id="ITE[47]" value=10 name="silver_frequency_overworld" oninput="ColorCC()" alt=10 /></td><td>silver_frequency_overworld</td></tr>
+<tr><td>主世界铜矿生成权重</td><td><input type="number" id="ITE[48]" value=40 name="copper_frequency_overworld" oninput="ColorCC()" alt=40 /></td><td>copper_frequency_overworld</td></tr>
+<tr><td>主世界铁矿生成权重</td><td><input type="number" id="ITE[49]" value=40 name="iron_frequency_overworld" oninput="ColorCC()" alt=40 /></td><td>iron_frequency_overworld</td></tr>
+<tr><td>主世界青金石生成权重</td><td><input type="number" id="ITE[50]" value=4 name="lapis_frequency_overworld" oninput="ColorCC()" alt=4 /></td><td>lapis_frequency_overworld</td></tr>
+<tr><td>主世界钻石生成权重</td><td><input type="number" id="ITE[51]" value=5 name="diamond_frequency_overworld" oninput="ColorCC()" alt=5 /></td><td>diamond_frequency_overworld</td></tr>
+<tr><td>主世界秘银生成权重</td><td><input type="number" id="ITE[52]" value=10 name="mithril_frequency_overworld" oninput="ColorCC()" alt=10 /></td><td>mithril_frequency_overworld</td></tr>
+<tr><td>主世界艾德曼生成权重</td><td><input type="number" id="ITE[53]" value=1 name="adamantium_frequency_overworld" oninput="ColorCC()" alt=1 /></td><td>adamantium_frequency_overworld</td></tr>
+<tr><td>地下世界金矿生成权重</td><td><input type="number" id="ITE[54]" value=20 name="gold_frequency_underworld" oninput="ColorCC()" alt=20 /></td><td>gold_frequency_underworld</td></tr>
+<tr><td>地下世界银矿生成权重</td><td><input type="number" id="ITE[55]" value=10 name="silver_frequency_underworld" oninput="ColorCC()" alt=10 /></td><td>silver_frequency_underworld</td></tr>
+<tr><td>地下世界铜矿生成权重</td><td><input type="number" id="ITE[56]" value=40 name="copper_frequency_underworld" oninput="ColorCC()" alt=40 /></td><td>copper_frequency_underworld</td></tr>
+<tr><td>地下世界铁矿生成权重</td><td><input type="number" id="ITE[57]" value=60 name="iron_frequency_underworld" oninput="ColorCC()" alt=60 /></td><td>iron_frequency_underworld</td></tr>
+<tr><td>地下世界青金石生成权重</td><td><input type="number" id="ITE[58]" value=5 name="lapis_frequency_underworld" oninput="ColorCC()" alt=5 /></td><td>lapis_frequency_underworld</td></tr>
+<tr><td>地下世界钻石生成权重</td><td><input type="number" id="ITE[59]" value=5 name="diamond_frequency_underworld" oninput="ColorCC()" alt=5 /></td><td>diamond_frequency_underworld</td></tr>
+<tr><td>地下世界秘银矿生成权重</td><td><input type="number" id="ITE[60]" value=10 name="mithril_frequency_underworld" oninput="ColorCC()" alt=10 /></td><td>mithril_frequency_underworld</td></tr>
+<tr><td>地下世界艾德曼矿生成权重</td><td><input type="number" id="ITE[61]" value=5 name="adamantium_frequency_underworld" oninput="ColorCC()" alt=5 /></td><td>adamantium_frequency_underworld</td></tr>
+<tr><td>血月刷怪上限</td><td><input type="number" id="ITE[62]" value=128.0 name="blood_moon_max_hostile_fraction" oninput="ColorCC()" alt=128.0 /></td><td>blood_moon_max_hostile_fraction</td></tr>
+<tr><td>全套保护V的减伤</td><td><input type="number" id="ITE[63]" value=0.1 name="all_protection_v_defence_fraction" oninput="ColorCC()" alt=0.1 /></td><td>all_protection_v_defence_fraction</td></tr>
+<tr><td>同一实体渐进伤害</td><td><input type="number" id="ITE[64]" value=0.1 name="stepped_mob_damage_factor" oninput="ColorCC()" alt=0.1 /></td><td>stepped_mob_damage_factor</td></tr>
+<tr><td>精英僵尸猪人生成几率</td><td><input type="number" id="ITE[65]" value=0.025 name="zombie_pigman_boost_chance" oninput="ColorCC()" alt=0.025 /></td><td>zombie_pigman_boost_chance</td></tr>
+<tr><td>刷怪上限随着天数的提升</td><td><input type="number" id="ITE[66]" value=1.0 name="mob_max_spawn_count_increase_per_day" oninput="ColorCC()" alt=1.0 /></td><td>mob_max_spawn_count_increase_per_day</td></tr>
+<tr><td>窒息伤害</td><td><input type="number" id="ITE[67]" value=10.0 name="in_wall_damage_for_player" oninput="ColorCC()" alt=10.0 /></td><td>in_wall_damage_for_player</td></tr>
+<tr><td>主世界恶魂火球强度倍率</td><td><input type="number" id="ITE[68]" value=1.25 name="ghast_overworld_boost" oninput="ColorCC()" alt=1.25 /></td><td>ghast_overworld_boost</td></tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+
+
+		<button type="button" onclick="snowFunction()" style="width:400px;height:120px;background-color:bisque;border-radius:20px;"><font size= 5>下载mite-ite-cfg.json配置文件</font></button>
+		<script>
+			function snowFunction()
+				{
+				//var a = document.getElementById("ITE[0]").checked;
+				//var b = document.getElementById("ITE[0]").value;
+				//console.log(a)
+				//console.log(b)
+				//return;
+				//var count =12;
+				var count = getCount();
+				var strName = new Array();
+				var strValue = new Array();
+				var sTemp = "";
+				var sT ="";
+				for (var i=0;i<=count;i++) {
+					sTemp = "ITE[" + i.toString() +"]";
+					strName[i] = document.getElementById(sTemp).name;
+					sT = document.getElementById(sTemp).value;
+					if (sT == "Boolean"){
+						strValue[i] = document.getElementById(sTemp).checked; 
+					}else{
+						strValue[i] = document.getElementById(sTemp).value;
+						if(strValue[i] == ""){
+							alert(strName[i] + "的值为空，请确认！");
+							return;
+						}else if(parseInt(strValue[i])>=2147483647){
+							alert(strName[i] + "的值不能大于2147483647，请确认！");
+							return;
+						}
+					}
+					
+					//console.log(strName[i])
+					//console.log(strValue[i])
+				}
+				sTemp = "";
+				for (var i=0;i<=count;i++) {
+						sTemp = sTemp + "\"" + strName[i] +"\"" + ":" + strValue[i] + ", \n ";
+				}
+				sTemp = sTemp.substring(0,sTemp.length - 4);
+				sTemp = "{" + sTemp + "}";
+				//console.log(strName[66])
+				//console.log(strValue[66])
+				//var eleTextarea = sTemp
+				funDownload(sTemp, 'mite-ite-cfg.json');
+				
+				}
+		</script>
+		<script>
+			//var eleButton = document.querySelector('input[type="button"]');
+			// 下载文件方法
+			var funDownload = function (content, filename) {
+				var eleLink = document.createElement('a');
+				eleLink.download = filename;
+				eleLink.style.display = 'none';
+				// 字符内容转变成blob地址
+				var blob = new Blob([content]);
+				eleLink.href = URL.createObjectURL(blob);
+				// 触发点击
+				document.body.appendChild(eleLink);
+				eleLink.click();
+				// 然后移除
+				document.body.removeChild(eleLink);
+			};
+
+
+		</script>
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</body>
+			<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		<br/><span id="busuanzi_container_page_pv">雪花量<span id="busuanzi_value_page_pv"></span>片</span>
+		<br/>
+		<footer>©2020   本 <a href="http://mitega.gitee.io" target="_blank">网站</a> 由 <a href="http://melodycos.tk" target="_blank">月煮雪</a> 强力驱动  </footer>
+		
+</html>

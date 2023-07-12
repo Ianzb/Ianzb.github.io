@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>远程服务器如何使用修改器</title>
+	</head>
+	<body>
+		<br/>
+		<font color=#007BFF size="6">猴子都能看懂的面板服修改存档教程</font><br/>
+		<br/>
+		<br/>
+		本教程面向租赁的独立主机，vps或者某宝面板服的玩家。<br/>
+		首先你要知道如何从服务器下载和上传文件。<br/>
+		比如putty啊，网页面板界面直接下载啊之类的。<br/>
+		<br/>
+		其次你要知道对应的.dat文件保存的是什么数据。<br/>
+		将对应的.dat文件下载下来。<br/>
+		<br/>
+		在本地建立如下层级的目录。<br/>
+		<br/>
+		|---mc---|<br/>
+		|---------|---world---|<br/>
+		|---------|------------|---data------|<br/>
+		|---------|------------|---players---|<br/>
+		<br/>
+		离线惩罚清除器放到mc下<br/>
+		MITE联机修改器放到players下<br/>
+		MITE血量锁定随便放<br/>
+		MITE数据生成器随便放<br/>
+		<br/>
+		<br/>
+		1）如果你要时间跳跃<br/>
+		<blockquote>
+			从服务器下载level.dat，放到world下<br/>
+			用<a href="../offline.html" target="_blank">离线惩罚清除器</a>修改时间<br/>
+		</blockquote>
+		2）如果你要让玩家【量产型蕾咪1号】无敌<br/>
+		<blockquote>
+			从服务器下载 量产型蕾咪1号.dat，放到players下<br/>
+			用<a href="../lock.html" target="_blank">MITE血量锁定</a>修改<br/>
+		</blockquote>
+		3）如果你要修改玩家【小烤鱼】的经验值，附魔，物品ID，药水效果，坐标等等<br/>
+		<blockquote>
+			从服务器下载 小烤鱼.dat，放到players下<br/>
+			用<a href="../mitebuff.html" target="_blank">MITE联机修改器</a>修改<br/>
+			相关教程可以参考<a href="../trainer.html" target="_blank">MITE存档修改器</a><br/>
+		</blockquote>
+		4）如果你要关闭队友伤害<br/>
+		<blockquote>
+			从服务器下载所有玩家的.dat，放到players下<br/>
+			或者在本地伪造（复制粘贴）出所有玩家的.dat文件<br/>
+			用<a href="../data.html" target="_blank">MITE数据生成器</a>在data目录下创建出scoreboard.dat文件<br/>
+		</blockquote>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		关闭服务器，<br/>
+		将修改的文件上传到对应目录，<br/>
+		启动服务器即可<br/>
+		部分3）中的修改需要在服务器崩溃后再次重启<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+		<br/><span id="busuanzi_container_page_pv">雪花量<span id="busuanzi_value_page_pv"></span>片</span>
+		<br/>
+		<footer>©2020   本 <a href="http://mitega.gitee.io" target="_blank">网站</a> 由 <a href="http://melodycos.tk" target="_blank">月煮雪</a> 强力驱动  </footer>
+	</body>
+</html>

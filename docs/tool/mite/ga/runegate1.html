@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>符文门坐标分布</title>
+		<!--mite.ga版权所有
+        -->
+        <style>
+        	button{
+        		margin-left: 118px;
+        	}
+        	p{
+        		/*color:#44AA44;*/
+        		
+        	}
+        	p#output{
+        		color: red;
+				margin-left: 50px;
+        		/*background-color:#DDEBF7 */
+        	}
+        	p2{
+        		color:royalblue;
+        	}
+        	p3{
+        		color:green;
+        	}
+        </style>
+	</head>
+	<body>
+		<br/>
+		符文门坐标上限是40000，<br/>
+		秘银门上限为40000/8=5000。<br/>
+		如下图所示（之前的图有误），<br/>
+		整张图-40000到40000的范围内，<br/>
+		随机分布着65536个艾德曼符文门的传送点<br/>
+		在中心-5000到5000范围内，<br/>
+		随机分布着65536个秘银符文门的传送点<br/>
+		这意味着，秘银门传送点的间隔不超过100格<br/>
+		<br/>
+		<br/>
+		<br/>
+		用程序描点的方式，穷举了主世界（地下世界）坐标1的分布情况<br/>
+		不要问为什么中间有个圆空出来，事实就是如此<br/>
+		<font color="red" >红色</font>艾德曼<br/>
+		<font color="blue">蓝色</font>秘银<br/>
+		<br/>
+		<br/>
+		<img src="img/rune/rune1.png"><br/>
+		<br/>
+		将秘银部分放大来看<br/>
+		<br/>
+		<img src="img/rune/rune2.png"><br/>
+		<br/>
+		与此同时，地狱世界的坐标1分布情况<br/>
+		可以看到地狱缩了一圈<br/>
+		<br/>
+		------------<br/>
+		<img src="img/rune/rune3.png"><br/>
+		------------<br/>
+		<br/>
+		这里生成了一张像素4000*4000的图→ <a href="img/rune/rune4.png" target="_blank">坐标分布图链接</a><br/>
+		这里是地狱的4000像素→<a href="img/rune/rune5.png" target="_blank">地狱分布图链接</a><br/>
+		<br/>
+		chrome是黑底，Firefox是灰底，需要放大才能看清像素点<br/>
+		<br/>
+		可以把它保存下来，用系统自带的画图打开，<br/>
+		画图左下角显示了鼠标在图片上的像素位置，<br/>
+		利用这种方法可直观的查看和计算<br/>
+		下面给出计算公式，<br/>
+		设图片像素为p，这里p=4000<br/>
+		设像素坐标（a，b）<br/>
+		设地图坐标（x，z）<br/>
+		<br/>
+		通过像素找坐标（图上的点，对应MITE里坐标是多少）<br/>
+		x = (a-p/2)*40000*2/p<br/>
+		z = (b-p/2)*40000*2/p<br/>
+		通过坐标找像素（用MITE里的坐标计算出画图软件的像素坐标，看看那里有木有门）<br/>
+		a = p/2 + (x/40000)*(p/2)<br/>
+		b = p/2 + (z/40000)*(p/2)<br/>
+		<br/>
+		为方便大家测试，这里写了个网页计算器<br/>
+		<p>请输入像素点的坐标（A，B）。</p>
+		A=	<input id="inputA" type="text">
+		<br/>
+		B= 	<input id="inputB" type="text">
+		<script>
+			function abtoxz()
+			{
+			var x=document.getElementById("inputA").value;
+			var p=4000;
+			if(x==""||isNaN(x))
+				{
+					alert("a值不是数字,\n计算将不会继续，\n请重新输入！");
+					return;
+				}
+			var z=document.getElementById("inputB").value;
+			if(z==""||isNaN(z))
+				{
+					alert("b值不是数字,\n计算将不会继续，\n请重新输入！");
+					return;
+				}
+			x=(x-p/2)*40000*2/p
+			z=(z-p/2)*40000*2/p
+			document.getElementById("output").innerHTML="x="+x+"<br/>"+"z="+z;
+			//document.getElementById("others").innerHTML="z="+z+"<br/>";
+			}
+		</script><br/>
+		<br/>
+		<button type="button" onclick="abtoxz()">点击计算</button>
+		<br/>
+		<p>请输入地图坐标（X，Z）。</p>
+		X=	<input id="inputX" type="text">
+		<br/>
+		Z= 	<input id="inputZ" type="text">
+		<script>
+			function xztoab()
+			{
+			var x=document.getElementById("inputX").value;
+			var p=4000;
+			if(x==""||isNaN(x))
+				{
+					alert("x值不是数字,\n计算将不会继续，\n请重新输入！");
+					return;
+				}
+			var z=document.getElementById("inputZ").value;
+			if(z==""||isNaN(z))
+				{
+					alert("z值不是数字,\n计算将不会继续，\n请重新输入！");
+					return;
+				}
+			x=p/2 + (x/40000)*(p/2)
+			z=p/2 + (z/40000)*(p/2)
+			document.getElementById("output").innerHTML="a="+x+"<br/>"+"b="+z;
+			//document.getElementById("others").innerHTML="z="+z+"<br/>";
+			}
+		</script>
+		<br />
+		<br />
+		<button type="button" onclick="xztoab()">点击计算</button>
+		<br /><br />
+		计算出的目标值为：<br />
+		<p id="output" >这里显示结果</p>
+		<br />
+		<p id="others" ></p>
+		<br />
+		<br />
+	</body>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br /><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<br /><span id="busuanzi_container_page_pv">雪花量<span id="busuanzi_value_page_pv"></span>片</span>
+	<br />
+	<footer>©2020   本 <a href="http://mitega.gitee.io" target="_blank">网站</a> 由 <a href="http://melodycos.tk" target="_blank">月煮雪</a> 强力驱动  </footer>
+</html>

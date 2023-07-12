@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>MITE存档修改器</title>
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<body>
+		<img src="https://ae01.alicdn.com/kf/HTB1ecXSXX67gK0jSZPfq6yhhFXaU.jpg"><br/>
+		<br/>
+		本软件为MITE单机修改器<br/>
+		联机玩家存档请使用<a href="mitebuff.html" target="_blank">MITE联机修改器</a><br/>
+		服务器天数跳跃请使用<a href="offline.html" target="_blank">MITE离线惩罚清除器</a><br/>
+		<br/>
+		软件需扔到<font color="coral">\.minecraft\MITE\saves\1.6.4\你的存档\</font>下运行<br/>
+		本软件会对此路径下level.dat进行读写<br/>
+		<br/>
+		<br/>
+		支持版本r105+(待确认)<br/>
+		运行要求Microsoft .net framework 4.5及以上<br/>
+		<!--
+		下载地址:<a href="https://yuezhuxue.github.io/mite/ga/dl/MITE存档修改器v1.3.zip" target="_blank">MITE存档修改器v1.3</a><br />
+        -->
+		<br />
+		下载地址:<a href="https://yuezhuxue.github.io/mite/ga/dl/MITE存档修改器v2.1.zip" target="_blank">MITE存档修改器v2.1</a><br/>
+		下载地址:<a href="https://yuezhuxue.github.io/mite/ga/dl/MITE存档修改器v2.2.zip" target="_blank">MITE存档修改器v2.2</a><br/>
+		下载地址:<a href="https://yuezhuxue.github.io/mite/ga/dl/MITE存档修改器v2.3.zip" target="_blank">MITE存档修改器v2.3</a><br/>
+		下载地址:<a href="https://yuezhuxue.github.io/mite/ga/dl/MITE存档修改器v2.4.zip" target="_blank">MITE存档修改器v2.4</a><br/>
+		<font color="red">最新版v2.5在主页【下载链接】页面</font><br/>
+		<details>
+			<summary>
+		更新日志（点击展开）：<br/>
+		</summary>
+		
+		<blockquote>
+		v1.1（18.11.11）<br/>
+		1.修复dam和sub数据溢出错误<br/>
+		2.支持MITE新添加怪物的刷怪蛋<br/>
+		  详情参见<a href="id.html" target="_blank">MITE ID</a>网页【刷怪蛋】<br/>
+		  <br/>
+		v1.2（19.06.29）<br/>
+		1.优化程序逻辑，防止乱按导致level.dat意外被删除<br/>
+		2.修复玩家名包含e0时无法读取的bug<br/>
+		3.给程序加了个图标<br/>
+		<br/>
+		v1.3<br/>
+		1.<font color=#FF0000>修复重复附魔导致崩溃的bug</font>，现在不需要重启软件了<br/>
+		2.隐藏加密/解密进度窗口，添加一个文本框来显示信息<br/>
+		3.修复末影箱物品会干扰附魔和转换的bug<br/>
+		<br/>
+		v2.0<br/>
+		1.界面优化，逻辑优化，现在可以一键傻瓜式操作了<br/>
+		2.BUFF现在可以直接增加和删除，无需用中毒过度<br/>
+		3.新增急迫BUFF（127级秒破坏方块），新增饱和（永远不会饥饿）<br/>
+		4.现在支持读取潜在糖尿病时间<br/>
+		<br/>
+		v2.1<br/>
+		1.修复在1秒内鼠标连按导致【备份】模块报错（文件重名）的bug<br/>
+		2.修复一个检测输入的附魔等级却读取天数的远古bug<br/>
+		2.附魔的翻译与游戏一致：【砍伐】→【砍树】，【收割】→【收获】<br/>
+		3.添加BUFF【瞬间治疗】，比【生命回复】回血快，也不消耗饱食度<br/>
+		<br/>
+		v2.2<br/>
+		1.增加玩家当前坐标修改功能，详情见下文说明<br/>
+		<br/>
+		v2.3<br/>
+		1.补全所有附魔<br/>
+		2.补全所有药水BUFF<br/>
+		<br/>
+		v2.4<br/>
+		1.物品转换的物品个数可以设置为0<br/>
+		2.添加经验和维度修改，仅推荐振金和魔法版使用<br/>
+		<br/>
+		v2.5<br/>
+		1.支持振金版三个新附魔<br/>
+		</blockquote>
+		
+		</details>
+		<br/>
+		<br/>
+		功能演示视频版https://www.bilibili.com/video/av35446456<br />
+		<br />
+		<details>
+			<summary>
+				功能简介文字版<br/>
+			</summary>
+		<br />	
+		<br/>
+		本软件每一个按钮(除读取、关闭外）按下去都会帮你<br/>
+		备份level.dat到同目录下【备份】文件夹<br/>
+		文件名为YYYY_MM_DD_hh_mm_ss_level.dat<br/>
+		如果想回档可以将对应时间的文件拷出去改名覆盖level.dat<br/>
+		<br/>
+		<br/>
+		一。信息读取<br/>
+		<br/>
+		1.存档版本<br/>
+		读取存档内的三个版本信息。<br/>
+		<br/>
+		2.出生点坐标<br/>
+		读取存档内出生点坐标，<br/>
+		实际测试与回家传送门偏差±16左右<br/>
+		该功能可配合坐标读取软件，<br/>
+		在初期发展选建家地址时使用<br/>
+		<br/>
+		3.人物属性<br/>
+		读取存档内基础移速<br/>
+		读取潜在糖尿病时间（40分钟为界限）<br/>
+		<br/>
+		4.生存天数<br/>
+		会先读取，精确到小时<br/>
+		<br/>
+		5.第一格物品<br/>
+		预先判断工具栏第一格有没有物品<br/>
+		<br/>
+		二。基础修改<br/>
+		<br/>
+		1.人物属性<br/>
+		<br/>
+		①、走路N倍速<br/>
+		修改基础移动速度<br/>
+		1倍为默认移速<br/>
+		与药水、附魔兼容<br/>
+		<br/>
+		②去除糖尿病<br/>
+		将存档内胰岛素值设为28，进存档后一秒糖尿病移除<br/>
+		<br/>
+		③去除营养不良<br/>
+		将存档内蛋白质和纤维素值设为160000（上限）<br/>
+		实测证明超过此值的修改会被重置，所以移除了“一万倍”功能<br/>
+		<br/>
+		④存档天数<br/>
+		修改天数或小时可以进行时间跳跃<br/>
+		注：如果天数为1天则不修改<br/>
+		功能1：植物催熟（跳过血月会催枯，时间溯流亦是）<br/>
+		功能2：蓝月赏景（刷动物也是极好的）<br/>
+		功能3：跳过夜晚（如果你害怕）<br/>
+		<br/>
+		三。附魔相关<br/>
+		附魔前清空背包（包括护甲），<br/>
+		只把要附魔的物品放第一格（按E键后界面的左下角）<br/>
+		附魔前看下品质，软件内要改为一样<br/>
+		品质变化会触发作弊检测，但触发检测可以用快递中转的方式保留（如果你会）<br/>
+		<br/>
+		附魔等级<br/>
+		默认值为附魔台可附的最大值。<br/>
+		理论上可以填1-32767（不要填奇怪的东西，比如小数、负数）<br/>
+		不要填太高，10以内就好<br/>
+		譬如抢夺、屠宰、收割，填上1000掉落物就可能把游戏卡崩<br/>
+		尽量遵循游戏内附魔规则，譬如不要给剑附效率。<br/>
+		<br/>
+		1.保护：体现在提升护甲（游戏里很多东西无论怎么减伤都至少会造成1点伤害）<br/>
+		2.摔落保护：想摔不死填40以上<br/>
+		3.耐久：护甲、工具的耐久<br/>
+		4.耐力：减少挖方块掉的饱食度<br/>
+		5.再生：不穿护甲为64秒回半格<br/>
+		公式如下：<br/>
+		回血周期 = 64 / (1 + 0.5 * 附魔等级)<br/>
+		请自行计算<br/>
+		譬如<br/>
+		5级→18.2秒<br/>
+		30级→4秒<br/>
+		120级→1秒<br/>
+		<br/>
+		6.水下呼吸：没什么用，建议上水下呼吸BUFF<br/>
+		7.荆棘：反伤秒杀（除史莱姆）<br/>
+		8.速度：跑的快<br/>
+		9.屠宰：猪牛羊马<br/>
+		10.抢夺:骨粉<br/>
+		11.收获:镰刀收小麦，鸭嘴锄收土豆洋葱胡萝卜<br/>
+		12.肥沃：不用施肥了<br/>
+		13.效率：挖的快<br/>
+		14.锋利：打的疼<br/>
+		15.砍树：砍的多<br/>
+		16.钓饵：建议数值1-7，数值高了游戏崩<br/>
+		17.击晕：就是给怪上迟缓debuff<br/>
+		18.吸血：吸血<br/>
+		19.力量：弓限定<br/>
+		20.弓的其他附魔：精准5、敏捷5、回收5、中毒5<br/>
+		21.精准采集：<br/>
+		22.时运：<br/>
+		<br/>
+		23.初始化耐久值：修满<br/>
+		24.品质：必选，要与游戏内一致，没有品质的，比如木棍，就选默认<br/>
+		<br/>
+		四。增删BUFF<br/>
+		<br/>
+		延时：持续时间为游戏内74565天<br/>
+		<font color="red">注意：睡觉过夜会清除所有药水效果，也可喝牛奶</font><br/>
+		<br/>
+		buff等级：默认值为1，游戏内1级，<br/>
+		有等级的可以更改等级，<br/>
+		譬如速度，填入3，则游戏内速度III<br/>
+		以此类推，最大127<br/>
+		建议10以内。<br/>
+		<br/>
+		1.夜视：<br/>
+		2.跳跃提升：建议配合摔落保护附魔和高等级抗性提升BUFF<br/>
+		3.速度：<br/>
+		4.隐身：没用！因为怪物会追踪<br/>
+		5.水下呼吸：真水下呼吸<br/>
+		6.力量：配合武器，别太高（待测试。。<br/>
+		7.生命恢复：会消耗饱食度<br/>
+		8.抗性提升：5级无敌（但是某些情况依旧会受1点伤害，别惹黑色史莱姆）<br/>
+		9.抗火：不抗岩浆<br/>
+		10.急迫：大于2级没有手臂动画，127级秒破坏，加效率5，人工矿道横着走（小心岩浆）<br/>
+		11.饱和：永远不用吃东西（但是会营养不良，本软件可清除）<br/>
+		12.瞬间治疗：比生命恢复好用<br/>
+		<br/>
+		<br/>
+		五。物品转换<br/>
+		<br/>
+		同样的，转换前清空背包（包括护甲），<br/>
+		只把要转换的物品放第一格（按E键后界面的左下角）<br/>
+		<br/>
+		第一页信息读取会读你第一格的物品ID<br/>
+		假如你第一格有物品（譬如草种子）<br/>
+		根据<a href="id.html" target="_blank">MITE ID</a>表修改对应值<br/>
+		你甚至可以攥着64个<font color="red">地幔</font>方块在手里<br/>
+		目前只支持第一格物品的修改<br/>
+		如果没有物品则不更改<br/>
+		<br/>
+		具体操作参考视频，学不会的不要用<br/>
+		<br/>
+		<br/>
+		六。关于<br/>
+		<br/>
+		关闭：关闭程序<br/>
+		
+		
+		
+		</details>
+		<details>
+			<summary>
+				说明<br/>
+			</summary>
+			<font color="#FF0000">
+		切记：<br/>
+		一定要手动备份level.dat<br/>
+		一定要手动备份level.dat<br/>
+		一定要手动备份level.dat<br/></font>
+		<br/>
+		修改玩家坐标会被检测且无法保留<br/>
+		但是你进游戏有10秒多时间可以测试一些功能。<br/>
+		比如任意丢末影之眼找末地，找找哪里有神庙、地狱堡垒等等<br/>
+		测试完用你备份的level.dat恢复<br/>
+		<br/>
+		
+		<br/>
+		</details>
+		<img src="https://ae01.alicdn.com/kf/HTB1ieGWa3FY.1VjSZFnq6AFHXXa7.jpg"><br/>
+		<br/>
+	</body>
+		<br/>
+	<br />
+	<br />
+	<br /><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<br /><span id="busuanzi_container_page_pv">雪花量<span id="busuanzi_value_page_pv"></span>片</span>
+	<br />
+	<footer>©2020   本 <a href="http://mitega.gitee.io" target="_blank">网站</a> 由 <a href="http://melodycos.tk" target="_blank">月煮雪</a> 强力驱动  </footer>
+</html>

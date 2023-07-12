@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+    <script>
+    
+    hljs.initHighlightingOnLoad();  <!-- 初始化高亮插件,但只能初始化一开始存在的元素  -->
+    
+    <!--  当数据变化后,动态高亮指定元素 -->
+    function myHighlighting(targetId){
+        $("#"+targetId).load("http://www.xxx.com/javaCode.java",{},function(response){//response即为www.xxx.com返回的java代码
+            var code = hljs.highlightAuto(response).value;
+            $("#"+targetId).html(code);
+        });
+    }
+    </script> 
+<title>MITE作物生长</title>
+</head>
+<body>
+    <!-- 这个class要指定java -->
+    <pre><code class="java" id="PersonCode" onclick="myHighlighting('PersonCode')">
+import java.util.Random;
+import net.minecraft.server.MinecraftServer;
+
+public class anr extends BlockGrowingPlant
+{
+
+	protected int num_growth_stages;
+	protected ms a[];
+	protected ms iconArrayBlighted[];
+
+	protected anr(int block_id, int num_growth_stages)
+	{
+		super(block_id);
+		this.num_growth_stages = num_growth_stages;
+		b(true);
+		float var2 = 0.5F;
+		setBlockBoundsForAllThreads(0.5F - var2, 0.0D, 0.5F - var2, 0.5F + var2, 0.25D, 0.5F + var2);
+		a((ww)null);
+		c(0.02F);
+		a(j);
+		C();
+		setCushioning(0.2F);
+	}
+
+	public String getMetadataNotes()
+	{
+		return "Bits 1, 2, and 4 used to track growth, bit 8 set if crop is blighted";
+	}
+
+	public boolean isValidMetadata(int metadata)
+	{
+		return metadata >= 0 && metadata < 16;
+	}
+
+	public float getLowestOptimalTemperature()//适宜温度下限，系数
+	{
+		return 0.8F;
+	}
+
+	public float getHighestOptimalTemperature()//适宜温度上限
+	{
+		return 1.2F;
+	}
+
+	public float getHumidityGrowthRateModifier(boolean high_humidity)//湿度
+	{
+		return 1.0F;
+	}
+
+	public boolean isLegalOn(int metadata, aqz block_below, int block_below_metadata)
+	{
+		return block_below == aF;
+	}
+
+	protected int getDeadCropBlockId()
+	{
+		return aqz.cropsDead.cF;
+	}
+
+	public boolean updateTick(abw world, int x, int y, int z, Random rand)//植物生长主函数
+	{
+		if (super.updateTick(world, x, y, z, rand))
+			return true;
+		int metadata = world.h(x, y, z);
+		float growth_rate = k(world, x, y, z);//调用下面的k函数得到植物生长速率
+		if (growth_rate == 0.0F && !aof.m(world, x, y - 1, z))
+			if (rand.nextFloat() < 0.05F)
+			{
+				if (isMature(metadata))
+				{
+					dropBlockAsEntityItem((new BlockBreakInfo(world, x, y, z)).setDrought());
+					return world.c(x, y, z, 0);
+				} else
+				{
+					return world.f(x, y, z, getDeadCropBlockId(), getGrowth(metadata), 3);
+				}
+			} else
+			{
+				return false;
+			}
+		if (isBlighted(metadata))//判断是否枯萎（生病
+		{
+			if (rand.nextInt(64) == 0) //枯萎几率
+				return world.f(x, y, z, getDeadCropBlockId(), isMature(metadata) ? getGrowth(metadata) - 1 : getGrowth(metadata), 3);
+			if (rand.nextBoolean())
+				return false;
+			int dx = rand.nextInt(3) - 1;
+			int dy = rand.nextInt(3) - 1;
+			int dz = rand.nextInt(3) - 1;
+			if ((dx != 0 || dy != 0 || dz != 0) && world.f(x + dx, y + dy, z + dz))
+			{
+				int block_id = world.a(x + dx, y + dy, z + dz);
+				aqz block = aqz.getBlock(block_id);
+				if ((block instanceof anr) && !((anr)block).isDead())
+				{
+					metadata = world.h(x + dx, y + dy, z + dz);
+					if (!isBlighted(metadata))
+						world.b(x + dx, y + dy, z + dz, setBlighted(metadata, true), 2);
+				}
+			}
+			return false;
+		}
+		//血月加速枯萎
+		if (world.isBloodMoonNight() && !isBlighted(metadata) && rand.nextFloat() < 0.25F && !MinecraftServer.F().V() && (!world.hasStandardFormOpaqueBlockAbove(x, y, z) || world.isOutdoors(x, y, z)) && world.b(x, y, z, setBlighted(metadata, true), 2))
+			return true;
+		int blv = world.n(x, y + 1, z);
+		if (rand.nextFloat() < chanceOfBlightPerRandomTick() * getBlightChanceModifierForBiome(world.a(x, z)) * (1.0F - (float)blv / 16F))
+		{
+			if (!isBlighted(metadata))
+				return world.b(x, y, z, setBlighted(metadata, true), 2);
+		} else
+		if (isLightLevelSuitableForGrowth(blv))
+		{
+			if (growth_rate == 0.0F || isMature(metadata))
+				return false;
+			if (rand.nextInt((int)(25F / growth_rate) + 1) == 0)
+			{
+				world.b(x, y, z, incrementGrowth(metadata), 2);
+				if (rand.nextInt(256) == 0 && aqz.s[world.a(x, y - 1, z)] == aqz.aF)
+				{
+					metadata = world.h(x, y - 1, z);
+					if (aof.isFertilized(metadata))
+						world.b(x, y - 1, z, aof.setFertilized(metadata, false), 2);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static float getBlightChanceModifierForBiome(acq biome)//植物生长与温度和是否被自然光照有关
+	{
+		float temperature = biome.F;
+		float delta_temperature;
+		if (temperature < 1.0F)
+			delta_temperature = 1.0F - temperature;
+		else
+		if (temperature > 1.2F)
+			delta_temperature = temperature - 1.2F;
+		else
+			delta_temperature = 0.0F;
+		return Math.max((1.0F - delta_temperature) * (biome.e() ? 1.5F : 1.0F), 0.0F);
+	}
+
+	public boolean fertilize(abw world, int x, int y, int z, ye item_stack)//肥沃的土壤
+	{
+		yc item = item_stack.b();
+		if (item == yc.aY)
+		{
+			int metadata = world.h(x, y, z);
+			return isBlighted(metadata) && world.b(x, y, z, setBlighted(metadata, false), 2);
+		} else
+		{
+			return false;
+		}
+	}
+
+	public float k(abw par1World, int par2, int par3, int par4)//此函数获取作物生长速率
+	{
+		aqz block_below = aqz.s[par1World.a(par2, par3 - 1, par4)];
+		int block_below_metadata = par1World.h(par2, par3 - 1, par4);
+		if (block_below == aqz.aF && aof.getWetness(block_below_metadata) == 0)
+			return 0.0F;
+		float var5 = 1.0F;
+		int var6 = par1World.a(par2, par3, par4 - 1);//判断周围8格作物
+		int var7 = par1World.a(par2, par3, par4 + 1);
+		int var8 = par1World.a(par2 - 1, par3, par4);
+		int var9 = par1World.a(par2 + 1, par3, par4);
+		int var10 = par1World.a(par2 - 1, par3, par4 - 1);
+		int var11 = par1World.a(par2 + 1, par3, par4 - 1);
+		int var12 = par1World.a(par2 + 1, par3, par4 + 1);
+		int var13 = par1World.a(par2 - 1, par3, par4 + 1);
+		boolean var14 = var8 == cF || var9 == cF;
+		boolean var15 = var6 == cF || var7 == cF;
+		boolean var16 = var10 == cF || var11 == cF || var12 == cF || var13 == cF;
+		for (int var17 = par2 - 1; var17 <= par2 + 1; var17++)
+		{
+			for (int var18 = par4 - 1; var18 <= par4 + 1; var18++)
+			{
+				int var19 = par1World.a(var17, par3 - 1, var18);
+				float var20 = 0.0F;
+				if (var19 == aqz.aF.cF)
+				{
+					var20 = 1.0F;
+					if (par1World.h(var17, par3 - 1, var18) > 0)
+						var20 = 3F;
+				}
+				if (var17 != par2 || var18 != par4)
+					var20 /= 4F;
+				var5 += var20;
+			}
+
+		}
+
+		if (var16 || var14 && var15)
+			var5 /= 2.0F;
+		if (block_below == aqz.aF && aof.isFertilized(block_below_metadata))
+			var5 *= 1.5F;
+		acq biome = par1World.a(par2, par4);
+		var5 *= getTemperatureGrowthRateModifier(biome.F);
+		var5 *= getHumidityGrowthRateModifier(biome.e());
+		var5 *= getGlobalGrowthRateModifierFromMITE();
+		var5 *= getProximityGrowthRateModifier(par1World, par2, par3, par4);
+		return var5;
+	}
+
+	public ms a(int side, int metadata)
+	{
+		return isBlighted(metadata) ? iconArrayBlighted[getGrowthStage(metadata)] : a[getGrowthStage(metadata)];
+	}
+
+	public int d()
+	{
+		return 6;
+	}
+
+	protected int j()
+	{
+		return yc.U.cv;
+	}
+
+	protected int k()
+	{
+		return yc.V.cv;
+	}
+
+	protected int getMatureYield()
+	{
+		return 1;
+	}
+
+	public int d(abw par1World, int par2, int par3, int par4)
+	{
+		return j();
+	}
+
+	public void a(mt par1IconRegister)
+	{
+		a = new ms[num_growth_stages];
+		if (chanceOfBlightPerRandomTick() > 0.0F)
+			iconArrayBlighted = new ms[num_growth_stages];
+		for (int i = 0; i < num_growth_stages; i++)
+		{
+			a[i] = par1IconRegister.a((new StringBuilder()).append("crops/").append(E()).append("/").append(i).toString());
+			if (chanceOfBlightPerRandomTick() > 0.0F)
+				iconArrayBlighted[i] = par1IconRegister.a((new StringBuilder()).append("crops/").append(E()).append("/blighted/").append(i).toString());
+		}
+
+	}
+
+	public float getBlockHardness(int metadata)
+	{
+		return metadata != 0 ? super.getBlockHardness(metadata) * (float)(isMature(metadata) ? 2 : 1) : 0.0F;
+	}
+
+	public float chanceOfBlightPerRandomTick()
+	{
+		return 0.0005F;
+	}
+
+	public int getBlightBit()
+	{
+		return 8;
+	}
+
+	public int getGrowthBits()
+	{
+		return 7;
+	}
+
+	public int getMaxGrowth()
+	{
+		return getGrowthBits();
+	}
+
+	public int getGrowth(int metadata)
+	{
+		return metadata & getGrowthBits();
+	}
+
+	public int incrementGrowth(int metadata)
+	{
+		if (getGrowth(metadata) < getMaxGrowth())
+			metadata++;
+		return metadata;
+	}
+
+	public int getGrowthStage(int metadata)
+	{
+		return getGrowth(metadata);
+	}
+
+	public boolean isMature(int metadata)
+	{
+		return getGrowth(metadata) == getMaxGrowth();
+	}
+
+	public boolean isBlighted(int metadata)
+	{
+		return (metadata & getBlightBit()) != 0;
+	}
+
+	public int setBlighted(int metadata, boolean blighted)
+	{
+		if (blighted)
+			metadata |= getBlightBit();
+		else
+			metadata &= ~getBlightBit();
+		return metadata;
+	}
+
+	public final void setBlighted(abw world, int x, int y, int z, boolean is_blighted)
+	{
+		if (isDead())
+			return;
+		int metadata = world.h(x, y, z);
+		if (isBlighted(metadata) != is_blighted)
+			world.b(x, y, z, setBlighted(metadata, is_blighted), 2);
+	}
+
+	public boolean canBeCarried()
+	{
+		return false;
+	}
+
+	public int dropBlockAsEntityItem(BlockBreakInfo info)
+	{
+		if (!info.wasHarvestedByPlayer() && !info.wasDrought() && !info.wasSnowedUpon() && !info.wasSelfDropped())
+			return 0;
+		if (info.wasDrought())
+			playCropPopSound(info);
+		if (isBlighted(info.getMetadata()))
+			return 0;
+		ye item_stack = info.getHarvesterItemStack();
+		yc item = item_stack != null ? item_stack.b() : null;
+		xj tool = (item instanceof xj) ? (xj)item : null;
+		float harvesting_enchantment;                 //收获附魔，额外掉落
+		if (tool != null && tool.isEffectiveAgainstBlock(this, info.getMetadata()))
+			harvesting_enchantment = aaw.getEnchantmentLevelFraction(aau.harvesting, info.getHarvesterItemStack()) * 0.5F;
+		else
+			harvesting_enchantment = 0.0F;
+		int num_drops;
+		if (getGrowth(info.getMetadata()) == 0)
+			num_drops = dropBlockAsEntityItem(info, j(), 0, 1, 1.0F);
+		else
+		if (isMature(info.getMetadata()) && !info.wasSelfDropped())
+			num_drops = dropBlockAsEntityItem(info, k(), 0, getMatureYield(), 1.0F + harvesting_enchantment);
+		else
+			return 0;
+		if (info.wasSnowedUpon() && num_drops > 0)
+			playCropPopSound(info);
+		return num_drops;
+	}
+
+	public boolean isDead()
+	{
+		return false;
+	}
+
+	public String getNameDisambiguationForReferenceFile(int metadata)
+	{
+		return isDead() ? "dead" : "living";
+	}
+
+	public void makeSoundWhenPlaced(abw world, int x, int y, int z, int metadata)
+	{
+		ard step_sound = aqz.aF.cS;
+		if (step_sound != null)
+			world.playSoundAtBlock(x, y, z, step_sound.b(), 0.2F, step_sound.d() * 0.8F);
+	}
+
+	public static void playCropPopSound(BlockBreakInfo info)
+	{
+		info.playSoundEffectAtBlock("random.pop", 0.05F, ((info.world.s.nextFloat() - info.world.s.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+	}
+}
+
+    </code></pre>
+</body>
+</html>

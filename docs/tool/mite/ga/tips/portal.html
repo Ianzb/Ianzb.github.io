@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+    <script>
+    
+    hljs.initHighlightingOnLoad();  <!-- 初始化高亮插件,但只能初始化一开始存在的元素  -->
+    
+    <!--  当数据变化后,动态高亮指定元素 -->
+    function myHighlighting(targetId){
+        $("#"+targetId).load("http://www.xxx.com/javaCode.java",{},function(response){//response即为www.xxx.com返回的java代码
+            var code = hljs.highlightAuto(response).value;
+            $("#"+targetId).html(code);
+        });
+    }
+    </script> 
+<title>符文门</title>
+</head>
+<body>
+	
+	
+	
+	
+    <!-- 这个class要指定java -->
+    <pre><code class="java" id="PersonCode" onclick="myHighlighting('PersonCode')">
+
+
+import java.util.*;
+
+public class aps extends aoq
+{
+
+	private ms runegate_icon;
+	private ms nether_portal_icon;
+	public static final int DESTINATION_OVERWORLD = 0;
+	public static final int DESTINATION_UNDERWORLD = 1;
+	public static final int DESTINATION_NETHER = 2;
+	public static final int IS_RUNEGATE = 8;
+
+	public aps(int par1)
+	{
+		super(par1, "portal", akc.D, false, (new BlockConstants()).setUsesAlphaBlending());
+		b(true);
+	}
+
+	public String getMetadataNotes()
+	{
+		return "0=To Overworld, 1=To Underworld, 2=To Nether, bit 8 set if Runegate";
+	}
+
+	public boolean isValidMetadata(int metadata)
+	{
+		return metadata >= 0 && metadata < 3 || metadata >= 8 && metadata < 11;
+	}
+
+	public boolean updateTick(abw world, int x, int y, int z, Random random)
+	{
+		boolean changed_state = updateType(world, x, y, z);
+		Class entity_class = null;
+		if (world.isOverworld())
+		{
+			if (isPortalToUnderworld(world.h(x, y, z), false) && random.nextInt(100) == 0)
+				entity_class = random.nextBoolean() ? te : EntityVampireBat;
+		} else
+		if (world.isUnderworld() && isPortalToNether(world.h(x, y, z), false) && random.nextInt(100) == 0)
+			entity_class = tn;
+		boolean flag = true;
+		if (flag)
+			entity_class = null;
+		if (entity_class != null)
+		{
+			List players = world.getAsWorldServer().h;
+			Iterator i = players.iterator();
+			do
+			{
+				if (!i.hasNext())
+					break;
+				jv player = (jv)i.next();
+				if (player.ticks_since_portal_teleport >= 1000)
+					continue;
+				entity_class = null;
+				break;
+			} while (true);
+			if (entity_class != null && world.a(entity_class, world.getBoundingBoxFromPool(x, y, z).scale(16D)).size() > 3)
+				entity_class = null;
+		}
+		if (entity_class != null)
+		{
+			int entity_id = nt.getEntityID(entity_class);
+			if (entity_class == EntityVampireBat)
+			{
+				nn var7 = ze.spawnCreature(world, entity_id, (double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, false, EnumFace.TOP);
+				var7.ao = var7.ac();
+				var7.refreshDespawnCounter(-9600);
+			} else
+			{
+				int var6;
+				for (var6 = y; !world.isBlockTopFlatAndSolid(x, var6, z) && var6 > 0; var6--);
+				if (var6 > 0 && !world.u(x, var6 + 1, z))
+				{
+					nn var7 = ze.spawnCreature(world, entity_id, (double)x + 0.5D, (double)var6 + 1.1000000000000001D, (double)z + 0.5D, false, EnumFace.TOP);
+					if (var7 != null)
+					{
+						var7.ao = var7.ac();
+						var7.refreshDespawnCounter(-9600);
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public void setBlockBoundsBasedOnStateAndNeighbors(acf par1IBlockAccess, int par2, int par3, int par4)
+	{
+		if (par1IBlockAccess.a(par2 - 1, par3, par4) != cF && par1IBlockAccess.a(par2 + 1, par3, par4) != cF)
+		{
+			float var5 = 0.125F;
+			float var6 = 0.5F;
+			setBlockBoundsForCurrentThread(0.5F - var5, 0.0D, 0.5F - var6, 0.5F + var5, 1.0D, 0.5F + var6);
+		} else
+		{
+			float var5 = 0.5F;
+			float var6 = 0.125F;
+			setBlockBoundsForCurrentThread(0.5F - var5, 0.0D, 0.5F - var6, 0.5F + var5, 1.0D, 0.5F + var6);
+		}
+	}
+
+	public boolean o_(abw par1World, int par2, int par3, int par4)
+	{
+		if (par1World.isTheEnd())
+			return false;
+		byte var5 = 0;
+		byte var6 = 0;
+		if (par1World.a(par2 - 1, par3, par4) == aqz.au.cF || par1World.a(par2 + 1, par3, par4) == aqz.au.cF)
+			var5 = 1;
+		if (par1World.a(par2, par3, par4 - 1) == aqz.au.cF || par1World.a(par2, par3, par4 + 1) == aqz.au.cF)
+			var6 = 1;
+		if (var5 == var6)
+			return false;
+		if (par1World.a(par2 - var5, par3, par4 - var6) == 0)
+		{
+			par2 -= var5;
+			par4 -= var6;
+		}
+		for (int var7 = -1; var7 <= 2; var7++)
+		{
+			for (int var8 = -1; var8 <= 3; var8++)
+			{
+				boolean var9 = var7 == -1 || var7 == 2 || var8 == -1 || var8 == 3;
+				if ((var7 == -1 || var7 == 2) && (var8 == -1 || var8 == 3))
+					continue;
+				int var10 = par1World.a(par2 + var5 * var7, par3 + var8, par4 + var6 * var7);
+				if (var9)
+				{
+					if (var10 != aqz.au.cF)
+						return false;
+					continue;
+				}
+				if (var10 != 0 && var10 != aqz.aw.cF && var10 != aqz.spark.cF)
+					return false;
+			}
+
+		}
+
+		for (int var7 = 0; var7 < 2; var7++)
+		{
+			for (int var8 = 0; var8 < 3; var8++)
+				par1World.f(par2 + var5 * var7, par3 + var8, par4 + var6 * var7, aqz.bj.cF, 0, 2);
+
+		}
+
+		int metadata = getPortalTypeBasedOnLocation(par1World, par2, par3, par4, true);
+		for (int var7 = 0; var7 < 2; var7++)
+		{
+			for (int var8 = 0; var8 < 3; var8++)
+				par1World.f(par2 + var5 * var7, par3 + var8, par4 + var6 * var7, aqz.bj.cF, metadata, 2);
+
+		}
+
+		return true;
+	}
+
+	public boolean onNeighborBlockChange(abw world, int x, int y, int z, int neighbor_block_id)
+	{
+		byte var6 = 0;
+		byte var7 = 1;
+		if (world.a(x - 1, y, z) == cF || world.a(x + 1, y, z) == cF)
+		{
+			var6 = 1;
+			var7 = 0;
+		}
+		int var8;
+		for (var8 = y; world.a(x, var8 - 1, z) == cF; var8--);
+		if (world.a(x, var8 - 1, z) != aqz.au.cF)
+			return world.i(x, y, z);
+		int var9;
+		for (var9 = 1; var9 < 4 && world.a(x, var8 + var9, z) == cF; var9++);
+		if (var9 == 3 && world.a(x, var8 + var9, z) == aqz.au.cF)
+		{
+			boolean var10 = world.a(x - 1, y, z) == cF || world.a(x + 1, y, z) == cF;
+			boolean var11 = world.a(x, y, z - 1) == cF || world.a(x, y, z + 1) == cF;
+			if (var10 && var11)
+				return world.i(x, y, z);
+			if ((world.a(x + var6, y, z + var7) != aqz.au.cF || world.a(x - var6, y, z - var7) != cF) && (world.a(x - var6, y, z - var7) != aqz.au.cF || world.a(x + var6, y, z + var7) != cF))
+				return world.i(x, y, z);
+			else
+				return updateType(world, x, y, z);
+		} else
+		{
+			return world.i(x, y, z);
+		}
+	}
+
+	public boolean a(acf par1IBlockAccess, int par2, int par3, int par4, int par5)
+	{
+		if (par1IBlockAccess.a(par2, par3, par4) == cF)
+		{
+			return false;
+		} else
+		{
+			boolean var6 = par1IBlockAccess.a(par2 - 1, par3, par4) == cF && par1IBlockAccess.a(par2 - 2, par3, par4) != cF;
+			boolean var7 = par1IBlockAccess.a(par2 + 1, par3, par4) == cF && par1IBlockAccess.a(par2 + 2, par3, par4) != cF;
+			boolean var8 = par1IBlockAccess.a(par2, par3, par4 - 1) == cF && par1IBlockAccess.a(par2, par3, par4 - 2) != cF;
+			boolean var9 = par1IBlockAccess.a(par2, par3, par4 + 1) == cF && par1IBlockAccess.a(par2, par3, par4 + 2) != cF;
+			boolean var10 = var6 || var7;
+			boolean var11 = var8 || var9;
+			return !var10 || par5 != 4 ? !var10 || par5 != 5 ? !var11 || par5 != 2 ? var11 && par5 == 3 : true : true : true;
+		}
+	}
+
+	public int n()
+	{
+		return 1;
+	}
+
+	private int getFrameMinX(abw world, int x, int y, int z)
+	{
+		boolean x_aligned = world.a(x + 1, y, z) == cF;
+		int min_x;
+		for (min_x = x; world.a(min_x - 1, y, z) == cF;)
+		{
+			min_x--;
+			x_aligned = true;
+		}
+
+		return x_aligned ? min_x - 1 : min_x;
+	}
+
+	private int getFrameMaxX(abw world, int x, int y, int z)
+	{
+		boolean x_aligned = world.a(x - 1, y, z) == cF;
+		int max_x;
+		for (max_x = x; world.a(max_x + 1, y, z) == cF;)
+		{
+			max_x++;
+			x_aligned = true;
+		}
+
+		return x_aligned ? max_x + 1 : max_x;
+	}
+
+	private int getFrameMinY(abw world, int x, int y, int z)
+	{
+		int min_y;
+		for (min_y = y; world.a(x, min_y - 1, z) == cF; min_y--);
+		return min_y - 1;
+	}
+
+	private int getFrameMaxY(abw world, int x, int y, int z)
+	{
+		int max_y;
+		for (max_y = y; world.a(x, max_y + 1, z) == cF; max_y++);
+		return max_y + 1;
+	}
+
+	private int getFrameMinZ(abw world, int x, int y, int z)
+	{
+		boolean z_aligned = world.a(x, y, z + 1) == cF;
+		int min_z;
+		for (min_z = z; world.a(x, y, min_z - 1) == cF;)
+		{
+			min_z--;
+			z_aligned = true;
+		}
+
+		return z_aligned ? min_z - 1 : min_z;
+	}
+
+	private int getFrameMaxZ(abw world, int x, int y, int z)
+	{
+		boolean z_aligned = world.a(x, y, z - 1) == cF;
+		int max_z;
+		for (max_z = z; world.a(x, y, max_z + 1) == cF;)
+		{
+			max_z++;
+			z_aligned = true;
+		}
+
+		return z_aligned ? max_z + 1 : max_z;
+	}
+
+	public static int getDestinationBit(int metadata)
+	{
+		return BitHelper.clearBit(metadata, 8);
+	}
+
+	public int getMetadataForDestination(int destination, boolean is_runegate)
+	{
+		return destination | (is_runegate ? 8 : 0);
+	}
+
+	public boolean isPortalToOverworld(int metadata, boolean include_runegates)
+	{
+		return (include_runegates ? getDestinationBit(metadata) : metadata) == 0;
+	}
+
+	public boolean isPortalToUnderworld(int metadata, boolean include_runegates)
+	{
+		return (include_runegates ? getDestinationBit(metadata) : metadata) == 1;
+	}
+
+	public boolean isPortalToNether(int metadata, boolean include_runegates)
+	{
+		return (include_runegates ? getDestinationBit(metadata) : metadata) == 2;
+	}
+
+	public boolean isRunegate(int metadata)
+	{
+		return BitHelper.isBitSet(metadata, 8);
+	}
+
+	public boolean isPortalToOverworldSpawn(abw world, int metadata)
+	{
+		return world.isOverworld() && metadata == 0;
+	}
+
+	public BlockRunestone getRunegateType(abw world, int x, int y, int z)//判断是符文门四个角是秘银还是艾德曼
+	{
+		int frame_min_x = getFrameMinX(world, x, y, z);
+		int frame_max_x = getFrameMaxX(world, x, y, z);
+		int frame_min_y = getFrameMinY(world, x, y, z);
+		int frame_max_y = getFrameMaxY(world, x, y, z);
+		int frame_min_z = getFrameMinZ(world, x, y, z);
+		int frame_max_z = getFrameMaxZ(world, x, y, z);
+		if (frame_max_x - frame_min_x > frame_max_z - frame_min_z)
+		{
+			if (world.getBlock(frame_min_x, frame_min_y, z) == runestoneMithril && world.getBlock(frame_max_x, frame_min_y, z) == runestoneMithril && world.getBlock(frame_min_x, frame_max_y, z) == runestoneMithril && world.getBlock(frame_max_x, frame_max_y, z) == runestoneMithril)
+				return runestoneMithril;
+			if (world.getBlock(frame_min_x, frame_min_y, z) == runestoneAdamantium && world.getBlock(frame_max_x, frame_min_y, z) == runestoneAdamantium && world.getBlock(frame_min_x, frame_max_y, z) == runestoneAdamantium && world.getBlock(frame_max_x, frame_max_y, z) == runestoneAdamantium)
+				return runestoneAdamantium;
+			else
+				return null;
+		}
+		if (world.getBlock(x, frame_min_y, frame_min_z) == runestoneMithril && world.getBlock(x, frame_min_y, frame_max_z) == runestoneMithril && world.getBlock(x, frame_max_y, frame_min_z) == runestoneMithril && world.getBlock(x, frame_max_y, frame_max_z) == runestoneMithril)
+			return runestoneMithril;
+		if (world.getBlock(x, frame_min_y, frame_min_z) == runestoneAdamantium && world.getBlock(x, frame_min_y, frame_max_z) == runestoneAdamantium && world.getBlock(x, frame_max_y, frame_min_z) == runestoneAdamantium && world.getBlock(x, frame_max_y, frame_max_z) == runestoneAdamantium)
+			return runestoneAdamantium;
+		else
+			return null;
+	}
+
+	public boolean isRunegate(abw world, int x, int y, int z, boolean intensive_check)
+	{
+		if (!intensive_check)
+			return isRunegate(world.h(x, y, z));
+		else
+			return getRunegateType(world, x, y, z) != null;
+	}
+
+	private int getRunegateSeed(abw world, int x, int y, int z)//获取符文门种子
+	{
+		int frame_min_x = getFrameMinX(world, x, y, z);
+		int frame_max_x = getFrameMaxX(world, x, y, z);
+		int frame_min_y = getFrameMinY(world, x, y, z);
+		int frame_max_y = getFrameMaxY(world, x, y, z);
+		int frame_min_z = getFrameMinZ(world, x, y, z);
+		int frame_max_z = getFrameMaxZ(world, x, y, z);
+		if (frame_max_x - frame_min_x > frame_max_z - frame_min_z)//有点不理解，x和z中，max-min值小的一方不参与计算
+			return world.h(frame_min_x, frame_min_y, z) + (world.h(frame_max_x, frame_min_y, z) << 4) + (world.h(frame_min_x, frame_max_y, z) << 8) + (world.h(frame_max_x, frame_max_y, z) << 12);
+		else
+			return world.h(x, frame_min_y, frame_min_z) + (world.h(x, frame_min_y, frame_max_z) << 4) + (world.h(x, frame_max_y, frame_min_z) << 8) + (world.h(x, frame_max_y, frame_max_z) << 12);
+	}
+
+	public boolean isTouchingBottomBedrock(abw world, int x, int y, int z)//判断是否接触的是地底的基岩
+	{
+		int frame_min_y = getFrameMinY(world, x, y, z);
+		if (frame_min_y > 8)
+			return false;
+		int frame_min_x = getFrameMinX(world, x, y, z);
+		int frame_max_x = getFrameMaxX(world, x, y, z);
+		int frame_min_z = getFrameMinZ(world, x, y, z);
+		int frame_max_z = getFrameMaxZ(world, x, y, z);
+		for (int frame_x = frame_min_x; frame_x <= frame_max_x; frame_x++)
+		{
+			for (int frame_z = frame_min_z; frame_z <= frame_max_z; frame_z++)
+				if (world.isBottomBlock(frame_x, frame_min_y - 1, frame_z))
+					return true;
+
+		}
+
+		return false;
+	}
+
+	public static int getDestinationBitForDimensionId(int destination_dimension_id)
+	{
+		if (destination_dimension_id == 0)
+			return 0;
+		if (destination_dimension_id == -2)
+			return 1;
+		if (destination_dimension_id == -1)
+		{
+			return 2;
+		} else
+		{
+			atv.setErrorMessage((new StringBuilder()).append("getDestinationBitForDimensionId: destination_dimension_id not handled ").append(destination_dimension_id).toString());
+			return 0;
+		}
+	}
+
+	public static int getDestinationBit(abw world)
+	{
+		return getDestinationBitForDimensionId(world.getDimensionId());
+	}
+
+	public int getPortalTypeBasedOnLocation(abw world, int x, int y, int z, boolean test_for_runegate)
+	{
+		if (test_for_runegate && isRunegate(world, x, y, z, true))
+			return 8 | getDestinationBit(world);
+		if (world.isTheNether())
+			return 1;
+		if (isTouchingBottomBedrock(world, x, y, z))
+			return world.isOverworld() ? 1 : 2;
+		else
+			return 0;
+	}
+
+	public static int getDestinationDimensionIdForMetadata(int metadata)
+	{
+		int destination_bit = getDestinationBit(metadata);
+		if (destination_bit == 0)
+			return 0;
+		if (destination_bit == 1)
+			return -2;
+		if (destination_bit == 2)
+		{
+			return -1;
+		} else
+		{
+			atv.setErrorMessage((new StringBuilder()).append("getDestinationDimensionIdForMetadata: no handler for destination_bit ").append(destination_bit).toString());
+			return 0;
+		}
+	}
+
+	public int getDestinationDimensionID(abw world, int x, int y, int z)
+	{
+		return getDestinationDimensionIdForMetadata(world.h(x, y, z));
+	}
+
+	public static boolean isGoodSpotForPlayerToAppearAt(abw world, int x, int y, int z)
+	{
+		return world.isAirOrPassableBlock(x, y, z, false) && world.isAirOrPassableBlock(x, y + 1, z, false) && !world.isAirOrPassableBlock(x, y - 1, z, false) && !world.isLavaBlock(x, y - 1, z) && !world.isCeilingBedrock(x, y - 1, z);
+	}
+
+	public int[] getRunegateDestinationCoords(js world, int x, int y, int z)
+	{
+label0:
+		{
+			int seed = getRunegateSeed(world, x, y, z);//调用上面获取种子的函数
+			BlockRunestone block_runestone = getRunegateType(world, x, y, z);
+			if (seed == 0)
+			{
+				x = 0;
+				z = 0;
+			} else
+			{
+				Random random = new Random(seed);//使用seed初始化随机数种子
+				int attempts = 0;
+				do
+				{
+					if (attempts >= 4)            //尝试到4次跳出循环
+						break;
+						/*
+						runegate_domain_radius_
+
+
+						*/
+					int runegate_domain_radius = world.getRunegateDomainRadius(block_runestone != aqz.runestoneAdamantium ? akc.mithril : akc.adamantium);
+					x = random.nextInt(runegate_domain_radius * 2) - runegate_domain_radius;
+					z = random.nextInt(runegate_domain_radius * 2) - runegate_domain_radius;
+					do
+					{
+						if (block_runestone != aqz.runestoneAdamantium)
+							break;
+						js  = world;
+						if (js.getDistanceFromDeltas(x, z) >= (double)(runegate_domain_radius / 2))
+							break;
+						x = random.nextInt(runegate_domain_radius * 2) - runegate_domain_radius;
+						z = random.nextInt(runegate_domain_radius * 2) - runegate_domain_radius;
+					} while (true);
+					if (world.a(x, z) != acq.b)
+						break;
+					attempts++;
+				} while (true);
+			}
+			int chunk_x = x >> 4;
+			int chunk_z = z >> 4;
+			for (int dx = -1; dx <= 1; dx++)
+			{
+				for (int dz = -1; dz <= 1; dz++)
+					world.v.d(chunk_x + dx, chunk_z + dz);
+
+			}
+
+			if (world.isTheNether())
+			{
+				y = 0;
+				do
+					if (++y >= 254)
+						break label0;
+				while (!world.isAirOrPassableBlock(x, y, z, false) || !world.isAirOrPassableBlock(x, ++y, z, false) || world.isAirOrPassableBlock(x, y - 2, z, false) || world.isLavaBlock(x, y - 2, z) || world.isLavaBlock(x, y - 1, z));
+				return (new int[] {
+					x, y - 1, z
+				});
+			}
+			if (world.isUnderworld())
+			{
+				y = 254;
+				do
+					if (--y <= 0)
+						break label0;
+				while (!isGoodSpotForPlayerToAppearAt(world, x, y, z));
+				return (new int[] {
+					x, y, z
+				});
+			}
+			y = 256;
+			do
+			{
+				do
+					if (--y <= 0)
+						break label0;
+				while (!world.isAirOrPassableBlock(x, y, z, false));
+				y--;
+			} while (!world.isAirOrPassableBlock(x, y, z, false));
+			for (; y > 0 && world.isAirOrPassableBlock(x, y - 1, z, false); y--);
+			if (y == 0)
+				y = 64;
+			return (new int[] {
+				x, y, z
+			});
+		}
+		if (!world.isAirOrPassableBlock(x, 64, z, true))
+			world.i(x, 64, z);
+		if (!world.isAirOrPassableBlock(x, 65, z, true))
+			world.i(x, 65, z);
+		return (new int[] {
+			x, 64, z
+		});
+	}
+
+	private boolean updateType(abw world, int x, int y, int z)
+	{
+		int metadata = world.h(x, y, z);
+		int new_metadata = getPortalTypeBasedOnLocation(world, x, y, z, true);
+		if (new_metadata == metadata || isRunegate(new_metadata) == isRunegate(metadata))
+			return false;
+		else
+			return world.b(x, y, z, new_metadata, 3);
+	}
+
+	private void initiateRunegateTeleport(js world, int x, int y, int z, jv player, boolean is_portal_to_world_spawn)
+	{
+		player.is_runegate_teleporting = true;
+		player.runegate_destination_coords = is_portal_to_world_spawn ? (new int[] {
+			world.getSpawnX(), world.getTopSolidOrLiquidBlockMITE(world.getSpawnX(), world.getSpawnZ(), false) + 1, world.getSpawnZ()
+		}) : getRunegateDestinationCoords(world, x, y, z);
+		player.a.b(new Packet85SimpleSignal(EnumSignal.runegate_start));
+		player.prevent_runegate_achievement = is_portal_to_world_spawn;
+	}
+
+	public void a(abw par1World, int par2, int par3, int par4, nn par5Entity)
+	{
+		uf player = (par5Entity instanceof uf) ? (uf)par5Entity : null;
+		if (player != null && player.is_runegate_teleporting)
+			return;
+		int metadata = par1World.h(par2, par3, par4);
+		boolean is_runegate = isRunegate(metadata);
+		boolean is_portal_to_world_spawn = isPortalToOverworldSpawn(par1World, metadata);
+		if (is_runegate || is_portal_to_world_spawn)
+		{
+			if (par1World.I || player == null)
+				return;
+			if (player.o != null || player.n != null)
+			{
+				return;
+			} else
+			{
+				initiateRunegateTeleport((js)par1World, par2, par3, par4, (jv)player, is_portal_to_world_spawn);
+				return;
+			}
+		}
+		if (par5Entity.o == null && par5Entity.n == null)
+			par5Entity.setInPortal(getDestinationDimensionIdForMetadata(metadata));
+	}
+
+	public void b(abw par1World, int par2, int par3, int par4, Random par5Random)
+	{
+		int metadata = par1World.h(par2, par3, par4);
+		boolean is_runegate = isRunegate(metadata);
+		boolean is_portal_to_overworld = isPortalToOverworld(metadata, true);
+		boolean is_portal_to_underworld = isPortalToUnderworld(metadata, true);
+		boolean is_portal_to_nether = isPortalToNether(metadata, true);
+		if (par5Random.nextInt(100) == 0)
+			par1World.a((double)par2 + 0.5D, (double)par3 + 0.5D, (double)par4 + 0.5D, (!is_runegate || !is_portal_to_overworld) && !isPortalToOverworldSpawn(par1World, metadata) ? "portal.portal" : "imported.portal.runegate", 0.5F, par5Random.nextFloat() * 0.4F + 0.8F, false);
+		for (int var6 = 0; var6 < 4; var6++)
+		{
+			double var7 = (float)par2 + par5Random.nextFloat();
+			double var9 = (float)par3 + par5Random.nextFloat();
+			double var11 = (float)par4 + par5Random.nextFloat();
+			double var13 = 0.0D;
+			double var15 = 0.0D;
+			double var17 = 0.0D;
+			int var19 = par5Random.nextInt(2) * 2 - 1;
+			var13 = ((double)par5Random.nextFloat() - 0.5D) * 0.5D;
+			var15 = ((double)par5Random.nextFloat() - 0.5D) * 0.5D;
+			var17 = ((double)par5Random.nextFloat() - 0.5D) * 0.5D;
+			if (par1World.a(par2 - 1, par3, par4) != cF && par1World.a(par2 + 1, par3, par4) != cF)
+			{
+				var7 = (double)par2 + 0.5D + 0.25D * (double)var19;
+				var13 = par5Random.nextFloat() * 2.0F * (float)var19;
+			} else
+			{
+				var11 = (double)par4 + 0.5D + 0.25D * (double)var19;
+				var17 = par5Random.nextFloat() * 2.0F * (float)var19;
+			}
+			par1World.spawnParticle(is_portal_to_overworld ? EnumParticle.runegate : is_portal_to_nether ? EnumParticle.portal_nether : EnumParticle.portal_underworld, var7, var9, var11, var13, var15, var17);
+		}
+
+	}
+
+	public int d(abw par1World, int par2, int par3, int i)
+	{
+		return 0;
+	}
+
+	public boolean canBeCarried()
+	{
+		return false;
+	}
+
+	public int dropBlockAsEntityItem(BlockBreakInfo info)
+	{
+		return 0;
+	}
+
+	public ms a(int side, int metadata)
+	{
+		int destination_bit = getDestinationBit(metadata);
+		return destination_bit != 0 ? destination_bit != 1 ? nether_portal_icon : cW : runegate_icon;
+	}
+
+	public void a(mt par1IconRegister)
+	{
+		super.a(par1IconRegister);
+		runegate_icon = par1IconRegister.a("runegate");
+		nether_portal_icon = par1IconRegister.a("portal_nether");
+	}
+
+	public boolean isSolid(boolean is_solid[], int metadata)
+	{
+		return false;
+	}
+
+	public boolean isStandardFormCube(boolean is_standard_form_cube[], int metadata)
+	{
+		return false;
+	}
+
+	public boolean blocksFluids(boolean blocks_fluids[], int metadata)
+	{
+		return true;
+	}
+}
+
+    </code></pre>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>符文门补完计划</title>
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+        	p2{
+        		color:royalblue;
+        	}
+        	p3{
+        		color:green;
+        	}
+        </style>
+        <script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../js/anglecalc.js"></script>
+	</head>
+	<body>
+		MITE符文门是随机传送的。<br/>
+		秘银、艾德曼各能做出16种符文石，<br/>
+		以秘银符文石为例，依次替换四角的符文石，<br/>
+		理论上存在着16*16*16*16=65536种秘银符文门。<br/>
+		如果我们把这65536个传送坐标<font color="red">穷举</font>出来，<br/>
+		是不是就意味着，符文门坐标其实是可以"计算"的。<br/>
+		这便是<font color="#80BDFF">符文门补完计划</font>。<br/>
+		本计划已经完成!<br/>
+		数据穷举作者：<a href="https://weibo.com/nyaplusmiao" target="_blank">_喵Plus_</a>。<br/>
+		<br/>
+		<details>
+			<summary>
+				基础知识
+			</summary>
+		艾德曼符文门传送距离是秘银符文门的8倍，<br/>
+		秘银符文门可以传送到最多5000格范围，而艾德曼符文门可以传送到最多40000格范围。<br/>
+		符文门传送目的地不会产生返回的传送门，建议随身携带10个黑曜石和打火石做普通传送门返回。<br/>
+		相同摆放方法的艾德曼符文门和秘银符文门之间没有对应关系。<br/>
+		相同摆放方法的符文门，传送位置固定，与地图种子无关。<br/>
+		符文门的传送优先级高于传送门，将地下世界和地狱传送门四个角放上符文石将变成符文门。<br/>
+		符文门四个角材料需相同，缺失或材料不同将视为普通传送门。<br/>
+		符文石更换会立即生效，无需将传送门熄灭再重新点亮。<br/>
+		面朝东西南北分别建造同一结构符文门时，只会传送到两个地方，东=北，西=南。<br/>
+		符文门只能在同一维度传送。<br/>
+		地狱的符文门，偶尔会传送到地狱上层（地幔层）。<br/>
+		主世界的符文门，会判断目的地是否为海洋地形，<br/>
+		如果是海洋，就再次随机一个坐标进行判断，<br/>
+		如果计算了四次全部是海洋，就传送到第四次的坐标那儿。<br/>
+		</details>
+		<img src="img/runegate.jpg">
+		<br/>
+		<img src="img/runeback.jpg">
+		<br/>
+		<br/>
+		<font color="#FF8877" size="5">符文门计算器</font><a href="https://yuezhuxue.github.io/mite/ga/dl/符文门计算器v1.0.zip" target="_blank">下载地址一</a><br/>
+		<font color="deeppink" size="5">符文门反向计算器</font><a href="https://yuezhuxue.github.io/mite/ga/dl/符文门反向计算器.zip" target="_blank">下载地址二</a><br/>
+		<br/>
+		<br/>
+		<p2>Q1:为什么符文门反向计算器限制在地下世界和地狱？<br/></p2>
+		<p3>A1:由于主世界传送算法是<br/>
+		按顺序在坐标1、2、3、4里挑一个不是海洋地形的<br/>
+		如果都是海，那就把你送到4那边，<br/>
+		因此假设你算出坐标3是最近的，<br/>
+		他把你传送到坐标2，你也没辙<br/>
+		而地下世界没海，必定传坐标1<br/>
+		地下世界的坐标1和主世界坐标1一一对应<br/><font color="#FF4444">
+		如果你确认坐标1不是海，那就在地表建门吧</font><br/></p3>
+		<br/>
+		<p2>Q2:摆法显示的那些字母数字啥意思啊？<br/></p2>
+		<p3>A2:请通读下文的“规定”<br/></p3>
+		<br/>
+		<p2>Q3:地下世界没有太阳怎么辨认方向？<br/></p2>
+		<p3>A3:本站的材质包，圆石放在地上<br/>
+		上表面有个黑点，那个边方向是北<br/>
+		或者使用坐标获取软件，x增大的方向为东<br/></p3>
+		<br/>
+		<p2>Q4:三个世界的坐标有关系吗？<br/></p2>
+		<p3>A4:主世界=地下世界=地狱*8<br/></p3>
+		<br/>
+		<p2>Q5:地下世界传送过去没有门，怎么回去？<br/></p2>
+		<p3>A5:请带铁镐、打火石与10个黑曜石，靴靴<br/></p3>
+		<br/>
+		<p2>Q6:为什么一直强调脸朝东？<br/></p2>
+		<p3>A6:相反的方向，左右会反啊!（四角符号一样的除外<br/>
+		事实上，东=北，西=南<br/>
+		面朝四个方向的门，只会去两个地方（四角符号一样的除外<br/></p3>
+		<br/>
+		<p2>Q7:怎样建一个从出生点到末地要塞的快速通道？<br/></p2>
+		<p3>A7:末地要塞分布在距离坐标（0,0）约12000~13000的圆上<br/>
+			用下面的方法可以估算，快速通道同见下文<br/></p3>
+		
+		<br/>
+		<p2>Q8:看了坐标分布图，我要去的坐标在圆里，附近没有门怎么办？<br/></p2>
+		<p3>A8:你忘了主世界坐标=地狱坐标*8吗<br/>
+		假设要去的主世界点为（-10000,5000），<br/>
+		除以8计算对应地狱坐标(-1250,625),<br/>
+		用符文门反向计算器计算地狱秘银门最近结果为：<br/>
+		(-1248,637) 距离12摆法：621C<br/>
+		进行如下操作：<br/>
+		主世界→地下世界→地狱，朝东摆秘银门621C→<br/>
+		传送到(-1248,637)，走几步到(-1250,625)，建普通门→<br/>
+		传到地下世界（-10000,5000）→拆门装回点亮→<br/>
+		传到主世界（-10000,5000）<br/>
+		不出意外是在矿洞里，需要挖出去<br/>
+		大胆的测试吧，反正可以Save Load<br/>
+		这里是一个验证视频<a href="https://www.bilibili.com/video/av38379275" target="_blank">https://www.bilibili.com/video/av38379275</a><br/>
+		利用地狱秘银符文门系统可以覆盖到32768的主世界范围<br/>
+		利用地狱艾德曼符文门系统最远可以传送到262144的主世界范围<br/></p3>
+		<br/>
+		<p2>Q9:如何估算末影传送门的位置？<br/></p2>
+		<p3>A9:<del>①首先扔末影之眼获得<font color="red">a</font>,<font color="red">b</font>值（就是格数）<br/>
+		②填入a,b计算得到∠A的度数，<br/>
+		③按清除， 填入c≈12000,∠A的度数<br/>
+		得到X和Z的坐标（a,b)<br/></del><font color="#FF4444">
+		直接把种子填到服务器里，传送，拿出末影之眼。。。<br/>
+		之后就像0~100猜数字一样简单啦<br/></font></p3>
+		<br/>
+	<form name="righttriangle">
+    <table id="table1" cellspacing="0" cellpadding="2" border="0" width="379">
+        <tbody>
+            <tr>
+                <td rowspan="7" align="right" width="140"><img alt="直角三角形" src="img/angle.jpg" height="126" width="138" /></td>
+                <td colspan="2" align="right">
+                <p align="center">输入数值然后点计算</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">a垂直边</td>
+                <td><font size="5">
+                	<input onBlur="righttriangleblur(1)" onKeyUp="righttrianglecal(1)" autocomplete="off" name="lengthX" style="width:85px" type="number" /></font></td>
+            </tr>
+            <tr>
+                <td align="right">b底边长</td>
+                <td><font size="5">
+                	<input onBlur="righttriangleblur(2)" onKeyUp="righttrianglecal(2)" autocomplete="off" name="lengthY" style="width:85px" type="number" /></font></td>
+            </tr>
+            <tr>
+                <td align="right">c斜边长</td>
+                <td><font size="5">
+                	<input onBlur="righttriangleblur(3)" onKeyUp="righttrianglecal(3)" autocomplete="off" name="lengthZ" style="width:85px" type="number" /></font></td>
+            </tr>
+            <tr>
+                <td align="right">A角度</td>
+                <td><font size="5">
+                	<input onBlur="righttriangleblur(4)" onKeyUp="righttrianglecal(4)" autocomplete="off" name="lengthA" style="width:85px" type="number" /></font></td>
+            </tr>
+            <tr>
+                <td align="right">B角度</td>
+                <td><font size="5">
+                	<input onBlur="righttriangleblur(5)" onKeyUp="righttrianglecal(5)" autocomplete="off" name="lengthB" style="width:85px" type="number" /></font></td>
+            </tr>
+            <tr>
+                <td align="right">C角度</td>
+                <td><font size="5">
+                	<input size="5" style="background: #000000; color: #00ff00; font-weight: bold" name="lengthC" value=" 90.0" type="text" /></font></td>
+            </tr>
+        </tbody>
+    </table>
+    <p align="left">
+    	<input onClick="calcs()" name="Calculate" value=" 计算 " type="button" />
+    	<input onClick="clearrighttriangle()" name="clear" value=" 清除 " type="button" />
+    <table id="table2" cellspacing="0" cellpadding="3" border="0" width="382">
+    </table>
+    </p>
+</form>
+
+
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		
+		<details>
+			<summary>
+				核心算法摘要<br/>
+			</summary>
+				int seed = getRunegateSeed(world, x, y, z);//调用上面获取种子的函数<br/>
+				...<br/>
+				Random random = new Random(seed);//使用seed初始化随机数种子<br/>
+				...<br/>
+				if (attempts >= 4)            //尝试到4次跳出循环<br/>
+				break;<br/>
+				do{<br/>
+				x = random.nextInt(runegate_domain_radius * 2) - runegate_domain_radius;<br/>
+				z = random.nextInt(runegate_domain_radius * 2) - runegate_domain_radius;<br/>
+				<br/>
+				if (world.a(x, z) != acq.b)//如果区块类型不是acq.b则跳出<br/>
+					break;<br/>
+				attempts++;<br/>
+				}while(true);<br/>
+		
+		<br/>
+		</details>
+		
+		为了统一，现规定：<br/>
+		①所有的符文门是玩家面朝东（即太阳升起的方向，x轴增大的方向）所建立的。<br/>
+		②符文门四角材料需相同<br/>
+		③使用十六进制标注符文石16个符号<br/>
+		0="Nul"<br/>
+		1="Quas"<br/>
+		2="Por"<br/>
+		3="An"<br/>
+		4="Nox"<br/>
+		5="Flam"<br/>
+		6="Vas"<br/>
+		7="Des"<br/>
+		8="Ort"<br/>
+		9="Tym"<br/>
+		A="Corp"<br/>
+		B="Lor"<br/>
+		C="Mani"<br/>
+		D="Jux"<br/>
+		E="Ylem"<br/>
+		F="Sanct"<br/>
+		④坐标获取软件获取的坐标X,Z值，小数部分：正数去尾，负数进一<br/>
+		⑤记录顺序更为左下、右下、左上、右上、X坐标、Z坐标<br/>
+		⑥为方便测试，建议使用修改后的材质包，详情<a href="resource.html" target="_blank">点击这里</a><br/>
+		效果如下，<br/>
+		<img src="https://ae01.alicdn.com/kf/Hd122d7a1424b4e538fc0ae73ec11248fP.png">
+		
+		
+	</body>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br /><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<br /><span id="busuanzi_container_page_pv">雪花量<span id="busuanzi_value_page_pv"></span>片</span>
+	<br />
+	<footer>©2020   本 <a href="http://mitega.gitee.io" target="_blank">网站</a> 由 <a href="http://melodycos.tk" target="_blank">月煮雪</a> 强力驱动  </footer>
+</html>

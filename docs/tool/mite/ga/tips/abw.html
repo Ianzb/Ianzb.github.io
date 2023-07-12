@@ -1,0 +1,6816 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+    <script>
+    
+    hljs.initHighlightingOnLoad();  <!-- 初始化高亮插件,但只能初始化一开始存在的元素  -->
+    
+    <!--  当数据变化后,动态高亮指定元素 -->
+    function myHighlighting(targetId){
+        $("#"+targetId).load("http://www.xxx.com/javaCode.java",{},function(response){//response即为www.xxx.com返回的java代码
+            var code = hljs.highlightAuto(response).value;
+            $("#"+targetId).html(code);
+        });
+    }
+    </script> 
+<title>abw</title>
+</head>
+<body>
+    <!-- 这个class要指定java -->
+    <pre><code class="java" id="PersonCode" onclick="myHighlighting('PersonCode')">
+
+// Source File Name:   World.java
+
+import java.io.PrintStream;
+import java.util.*;
+import net.minecraft.server.MinecraftServer;
+
+public abstract class abw
+	implements acf
+{
+
+	public boolean d;
+	public List e;
+	protected List f;
+	public List g;
+	private List a;
+	private List b;
+	public List h;
+	public List i;
+	private long c;
+	public int j;
+	public int skylight_subtracted_ignoring_rain_and_thunder;
+	protected int k;
+	protected final int l = 0x3c6ef35f;
+	protected float m;
+	protected float n;
+	protected float o;
+	protected float p;
+	public int q;
+	public int r;
+	public Random s;
+	public final aei t;
+	protected List u;
+	protected ado v;
+	protected final amc w;
+	protected als x;
+	public boolean y;
+	public amr z;
+	public final rm A;
+	protected final rl B;
+	public final lv C;
+	private final atd J;
+	private final Calendar K;
+	protected atj D;
+	private final lp L;
+	private ArrayList M;
+	private boolean N;
+	protected boolean E;
+	protected boolean F;
+	protected Set G;
+	private int O;
+	int H[];
+	public final boolean I;
+	public boolean decorating;
+	public List pending_entity_spawns;
+	public boolean ignore_rain_and_thunder_for_next_BLV;
+	private int times_checkLightingOfRandomBlockInView_called;
+	public long total_time;
+	private final boolean is_overworld;
+	private final boolean is_underworld;
+	private final boolean is_nether;
+	private final boolean is_the_end;
+	private final boolean has_skylight;
+	private final int block_domain_radius;
+	public final int min_chunk_xz;
+	public final int max_chunk_xz;
+	public final int min_block_xz;
+	public final int max_block_xz;
+	public final double min_entity_pos_xz;
+	public final double max_entity_pos_xz;
+	public final int runegate_mithril_domain_radius;
+	public final int runegate_adamantium_domain_radius;
+	public float biome_temperature_transition_for_sky_color;
+	private List weather_events_for_today;
+	private int weather_events_for_day;
+	private long tick_flags_last_updated;
+	private WeatherEvent current_weather_event;
+	private boolean is_precipitating;
+	private boolean is_storming;
+	private boolean is_harvest_moon_24_hour_period;
+	private boolean is_harvest_moon_day;
+	private boolean is_harvest_moon_night;
+	private boolean is_blood_moon_24_hour_period;
+	private boolean is_blood_moon_day;
+	private boolean is_blood_moon_night;
+	private boolean is_blue_moon_24_hour_period;
+	private boolean is_blue_moon_day;
+	private boolean is_blue_moon_night;
+	private boolean is_moon_dog_24_hour_period;
+	private boolean is_moon_dog_day;
+	private boolean is_moon_dog_night;
+	public static final int DIMENSION_ID_UNDERWORLD = -2;
+	public static final int DIMENSION_ID_NETHER = -1;
+	public static final int DIMENSION_ID_OVERWORLD = 0;
+	public static final int DIMENSION_ID_THE_END = 1;
+	private final ChunkPostField mycelium_posts;
+	public static final int Y_OFFSET_FOR_UNDERWORLD = 120;
+	public final int underworld_y_offset;
+	private final aqz bottom_block;
+	private final int bottom_block_metadata;
+	public HashMap pending_sand_falls;
+
+	public acq a(int par1, int par2)
+	{
+		if (f(par1, 0, par2))
+		{
+			adr var3 = d(par1, par2);
+			if (var3 != null)
+				return var3.a(par1 & 0xf, par2 & 0xf, t.e);
+		}
+		return t.e.a(par1, par2);
+	}
+
+	public acv u()
+	{
+		return t.e;
+	}
+
+	private int getNextAmbientTickCountdown(boolean is_first_count_down)
+	{
+		if (is_first_count_down)
+			return s.nextInt(12000);
+		else
+			return s.nextInt(12000) + 6000;
+	}
+
+	public abw(amc par1ISaveHandler, String par2Str, aei par3WorldProvider, acd par4WorldSettings, lv par5Profiler, lp par6ILogAgent, long world_creation_time, long total_world_time)
+	{
+		e = new ArrayList();
+		f = new ArrayList();
+		g = new ArrayList();
+		a = new ArrayList();
+		b = new ArrayList();
+		h = new ArrayList();
+		i = new ArrayList();
+		c = 0xffffffL;
+		k = (new Random()).nextInt();
+		s = new Random();
+		u = new ArrayList();
+		B = new rl(this);
+		J = new atd(300, 2000);
+		K = Calendar.getInstance();
+		D = new atj();
+		M = new ArrayList();
+		E = true;
+		F = true;
+		G = new HashSet();
+		pending_entity_spawns = new ArrayList();
+		biome_temperature_transition_for_sky_color = (0.0F / 0.0F);
+		tick_flags_last_updated = -1L;
+		if (!(this instanceof bdd))
+			atv.setErrorMessage("World: This constructor must only be invoked by WorldClient!");
+		I = this instanceof bdd;
+		O = getNextAmbientTickCountdown(true);
+		H = new int[42875];
+		w = par1ISaveHandler;
+		C = par5Profiler;
+		x = new als(par4WorldSettings, par2Str);
+		x.setDimensionId(par3WorldProvider.i);
+		t = par3WorldProvider;
+		x.setWorldCreationTime(world_creation_time);
+		is_underworld = t.isUnderworld();
+		is_nether = t.isTheNether();
+		is_overworld = t.d();
+		is_the_end = t.isTheEnd();
+		bottom_block = ((aqz) (isOverworld() ? aqz.E : ((aqz) (!isUnderworld() && !isTheNether() ? null : ((aqz) (aqz.mantleOrCore))))));
+		bottom_block_metadata = isUnderworld() ? 0 : isTheNether() ? 1 : -1;
+		has_skylight = !t.g && is_overworld;
+		block_domain_radius = t.getBlockDomainRadius();
+		min_chunk_xz = -block_domain_radius / 16;
+		max_chunk_xz = block_domain_radius / 16 - 1;
+		min_block_xz = -block_domain_radius;
+		max_block_xz = block_domain_radius - 1;
+		min_entity_pos_xz = min_block_xz;
+		max_entity_pos_xz = (double)max_block_xz + 0.99990000000000001D;
+		runegate_adamantium_domain_radius = Math.min(block_domain_radius / 2, 40000);
+		runegate_mithril_domain_radius = runegate_adamantium_domain_radius / 8;
+		validateDomainValues();
+		x.setTotalWorldTime(total_world_time, this);
+		z = new amr(par1ISaveHandler);
+		L = par6ILogAgent;
+		rm var7 = (rm)z.a(rm, "villages");
+		if (var7 == null)
+		{
+			A = new rm(this);
+			z.a("villages", A);
+		} else
+		{
+			A = var7;
+			A.a(this);
+		}
+		par3WorldProvider.a(this);
+		v = j();
+		A();
+		_calculateInitialWeather();
+		RNG.init(this);
+		mycelium_posts = createMyceliumPostField();
+		underworld_y_offset = is_underworld ? 120 : 0;
+	}
+
+	public abw(amc par1ISaveHandler, String par2Str, acd par3WorldSettings, aei par4WorldProvider, lv par5Profiler, lp par6ILogAgent)
+	{
+		e = new ArrayList();
+		f = new ArrayList();
+		g = new ArrayList();
+		a = new ArrayList();
+		b = new ArrayList();
+		h = new ArrayList();
+		i = new ArrayList();
+		c = 0xffffffL;
+		k = (new Random()).nextInt();
+		s = new Random();
+		u = new ArrayList();
+		B = new rl(this);
+		J = new atd(300, 2000);
+		K = Calendar.getInstance();
+		D = new atj();
+		M = new ArrayList();
+		E = true;
+		F = true;
+		G = new HashSet();
+		pending_entity_spawns = new ArrayList();
+		biome_temperature_transition_for_sky_color = (0.0F / 0.0F);
+		tick_flags_last_updated = -1L;
+		if (!(this instanceof js))
+			atv.setErrorMessage("World: This constructor must only be invoked by WorldServer!");
+		getAsWorldServer().instantiateScheduledBlockChangesList();
+		I = this instanceof bdd;
+		O = getNextAmbientTickCountdown(true);
+		H = new int[42875];
+		w = par1ISaveHandler;
+		C = par5Profiler;
+		z = new amr(par1ISaveHandler);
+		L = par6ILogAgent;
+		x = par1ISaveHandler.d();
+		if (par4WorldProvider != null)
+			t = par4WorldProvider;
+		else
+		if (x != null && x.j() != 0)
+			t = aei.a(x.j());
+		else
+			t = aei.a(0);
+		is_underworld = t.isUnderworld();
+		is_nether = t.isTheNether();
+		is_overworld = t.d();
+		is_the_end = t.isTheEnd();
+		bottom_block = ((aqz) (isOverworld() ? aqz.E : ((aqz) (!isUnderworld() && !isTheNether() ? null : ((aqz) (aqz.mantleOrCore))))));
+		bottom_block_metadata = isUnderworld() ? 0 : isTheNether() ? 1 : -1;
+		has_skylight = !t.g && is_overworld;
+		block_domain_radius = t.getBlockDomainRadius();
+		min_chunk_xz = -block_domain_radius / 16;
+		max_chunk_xz = block_domain_radius / 16 - 1;
+		min_block_xz = -block_domain_radius;
+		max_block_xz = block_domain_radius - 1;
+		min_entity_pos_xz = min_block_xz;
+		max_entity_pos_xz = (double)max_block_xz + 0.99990000000000001D;
+		runegate_adamantium_domain_radius = Math.min(block_domain_radius / 2, 40000);
+		runegate_mithril_domain_radius = runegate_adamantium_domain_radius / 8;
+		validateDomainValues();
+		if (x == null)
+			x = new als(par3WorldSettings, par2Str);
+		else
+			x.a(par2Str);
+		t.a(this);
+		updateTickFlags();
+		v = j();
+		if (!x.w())
+		{
+			try
+			{
+				a(par3WorldSettings);
+			}
+			catch (Throwable var11)
+			{
+				b var8 = b.a(var11, "Exception initializing level");
+				try
+				{
+					a(var8);
+				}
+				catch (Throwable var10) { }
+				throw new u(var8);
+			}
+			x.d(true);
+		}
+		rm var7 = (rm)z.a(rm, "villages");
+		if (var7 == null)
+		{
+			A = new rm(this);
+			z.a("villages", A);
+		} else
+		{
+			A = var7;
+			A.a(this);
+		}
+		if (x != null)
+			total_time = x.getWorldTotalTime(t.i);
+		A();
+		_calculateInitialWeather();
+		RNG.init(this);
+		mycelium_posts = createMyceliumPostField();
+		underworld_y_offset = is_underworld ? 120 : 0;
+	}
+
+	private ChunkPostField createMyceliumPostField()
+	{
+		return isUnderworld() ? new ChunkPostField(1, getHashedSeed(), 24, 0.0625F) : null;
+	}
+
+	public ChunkPostField getMyceliumPostField()
+	{
+		return mycelium_posts;
+	}
+
+	protected abstract ado j();
+
+	protected void a(acd par1WorldSettings)
+	{
+		x.d(true);
+	}
+
+	public void f()
+	{
+		E(8, 64, 8);
+	}
+
+	public int b(int par1, int par2)
+	{
+		int var3;
+		for (var3 = 63; !c(par1, var3 + 1, par2); var3++);
+		return a(par1, var3, par2);
+	}
+
+	public float getBlockHardness(int x, int y, int z)
+	{
+		return aqz.s[a(x, y, z)].getBlockHardness(h(x, y, z));
+	}
+
+	public final int a(int par1, int par2, int par3)
+	{
+		adr var4;
+		if (!isWithinBlockDomain(par1, par3))
+			break MISSING_BLOCK_LABEL_566;
+		if ((par2 & 0xffffff00) != 0)
+			break MISSING_BLOCK_LABEL_564;
+		var4 = null;
+		if (!I)
+		{
+			jr cps = (jr)v;
+			lq lhm = cps.f;
+			long key = (long)(par1 >> 4) & 0xffffffffL | ((long)(par3 >> 4) & 0xffffffffL) << 32;
+			int var3_1 = (int)(key ^ key >>> 32);
+			var3_1 ^= var3_1 >>> 20 ^ var3_1 >>> 12;
+			lr var4_1 = lhm.a[(var3_1 ^ var3_1 >>> 7 ^ var3_1 >>> 4) & lhm.a.length - 1];
+			do
+			{
+				if (var4_1 == null)
+					break;
+				if (var4_1.a == key)
+				{
+					var4 = (adr)var4_1.b;
+					break;
+				}
+				var4_1 = var4_1.c;
+			} while (true);
+			if (var4 == null)
+				var4 = cps.h.y || cps.a ? cps.c(par1 >> 4, par3 >> 4) : cps.c;
+		} else
+		{
+			bdb cps = (bdb)v;
+			lq lhm = cps.b;
+			long key = (long)(par1 >> 4) & 0xffffffffL | ((long)(par3 >> 4) & 0xffffffffL) << 32;
+			int var3_1 = (int)(key ^ key >>> 32);
+			var3_1 ^= var3_1 >>> 20 ^ var3_1 >>> 12;
+			var3_1 = var3_1 ^ var3_1 >>> 7 ^ var3_1 >>> 4;
+			lr var4_1 = lhm.a[var3_1 & lhm.a.length - 1];
+			do
+			{
+				if (var4_1 == null)
+					break;
+				if (var4_1.a == key)
+				{
+					var4 = (adr)var4_1.b;
+					break;
+				}
+				var4_1 = var4_1.c;
+			} while (true);
+			if (var4 == null)
+				var4 = cps.a;
+		}
+		if (var4.g())
+			return 0;
+		ads extended_block_storage = var4.r[par2 >> 4];
+		if (extended_block_storage == null)
+			return 0;
+		int par1_and_15;
+		int par2_and_15;
+		int par3_and_15;
+		par1_and_15 = par1 & 0xf;
+		par2_and_15 = par2 & 0xf;
+		par3_and_15 = par3 & 0xf;
+		if (extended_block_storage.e == null)
+			return extended_block_storage.d[par2_and_15 << 8 | par3_and_15 << 4 | par1_and_15] & 0xff;
+		int var7_2 = par2_and_15 << 8 | par3_and_15 << 4 | par1_and_15;
+		return (var7_2 & 1) != 0 ? extended_block_storage.e.a[var7_2 >> 1] >> 4 & 0xf : extended_block_storage.e.a[var7_2 >> 1] & 0xf;
+		Throwable var8;
+		var8;
+		b var6 = b.a(var8, "Exception getting block type in world");
+		m var7 = var6.a("Requested block coordinates");
+		var7.a("Found chunk", Boolean.valueOf(var4 == null));
+		var7.a("Location", m.a(par1, par2, par3));
+		throw new u(var6);
+		return 0;
+		return 0;
+	}
+
+	public boolean isAdjacentToBlock(double x, double y, double z, int block_id)
+	{
+		return isAdjacentToBlock(ls.c(x), ls.c(y), ls.c(z), block_id);
+	}
+
+	public boolean isAdjacentToBlock(int x, int y, int z, int block_id)
+	{
+		for (int a = -1; a < 2; a++)
+		{
+			for (int b = -1; b < 2; b++)
+			{
+				for (int c = -1; c < 2; c++)
+					if (a(x + a, y + b, z + c) == block_id)
+						return true;
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public final boolean blockTypeIsAbove(aqz block, double x, double y, double z)
+	{
+		return blockTypeIsAbove(block, ls.c(x), ls.c(y), ls.c(z));
+	}
+
+	public final boolean blockTypeIsAbove(aqz block, int x, int y, int z)
+	{
+		int block_id = block.cF;
+		for (int max_y = (aqz.u[block_id] != 0 ? f(x, z) : S()) - 1; ++y <= max_y;)
+		{
+			int id = a(x, y, z);
+			if (id == block_id)
+				return true;
+			if (id > 0)
+				return false;
+		}
+
+		return false;
+	}
+
+	public static float getDistanceFromDeltas(double dx, double dy, double dz)
+	{
+		return ls.a(dx * dx + dy * dy + dz * dz);
+	}
+
+	public static double getDistanceSqFromDeltas(double dx, double dy, double dz)
+	{
+		return dx * dx + dy * dy + dz * dz;
+	}
+
+	public static double getDistanceSqFromDeltas(float dx, float dy, float dz)
+	{
+		return (double)(dx * dx + dy * dy + dz * dz);
+	}
+
+	public static double getDistanceSqFromDeltas(double dx, double dz)
+	{
+		return dx * dx + dz * dz;
+	}
+
+	public static double getDistanceFromDeltas(double dx, double dz)
+	{
+		return (double)ls.a(getDistanceSqFromDeltas(dx, dz));
+	}
+
+	public boolean blockTypeIsNearTo(int block_id, double origin_x, double origin_y, double origin_z, 
+			int horizontal_radius, int vertical_radius)
+	{
+		return blockTypeIsNearTo(block_id, ls.c(origin_x), ls.c(origin_y), ls.c(origin_z), horizontal_radius, vertical_radius);
+	}
+
+	public boolean blockTypeIsNearTo(int block_id, int origin_x, int origin_y, int origin_z, int horizontal_radius, int vertical_radius)
+	{
+		int x = origin_x;
+		int y = origin_y;
+		int z = origin_z;
+		int width = horizontal_radius * 2 + 1;
+		int run = 1;
+		int min_y = y - vertical_radius;
+		int max_y = y + vertical_radius;
+		for (y = min_y; y <= max_y; y++)
+			if (a(x, y, z) == block_id)
+				return true;
+
+		do
+		{
+			if (run >= width)
+			{
+				for (int i = 1; i < run; i++)
+				{
+					x++;
+					for (y = min_y; y <= max_y; y++)
+						if (a(x, y, z) == block_id)
+							return true;
+
+				}
+
+				return false;
+			}
+			for (int i = 1; i <= run; i++)
+			{
+				x++;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						return true;
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z++;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						return true;
+
+			}
+
+			run++;
+			for (int i = 1; i <= run; i++)
+			{
+				x--;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						return true;
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z--;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						return true;
+
+			}
+
+			run++;
+		} while (true);
+	}
+
+	public double shortestDistanceToBlockType(int block_id, double origin_x, double origin_y, double origin_z, 
+			int horizontal_radius, int vertical_radius)
+	{
+		int x = ls.c(origin_x);
+		int y = ls.c(origin_y);
+		int z = ls.c(origin_z);
+		origin_x -= 0.5D;
+		origin_y -= 0.5D;
+		origin_z -= 0.5D;
+		int width = horizontal_radius * 2 + 1;
+		int height = vertical_radius * 2 + 1;
+		int run = 1;
+		int min_y = y - vertical_radius;
+		int max_y = y + vertical_radius;
+		List distances = new ArrayList();
+		for (y = min_y; y <= max_y; y++)
+			if (a(x, y, z) == block_id)
+				distances.add(Float.valueOf(getDistanceFromDeltas((double)x - origin_x, (double)y - origin_y, (double)z - origin_z)));
+
+		do
+		{
+			if (run >= width || run >= height && !distances.isEmpty())
+			{
+				for (int i = 1; i < run; i++)
+				{
+					x++;
+					for (y = min_y; y <= max_y; y++)
+						if (a(x, y, z) == block_id)
+							distances.add(Float.valueOf(getDistanceFromDeltas((double)x - origin_x, (double)y - origin_y, (double)z - origin_z)));
+
+				}
+
+				if (distances.isEmpty())
+					return -1D;
+				double least_distance = ((Float)distances.get(0)).floatValue();
+				for (int i = 1; i < distances.size(); i++)
+					if ((double)((Float)distances.get(i)).floatValue() < least_distance)
+						least_distance = ((Float)distances.get(i)).floatValue();
+
+				return least_distance;
+			}
+			for (int i = 1; i <= run; i++)
+			{
+				x++;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						distances.add(Float.valueOf(getDistanceFromDeltas((double)x - origin_x, (double)y - origin_y, (double)z - origin_z)));
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z++;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						distances.add(Float.valueOf(getDistanceFromDeltas((double)x - origin_x, (double)y - origin_y, (double)z - origin_z)));
+
+			}
+
+			run++;
+			for (int i = 1; i <= run; i++)
+			{
+				x--;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						distances.add(Float.valueOf(getDistanceFromDeltas((double)x - origin_x, (double)y - origin_y, (double)z - origin_z)));
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z--;
+				for (y = min_y; y <= max_y; y++)
+					if (a(x, y, z) == block_id)
+						distances.add(Float.valueOf(getDistanceFromDeltas((double)x - origin_x, (double)y - origin_y, (double)z - origin_z)));
+
+			}
+
+			run++;
+		} while (true);
+	}
+
+	private int getNearestCandidateIndex(double candidate_distance_sq[], int num_candidates)
+	{
+		int nearest_candidate_index = 0;
+		double nearest_candidate_distance_sq = candidate_distance_sq[nearest_candidate_index];
+		for (int candidate_index = 1; candidate_index < num_candidates; candidate_index++)
+			if (candidate_distance_sq[candidate_index] < nearest_candidate_distance_sq)
+			{
+				nearest_candidate_index = candidate_index;
+				nearest_candidate_distance_sq = candidate_distance_sq[candidate_index];
+			}
+
+		return nearest_candidate_index;
+	}
+
+	public boolean nearestBlockCoords(double origin_x, double origin_y, double origin_z, int horizontal_radius, 
+			int vertical_radius, int block_id, int block_coords[])
+	{
+		return nearestBlockCoords((float)origin_x, (float)origin_y, (float)origin_z, horizontal_radius, vertical_radius, block_id, block_coords);
+	}
+
+	public boolean nearestBlockCoords(float origin_x, float origin_y, float origin_z, int horizontal_radius, int vertical_radius, int block_id, int block_coords[])
+	{
+		int x = ls.c(origin_x);
+		int y = ls.c(origin_y);
+		int z = ls.c(origin_z);
+		origin_x -= 0.5F;
+		origin_y -= 0.5F;
+		origin_z -= 0.5F;
+		int width = horizontal_radius * 2 + 1;
+		int height = vertical_radius * 2 + 1;
+		int run = 1;
+		int min_y = y - vertical_radius;
+		int max_y = y + vertical_radius;
+		int max_candidates = 64;
+		int candidate_x[] = new int[max_candidates];
+		int candidate_y[] = new int[max_candidates];
+		int candidate_z[] = new int[max_candidates];
+		double candidate_distance_sq[] = new double[max_candidates];
+		int next_candidate_index = 0;
+		for (y = min_y; y <= max_y; y++)
+		{
+			if (a(x, y, z) != block_id)
+				continue;
+			candidate_x[next_candidate_index] = x;
+			candidate_y[next_candidate_index] = y;
+			candidate_z[next_candidate_index] = z;
+			candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+			if (++next_candidate_index == max_candidates)
+			{
+				int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, max_candidates);
+				block_coords[0] = candidate_x[nearest_candidate_index];
+				block_coords[1] = candidate_y[nearest_candidate_index];
+				block_coords[2] = candidate_z[nearest_candidate_index];
+				return true;
+			}
+		}
+
+		do
+		{
+			if (run >= width || run >= height && next_candidate_index > 0)
+			{
+				for (int i = 1; i < run; i++)
+				{
+					x++;
+					for (y = min_y; y <= max_y; y++)
+					{
+						if (a(x, y, z) != block_id)
+							continue;
+						candidate_x[next_candidate_index] = x;
+						candidate_y[next_candidate_index] = y;
+						candidate_z[next_candidate_index] = z;
+						candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+						if (++next_candidate_index == max_candidates)
+						{
+							int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, max_candidates);
+							block_coords[0] = candidate_x[nearest_candidate_index];
+							block_coords[1] = candidate_y[nearest_candidate_index];
+							block_coords[2] = candidate_z[nearest_candidate_index];
+							return true;
+						}
+					}
+
+				}
+
+				if (next_candidate_index == 0)
+				{
+					return false;
+				} else
+				{
+					int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, next_candidate_index);
+					block_coords[0] = candidate_x[nearest_candidate_index];
+					block_coords[1] = candidate_y[nearest_candidate_index];
+					block_coords[2] = candidate_z[nearest_candidate_index];
+					return true;
+				}
+			}
+			for (int i = 1; i <= run; i++)
+			{
+				x++;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (a(x, y, z) != block_id)
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+					{
+						int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, max_candidates);
+						block_coords[0] = candidate_x[nearest_candidate_index];
+						block_coords[1] = candidate_y[nearest_candidate_index];
+						block_coords[2] = candidate_z[nearest_candidate_index];
+						return true;
+					}
+				}
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z++;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (a(x, y, z) != block_id)
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+					{
+						int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, max_candidates);
+						block_coords[0] = candidate_x[nearest_candidate_index];
+						block_coords[1] = candidate_y[nearest_candidate_index];
+						block_coords[2] = candidate_z[nearest_candidate_index];
+						return true;
+					}
+				}
+
+			}
+
+			run++;
+			for (int i = 1; i <= run; i++)
+			{
+				x--;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (a(x, y, z) != block_id)
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+					{
+						int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, max_candidates);
+						block_coords[0] = candidate_x[nearest_candidate_index];
+						block_coords[1] = candidate_y[nearest_candidate_index];
+						block_coords[2] = candidate_z[nearest_candidate_index];
+						return true;
+					}
+				}
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z--;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (a(x, y, z) != block_id)
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+					{
+						int nearest_candidate_index = getNearestCandidateIndex(candidate_distance_sq, max_candidates);
+						block_coords[0] = candidate_x[nearest_candidate_index];
+						block_coords[1] = candidate_y[nearest_candidate_index];
+						block_coords[2] = candidate_z[nearest_candidate_index];
+						return true;
+					}
+				}
+
+			}
+
+			run++;
+		} while (true);
+	}
+
+	private boolean intArrayContains(int array[], int value)
+	{
+		for (int len = array.length; --len >= 0;)
+			if (array[len] == value)
+				return true;
+
+		return false;
+	}
+
+	public int getNearestBlockCandidates(double origin_x, double origin_y, double origin_z, int horizontal_radius, 
+			int vertical_radius, int max_candidates, int block_ids[], int candidate_x[], int candidate_y[], int candidate_z[], double candidate_distance_sq[])
+	{
+		return getNearestBlockCandidates((float)origin_x, (float)origin_y, (float)origin_z, horizontal_radius, vertical_radius, max_candidates, block_ids, candidate_x, candidate_y, candidate_z, candidate_distance_sq);
+	}
+
+	public int getNearestBlockCandidates(float origin_x, float origin_y, float origin_z, int horizontal_radius, int vertical_radius, int max_candidates, int block_ids[], 
+			int candidate_x[], int candidate_y[], int candidate_z[], double candidate_distance_sq[])
+	{
+		int x = ls.c(origin_x);
+		int y = ls.c(origin_y);
+		int z = ls.c(origin_z);
+		origin_x -= 0.5F;
+		origin_y -= 0.5F;
+		origin_z -= 0.5F;
+		int width = horizontal_radius * 2 + 1;
+		int height = vertical_radius * 2 + 1;
+		int run = 1;
+		int min_y = y - vertical_radius;
+		int max_y = y + vertical_radius;
+		int next_candidate_index = 0;
+		for (y = min_y; y <= max_y; y++)
+		{
+			if (!intArrayContains(block_ids, a(x, y, z)))
+				continue;
+			candidate_x[next_candidate_index] = x;
+			candidate_y[next_candidate_index] = y;
+			candidate_z[next_candidate_index] = z;
+			candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+			if (++next_candidate_index == max_candidates)
+				return max_candidates;
+		}
+
+		do
+		{
+			if (run >= width)
+			{
+				for (int i = 1; i < run; i++)
+				{
+					x++;
+					for (y = min_y; y <= max_y; y++)
+					{
+						if (!intArrayContains(block_ids, a(x, y, z)))
+							continue;
+						candidate_x[next_candidate_index] = x;
+						candidate_y[next_candidate_index] = y;
+						candidate_z[next_candidate_index] = z;
+						candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+						if (++next_candidate_index == max_candidates)
+							return max_candidates;
+					}
+
+				}
+
+				return next_candidate_index;
+			}
+			for (int i = 1; i <= run; i++)
+			{
+				x++;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (!intArrayContains(block_ids, a(x, y, z)))
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+						return max_candidates;
+				}
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z++;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (!intArrayContains(block_ids, a(x, y, z)))
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+						return max_candidates;
+				}
+
+			}
+
+			run++;
+			for (int i = 1; i <= run; i++)
+			{
+				x--;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (!intArrayContains(block_ids, a(x, y, z)))
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+						return max_candidates;
+				}
+
+			}
+
+			for (int i = 1; i <= run; i++)
+			{
+				z--;
+				for (y = min_y; y <= max_y; y++)
+				{
+					if (!intArrayContains(block_ids, a(x, y, z)))
+						continue;
+					candidate_x[next_candidate_index] = x;
+					candidate_y[next_candidate_index] = y;
+					candidate_z[next_candidate_index] = z;
+					candidate_distance_sq[next_candidate_index] = getDistanceSqFromDeltas((float)x - origin_x, (float)y - origin_y, (float)z - origin_z);
+					if (++next_candidate_index == max_candidates)
+						return max_candidates;
+				}
+
+			}
+
+			run++;
+		} while (true);
+	}
+
+	public final boolean c(int par1, int par2, int par3)
+	{
+		return a(par1, par2, par3) == 0;
+	}
+
+	public boolean d(int par1, int par2, int par3)
+	{
+		int var4 = a(par1, par2, par3);
+		return aqz.s[var4] != null && aqz.s[var4].t();
+	}
+
+	public int e(int par1, int par2, int par3)
+	{
+		int var4 = a(par1, par2, par3);
+		return aqz.s[var4] == null ? -1 : aqz.s[var4].d();
+	}
+
+	public boolean f(int par1, int par2, int par3)
+	{
+		return par2 < 0 || par2 >= 256 ? false : c(par1 >> 4, par3 >> 4);
+	}
+
+	public final boolean doChunksNearChunkExist(int par1, int par2, int par3, int par4, boolean include_empty_chunks)
+	{
+		return checkChunksExist(par1 - par4, par2 - par4, par3 - par4, par1 + par4, par2 + par4, par3 + par4, include_empty_chunks);
+	}
+
+	public final boolean b(int par1, int par2, int par3, int par4)
+	{
+		return doChunksNearChunkExist(par1, par2, par3, par4, true);
+	}
+
+	public final boolean checkChunksExist(int par1, int par2, int par3, int par4, int par5, int par6, boolean include_empty_chunks)
+	{
+		if (par5 >= 0 && par2 < 256)
+		{
+			par1 >>= 4;
+			par3 >>= 4;
+			par4 >>= 4;
+			par6 >>= 4;
+			if (include_empty_chunks)
+			{
+				for (int var7 = par1; var7 <= par4; var7++)
+				{
+					for (int var8 = par3; var8 <= par6; var8++)
+						if (!c(var7, var8))
+							return false;
+
+				}
+
+			} else
+			{
+				for (int var7 = par1; var7 <= par4; var7++)
+				{
+					for (int var8 = par3; var8 <= par6; var8++)
+					{
+						adr chunk = getChunkIfItExists(var7, var8);
+						if (chunk == null || chunk.g())
+							return false;
+					}
+
+				}
+
+			}
+			return true;
+		} else
+		{
+			Debug.setErrorMessage("checkChunksExist: got here");
+			return false;
+		}
+	}
+
+	public final boolean e(int par1, int par2, int par3, int par4, int par5, int par6)
+	{
+		return checkChunksExist(par1, par2, par3, par4, par5, par6, true);
+	}
+
+	protected final boolean c(int par1, int par2)
+	{
+		return v.a(par1, par2);
+	}
+
+	protected final boolean chunkExistsAndIsNotEmpty(int chunk_x, int chunk_z)
+	{
+		return v.a(chunk_x, chunk_z) && !e(chunk_x, chunk_z).g();
+	}
+
+	protected final boolean chunkExistsAndIsNotEmptyFromBlockCoords(int x, int z)
+	{
+		return chunkExistsAndIsNotEmpty(x >> 4, z >> 4);
+	}
+
+	public final boolean doesChunkAndAllNeighborsExist(int chunk_x, int chunk_z, int range, boolean include_empty_chunks)
+	{
+		if (!c(chunk_x, chunk_z))
+			return false;
+		adr chunk = e(chunk_x, chunk_z);
+		if (!include_empty_chunks && chunk.g())
+			return false;
+		else
+			return chunk.doAllNeighborsExist(range, false, include_empty_chunks);
+	}
+
+	public final adr getChunkIfItExists(int chunk_x, int chunk_z)
+	{
+		return v.getChunkIfItExists(chunk_x, chunk_z);
+	}
+
+	public final adr getChunkFromBlockCoordsIfItExists(int x, int z)
+	{
+		return getChunkIfItExists(x >> 4, z >> 4);
+	}
+
+	public final adr d(int par1, int par2)
+	{
+		return e(par1 >> 4, par2 >> 4);
+	}
+
+	public final adr e(int par1, int par2)
+	{
+		return v.d(par1, par2);
+	}
+
+	public final adr getChunkFromPosition(double pos_x, double pos_z)
+	{
+		return e(adr.getChunkCoordFromDouble(pos_x), adr.getChunkCoordFromDouble(pos_z));
+	}
+
+	public final boolean setBlockWithDefaultMetadata(int x, int y, int z, aqz block, int flags, boolean report_metadata_failure)
+	{
+		int metadata = block.getDefaultMetadata(this, x, y, z);
+		if (metadata < 0)
+		{
+			if (report_metadata_failure)
+				atv.setErrorMessage((new StringBuilder()).append("setBlockWithDefaultMetadata: unable to place ").append(block.A()).append(" at ").append(x).append(",").append(y).append(",").append(z).append(" because a valid default metadata could not be obtained").toString());
+			return false;
+		} else
+		{
+			boolean result = f(x, y, z, block.cF, metadata, flags);
+			return result;
+		}
+	}
+
+	public final boolean setBlockWithMetadataAdjustedForCoordBaseMode(int x, int y, int z, aqz block, int metadata_in_coord_base_mode_2, int flags, int coord_base_mode)
+	{
+		EnumDirection direction_facing_in_coord_base_mode_2 = block.getDirectionFacing(metadata_in_coord_base_mode_2);
+		int adjusted_metadata = direction_facing_in_coord_base_mode_2 != null ? block.getMetadataForDirectionFacing(metadata_in_coord_base_mode_2, direction_facing_in_coord_base_mode_2.adjustForCoordBaseMode(coord_base_mode), coord_base_mode) : metadata_in_coord_base_mode_2;
+		if (adjusted_metadata < 0)
+		{
+			atv.setErrorMessage((new StringBuilder()).append("setBlockWithMetadataAdjustedForCoordBaseMode: invalid adjusted metadata for ").append(block).append(" at ").append(x).append(",").append(y).append(",").append(z).toString());
+			return false;
+		} else
+		{
+			return f(x, y, z, block.cF, adjusted_metadata, flags);
+		}
+	}
+
+	public final boolean f(int par1, int par2, int par3, int par4, int par5, int par6)
+	{
+		if (isWithinBlockBounds(par1, par2, par3))
+		{
+			adr var7 = e(par1 >> 4, par3 >> 4);
+			if (var7.g())
+			{
+				Debug.setErrorMessage("setBlock: called for coords in empty chunk");
+				Debug.printStackTrace();
+				return false;
+			}
+			int block_id_before = var7.a(par1 & 0xf, par2, par3 & 0xf);
+			boolean var9 = var7.setBlockIDWithMetadata(par1 & 0xf, par2, par3 & 0xf, par4, par5, block_id_before);
+			if (aqz.u[par4] != aqz.u[block_id_before])
+				updateAllLightTypes(par1, par2, par3, var7);
+			else
+			if (aqz.w[par4] != aqz.w[block_id_before])
+				propagateBlocklight(par1, par2, par3, false, var7);
+			if (var9)
+			{
+				if ((par6 & 2) != 0 && (!I || (par6 & 4) == 0))
+					j(par1, par2, par3);
+				if (!I && (par6 & 1) != 0)
+				{
+					d(par1, par2, par3, block_id_before);
+					aqz var10 = aqz.s[par4];
+					if (var10 != null && var10.q_())
+						m(par1, par2, par3, par4);
+				}
+			}
+			return var9;
+		} else
+		{
+			return false;
+		}
+	}
+
+	public final akc g(int par1, int par2, int par3)
+	{
+		int var4 = a(par1, par2, par3);
+		return var4 != 0 ? aqz.s[var4].cU : akc.a;
+	}
+
+	public final akc getBlockMaterial(int block_id)
+	{
+		return block_id != 0 ? aqz.s[block_id].cU : akc.a;
+	}
+
+	public final int h(int x, int y, int z)
+	{
+		return isWithinBlockBounds(x, y, z) ? e(x >> 4, z >> 4).c(x & 0xf, y, z & 0xf) : 0;
+	}
+
+	public final boolean b(int par1, int par2, int par3, int par4, int par5)
+	{
+		if (isWithinBlockDomain(par1, par3))
+		{
+			if (par2 < 0)
+				return false;
+			if (par2 >= 256)
+				return false;
+			adr var6 = e(par1 >> 4, par3 >> 4);
+			int var7 = par1 & 0xf;
+			int var8 = par3 & 0xf;
+			boolean var9 = var6.b(var7, par2, var8, par4);
+			if (var9)
+			{
+				int var10 = var6.a(var7, par2, var8);
+				if ((par5 & 2) != 0 && (!I || (par5 & 4) == 0))
+					j(par1, par2, par3);
+				if (!I && (par5 & 1) != 0)
+				{
+					d(par1, par2, par3, var10);
+					aqz var11 = aqz.s[var10];
+					if (var11 != null && var11.q_())
+						m(par1, par2, par3, var10);
+				}
+			}
+			return var9;
+		} else
+		{
+			return false;
+		}
+	}
+
+	public final boolean i(int x, int y, int z)
+	{
+		return f(x, y, z, 0, 0, 3);
+	}
+
+	public final boolean setBlockToAir(int x, int y, int z, int flags)
+	{
+		return f(x, y, z, 0, 0, flags);
+	}
+
+	public boolean destroyBlock(BlockBreakInfo info, boolean drop_as_item)
+	{
+		return destroyBlock(info, drop_as_item, false);
+	}
+
+	public boolean destroyBlock(BlockBreakInfo info, boolean drop_as_item, boolean suppress_sound)
+	{
+		if (info.wasSilkHarvested())
+			atv.setErrorMessage("destroyBlock: not meant to handle silk harvesting");
+		int x = info.x;
+		int y = info.y;
+		int z = info.z;
+		int block_id = a(x, y, z);
+		if (block_id > 0)
+		{
+			if (block_id != info.block_id)
+			{
+				atv.setErrorMessage("destroyBlock: block mismatch");
+				return false;
+			}
+			int data = block_id + (info.getMetadata() << 12);
+			if (suppress_sound)
+				data |= bfl.SFX_2001_SUPPRESS_SOUND;
+			if (info.wasNotLegal())
+				data |= bfl.SFX_2001_WAS_NOT_LEGAL;
+			e(2001, x, y, z, data);
+			if (drop_as_item)
+			{
+				aqz block = aqz.getBlock(block_id);
+				block.dropBlockAsEntityItem(info);
+			}
+			return f(x, y, z, 0, 0, 3);
+		} else
+		{
+			return false;
+		}
+	}
+
+	public boolean destroyBlockWithoutDroppingItem(int x, int y, int z, EnumBlockFX fx)
+	{
+		aqz block = getBlock(x, y, z);
+		if (block == null)
+		{
+			Debug.setErrorMessage((new StringBuilder()).append("destroyBlockWithoutDroppingItem: no block found at ").append(StringHelper.getCoordsAsString(x, y, z)).toString());
+			return false;
+		}
+		if (block instanceof IBlockWithPartner)
+		{
+			IBlockWithPartner block_with_partner = (IBlockWithPartner)block;
+			int metadata = h(x, y, z);
+			if (block_with_partner.requiresPartner(metadata) && block_with_partner.isPartnerPresent(this, x, y, z))
+			{
+				int partner_x = x + block_with_partner.getPartnerOffsetX(metadata);
+				int partner_y = y + block_with_partner.getPartnerOffsetY(metadata);
+				int partner_z = z + block_with_partner.getPartnerOffsetZ(metadata);
+				if (fx != null)
+					blockFX(fx, partner_x, partner_y, partner_z);
+				if (block_with_partner.partnerDropsAsItem(metadata))
+					i(partner_x, partner_y, partner_z);
+			}
+		}
+		if (fx != null)
+			blockFX(fx, x, y, z);
+		return i(x, y, z);
+	}
+
+	public boolean destroyBlockWithoutDroppingItem(int x, int y, int z)
+	{
+		return destroyBlockWithoutDroppingItem(x, y, z, null);
+	}
+
+	public boolean c(int par1, int par2, int par3, int par4)
+	{
+		return f(par1, par2, par3, par4, 0, 3);
+	}
+
+	public void j(int par1, int par2, int par3)
+	{
+		for (int var4 = 0; var4 < u.size(); var4++)
+			((acb)u.get(var4)).a(par1, par2, par3);
+
+	}
+
+	public void d(int par1, int par2, int par3, int par4)
+	{
+		f(par1, par2, par3, par4);
+	}
+
+	public void g(int par1, int par2, int par3, int par4, int par5, int par6)
+	{
+		for (int var7 = 0; var7 < u.size(); var7++)
+			((acb)u.get(var7)).a(par1, par2, par3, par4, par5, par6);
+
+	}
+
+	public void f(int par1, int par2, int par3, int par4)
+	{
+		g(par1 - 1, par2, par3, par4);
+		g(par1 + 1, par2, par3, par4);
+		g(par1, par2 - 1, par3, par4);
+		g(par1, par2 + 1, par3, par4);
+		g(par1, par2, par3 - 1, par4);
+		g(par1, par2, par3 + 1, par4);
+	}
+
+	public void c(int par1, int par2, int par3, int par4, int par5)
+	{
+		if (par5 != 4)
+			g(par1 - 1, par2, par3, par4);
+		if (par5 != 5)
+			g(par1 + 1, par2, par3, par4);
+		if (par5 != 0)
+			g(par1, par2 - 1, par3, par4);
+		if (par5 != 1)
+			g(par1, par2 + 1, par3, par4);
+		if (par5 != 2)
+			g(par1, par2, par3 - 1, par4);
+		if (par5 != 3)
+			g(par1, par2, par3 + 1, par4);
+	}
+
+	public final void g(int par1, int par2, int par3, int par4)
+	{
+		if (!I)
+		{
+			int var5 = a(par1, par2, par3);
+			aqz var6 = aqz.s[var5];
+			if (var6 != null)
+				try
+				{
+					var6.onNeighborBlockChange(this, par1, par2, par3, par4);
+				}
+				catch (Throwable var13)
+				{
+					b var8 = b.a(var13, "Exception while updating neighbours");
+					m var9 = var8.a("Block being updated");
+					int var10;
+					try
+					{
+						var10 = h(par1, par2, par3);
+					}
+					catch (Throwable var12)
+					{
+						var10 = -1;
+					}
+					var9.a("Source block type", new abx(this, par4));
+					m.a(var9, par1, par2, par3, var5, var10);
+					throw new u(var8);
+				}
+		}
+	}
+
+	public boolean a(int par1, int par2, int par3, int i1)
+	{
+		return false;
+	}
+
+	public boolean l(int par1, int par2, int par3)
+	{
+		return e(par1 >> 4, par3 >> 4).d(par1 & 0xf, par2, par3 & 0xf);
+	}
+
+	public int m(int par1, int par2, int par3)
+	{
+		if (par2 < 0)
+			return 0;
+		if (par2 >= 256)
+			par2 = 255;
+		return e(par1 >> 4, par3 >> 4).c(par1 & 0xf, par2, par3 & 0xf, 0);
+	}
+
+	public final int n(int par1, int par2, int par3)
+	{
+		return b(par1, par2, par3, true);
+	}
+
+	public int b(int par1, int par2, int par3, boolean par4)
+	{
+		if (isWithinBlockDomain(par1, par3))
+		{
+			if (par4)
+			{
+				int var5 = a(par1, par2, par3);
+				if (aqz.x[var5])
+				{
+					aqz block = aqz.getBlock(var5);
+					int metadata = h(par1, par2, par3);
+					int brightness = 0;
+					for (int ordinal = 0; ordinal < 6; ordinal++)
+					{
+						EnumDirection direction = EnumDirection.get(ordinal);
+						if (!block.useNeighborBrightness(metadata, direction))
+							continue;
+						brightness = Math.max(brightness, b(par1 + direction.dx, par2 + direction.dy, par3 + direction.dz, false));
+						if (brightness > 14)
+							break;
+					}
+
+					return brightness;
+				}
+			}
+			if (par2 < 0)
+				return 0;
+			if (par2 >= 256)
+				par2 = 255;
+			adr var11 = e(par1 >> 4, par3 >> 4);
+			par1 &= 0xf;
+			par3 &= 0xf;
+			int blv;
+			if (ignore_rain_and_thunder_for_next_BLV)
+			{
+				blv = var11.c(par1, par2, par3, skylight_subtracted_ignoring_rain_and_thunder);
+				ignore_rain_and_thunder_for_next_BLV = false;
+			} else
+			{
+				blv = var11.c(par1, par2, par3, j);
+			}
+			return blv;
+		} else
+		{
+			return 15;
+		}
+	}
+
+	public int f(int par1, int par2)
+	{
+		if (isWithinBlockDomain(par1, par2))
+		{
+			if (!c(par1 >> 4, par2 >> 4))
+			{
+				return 0;
+			} else
+			{
+				adr var3 = e(par1 >> 4, par2 >> 4);
+				return var3.b(par1 & 0xf, par2 & 0xf);
+			}
+		} else
+		{
+			return 0;
+		}
+	}
+
+	public final int a(ach par1EnumSkyBlock, int par2, int par3, int par4)
+	{
+		if (t.g && par1EnumSkyBlock == ach.a)
+			return 0;
+		if (par3 < 0)
+			par3 = 0;
+		if (par3 >= 256)
+			return par1EnumSkyBlock.c;
+		if (isWithinBlockDomain(par2, par4))
+		{
+			int var5 = par2 >> 4;
+			int var6 = par4 >> 4;
+			if (!c(var5, var6))
+				return par1EnumSkyBlock.c;
+			int block_id = a(par2, par3, par4);
+			if (aqz.x[block_id])
+			{
+				aqz block = aqz.getBlock(block_id);
+				int metadata = h(par2, par3, par4);
+				int brightness = 0;
+				for (int ordinal = 0; ordinal < 6; ordinal++)
+				{
+					EnumDirection direction = EnumDirection.get(ordinal);
+					int x = par2 + direction.dx;
+					int z = par4 + direction.dz;
+					if (!block.useNeighborBrightness(metadata, direction) || !chunkExistsAndIsNotEmptyFromBlockCoords(x, z))
+						continue;
+					brightness = Math.max(brightness, b(par1EnumSkyBlock, x, par3 + direction.dy, z));
+					if (brightness > 14)
+						break;
+				}
+
+				return brightness;
+			} else
+			{
+				adr chunk = e(var5, var6);
+				return chunk.a(par1EnumSkyBlock, par2 & 0xf, par3, par4 & 0xf);
+			}
+		} else
+		{
+			return par1EnumSkyBlock.c;
+		}
+	}
+
+	public final int b(ach par1EnumSkyBlock, int par2, int par3, int par4)
+	{
+		if (par3 < 0)
+			par3 = 0;
+		else
+		if (par3 > 255)
+			par3 = 255;
+		if (isWithinBlockDomain(par2, par4))
+		{
+			int var5 = par2 >> 4;
+			int var6 = par4 >> 4;
+			if (!c(var5, var6))
+			{
+				return par1EnumSkyBlock.c;
+			} else
+			{
+				adr var7 = e(var5, var6);
+				return var7.a(par1EnumSkyBlock, par2 & 0xf, par3, par4 & 0xf);
+			}
+		} else
+		{
+			return par1EnumSkyBlock.c;
+		}
+	}
+
+	public final int getSavedSkylightValue(int par2, int par3, int par4)
+	{
+		if (!isWithinBlockDomain(par2, par4))
+		{
+			return 15;
+		} else
+		{
+			adr chunk = getChunkIfItExists(par2 >> 4, par4 >> 4);
+			return chunk != null ? chunk.getSavedSkylightValue(par2 & 0xf, par3 >= 0 ? par3 <= 255 ? par3 : 255 : 0, par4 & 0xf) : 15;
+		}
+	}
+
+	public final int getSavedBlocklightValue(int par2, int par3, int par4)
+	{
+		if (!isWithinBlockDomain(par2, par4))
+		{
+			return 0;
+		} else
+		{
+			adr chunk = getChunkIfItExists(par2 >> 4, par4 >> 4);
+			return chunk != null ? chunk.getSavedBlocklightValue(par2 & 0xf, par3 >= 0 ? par3 <= 255 ? par3 : 255 : 0, par4 & 0xf) : 0;
+		}
+	}
+
+	public final int getSavedLightValueMITE(ach par1EnumSkyBlock, int par2, int par3, int par4, adr chunk)
+	{
+		if (par3 < 0)
+			par3 = 0;
+		else
+		if (par3 > 255)
+			par3 = 255;
+		if (chunk.isWithinBlockDomain())
+			return chunk.getSavedLightValueForNonEmptyChunk(par1EnumSkyBlock, par2 & 0xf, par3, par4 & 0xf);
+		else
+			return par1EnumSkyBlock.c;
+	}
+
+	public final int getSavedSkylightValueMITE(int x, int y, int z, adr chunk)
+	{
+		return chunk.isWithinBlockDomain() ? chunk.getSavedSkylightValueForNonEmptyChunk(x & 0xf, y >= 0 ? y <= 255 ? y : 255 : 0, z & 0xf) : 15;
+	}
+
+	public final int getSavedBlocklightValueMITE(int x, int y, int z, adr chunk)
+	{
+		return chunk.isWithinBlockDomain() ? chunk.getSavedBlocklightValueForNonEmptyChunk(x & 0xf, y >= 0 ? y <= 255 ? y : 255 : 0, z & 0xf) : 0;
+	}
+
+	public void b(ach par1EnumSkyBlock, int par2, int par3, int par4, int par5)
+	{
+		if (isWithinBlockDomain(par2, par4) && par3 >= 0 && par3 < 256 && c(par2 >> 4, par4 >> 4))
+		{
+			adr var6 = e(par2 >> 4, par4 >> 4);
+			var6.a(par1EnumSkyBlock, par2 & 0xf, par3, par4 & 0xf, par5);
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).b(par2, par3, par4);
+
+		}
+	}
+
+	public void setSkylightValue(int par2, int par3, int par4, int par5)
+	{
+		if (isWithinBlockBounds(par2, par3, par4))
+		{
+			adr var6 = getChunkIfItExists(par2 >> 4, par4 >> 4);
+			if (var6 == null)
+				return;
+			var6.setSkylightValue(par2 & 0xf, par3, par4 & 0xf, par5);
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).b(par2, par3, par4);
+
+		}
+	}
+
+	public void setBlocklightValue(int par2, int par3, int par4, int par5)
+	{
+		if (isWithinBlockBounds(par2, par3, par4))
+		{
+			adr var6 = getChunkIfItExists(par2 >> 4, par4 >> 4);
+			if (var6 == null)
+				return;
+			var6.setBlocklightValue(par2 & 0xf, par3, par4 & 0xf, par5);
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).b(par2, par3, par4);
+
+		}
+	}
+
+	public void setLightValueMITE(ach par1EnumSkyBlock, int par2, int par3, int par4, int par5, adr chunk)
+	{
+		if (isWithinBlockDomain(par2, par4) && par3 >= 0 && par3 < 256)
+		{
+			chunk.a(par1EnumSkyBlock, par2 & 0xf, par3, par4 & 0xf, par5);
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).b(par2, par3, par4);
+
+		}
+	}
+
+	public void setSkylightValueMITE(int par2, int par3, int par4, int par5, adr chunk)
+	{
+		if (isWithinBlockBounds(par2, par3, par4))
+		{
+			chunk.setSkylightValue(par2 & 0xf, par3, par4 & 0xf, par5);
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).b(par2, par3, par4);
+
+		}
+	}
+
+	public void setBlocklightValueMITE(int par2, int par3, int par4, int par5, adr chunk)
+	{
+		if (isWithinBlockBounds(par2, par3, par4))
+		{
+			chunk.setBlocklightValue(par2 & 0xf, par3, par4 & 0xf, par5);
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).b(par2, par3, par4);
+
+		}
+	}
+
+	public void p(int par1, int par2, int par3)
+	{
+		for (int var4 = 0; var4 < u.size(); var4++)
+			((acb)u.get(var4)).b(par1, par2, par3);
+
+	}
+
+	public final int h(int par1, int par2, int par3, int par4)
+	{
+		int var5 = a(ach.a, par1, par2, par3);
+		int var6 = a(ach.b, par1, par2, par3);
+		if (var6 < par4)
+			var6 = par4;
+		return var5 << 20 | var6 << 4;
+	}
+
+	public float i(int par1, int par2, int par3, int par4)
+	{
+		int var5 = n(par1, par2, par3);
+		if (var5 < par4)
+			var5 = par4;
+		return t.h[var5];
+	}
+
+	public float q(int par1, int par2, int par3)
+	{
+		return t.h[n(par1, par2, par3)];
+	}
+
+	public static final int getUnadjustedTimeOfDay(long unadjusted_tick)
+	{
+		return (int)(unadjusted_tick % 24000L);
+	}
+
+	public final int getTimeOfDay()
+	{
+		return x.getWorldTimeOfDay(getDimensionId());
+	}
+
+	public static final int getTimeOfSunrise()
+	{
+		return 5000;
+	}
+
+	public static final int getTimeOfSunset()
+	{
+		return 19000;
+	}
+
+	public static final int getHourOfLatestReconnection()
+	{
+		return getTimeOfSleeping() / 1000 - 1;
+	}
+
+	public static final int getTimeOfSleeping()
+	{
+		return 21000;
+	}
+
+	public int getAdjustedTimeOfDay()
+	{
+		return getAdjustedTimeOfDay(getTimeOfDay());
+	}
+
+	public static int getAdjustedTimeOfDay(int unadjusted_time_of_day)
+	{
+		return (unadjusted_time_of_day + 6000) % 24000;
+	}
+
+	public int getTimeTillSunrise()
+	{
+		int time_of_day = getAdjustedTimeOfDay();
+		if (time_of_day < getTimeOfSunrise())
+			return getTimeOfSunrise() - time_of_day;
+		else
+			return (getTimeOfSunrise() - time_of_day) + 24000;
+	}
+
+	public static boolean isDaytime(long unadjusted_tick)
+	{
+		long time_of_day = getAdjustedTimeOfDay(getUnadjustedTimeOfDay(unadjusted_tick));
+		return time_of_day > (long)getTimeOfSunrise() && time_of_day < (long)getTimeOfSunset();
+	}
+
+	public boolean v()
+	{
+		long time_of_day = getAdjustedTimeOfDay();
+		return time_of_day > (long)getTimeOfSunrise() && time_of_day < (long)getTimeOfSunset();
+	}
+
+	public final RaycastCollision tryRaycastVsBlocks(Raycast raycast)
+	{
+label0:
+		{
+			boolean hit_liquids = !raycast.alwaysIgnoreLiquids();
+			boolean par4 = raycast.getOriginator() instanceof uh;
+			raycast.clearImpedance();
+			atc par1Vec3 = raycast.getOrigin().copy();
+			atc par2Vec3 = raycast.getLimit().copy();
+			if (Double.isNaN(par1Vec3.c) || Double.isNaN(par1Vec3.d) || Double.isNaN(par1Vec3.e) || Double.isNaN(par2Vec3.c) || Double.isNaN(par2Vec3.d) || Double.isNaN(par2Vec3.e))
+				break label0;
+			int var5 = ls.c(par2Vec3.c);
+			int var6 = ls.c(par2Vec3.d);
+			int var7 = ls.c(par2Vec3.e);
+			int var8 = ls.c(par1Vec3.c);
+			int var9 = ls.c(par1Vec3.d);
+			int var10 = ls.c(par1Vec3.e);
+			int var11 = a(var8, var9, var10);
+			if (var11 > 0)
+			{
+				aqz var13 = aqz.s[var11];
+				if (var13.a(h(var8, var9, var10), hit_liquids))
+				{
+					RaycastCollision var14 = var13.tryRaycastVsBlock(raycast, var8, var9, var10, par1Vec3, par2Vec3);
+					if (var14 != null)
+						return var14;
+				}
+			}
+			var11 = 200;
+			RaycastCollision var38;
+			do
+			{
+				aqz var37;
+				do
+				{
+					int var35;
+					do
+					{
+						if (var11-- < 0)
+							break label0;
+						if (Double.isNaN(par1Vec3.c) || Double.isNaN(par1Vec3.d) || Double.isNaN(par1Vec3.e))
+							return null;
+						if (var8 == var5 && var9 == var6 && var10 == var7)
+							return null;
+						boolean var39 = true;
+						boolean var40 = true;
+						boolean var41 = true;
+						double var15 = 999D;
+						double var17 = 999D;
+						double var19 = 999D;
+						if (var5 > var8)
+							var15 = (double)var8 + 1.0D;
+						else
+						if (var5 < var8)
+							var15 = (double)var8 + 0.0D;
+						else
+							var39 = false;
+						if (var6 > var9)
+							var17 = (double)var9 + 1.0D;
+						else
+						if (var6 < var9)
+							var17 = (double)var9 + 0.0D;
+						else
+							var40 = false;
+						if (var7 > var10)
+							var19 = (double)var10 + 1.0D;
+						else
+						if (var7 < var10)
+							var19 = (double)var10 + 0.0D;
+						else
+							var41 = false;
+						double var21 = 999D;
+						double var23 = 999D;
+						double var25 = 999D;
+						double var27 = par2Vec3.c - par1Vec3.c;
+						double var29 = par2Vec3.d - par1Vec3.d;
+						double var31 = par2Vec3.e - par1Vec3.e;
+						if (var39)
+							var21 = (var15 - par1Vec3.c) / var27;
+						if (var40)
+							var23 = (var17 - par1Vec3.d) / var29;
+						if (var41)
+							var25 = (var19 - par1Vec3.e) / var31;
+						boolean var33 = false;
+						byte var42;
+						if (var21 < var23 && var21 < var25)
+						{
+							if (var5 > var8)
+								var42 = 4;
+							else
+								var42 = 5;
+							par1Vec3.c = var15;
+							par1Vec3.d += var29 * var21;
+							par1Vec3.e += var31 * var21;
+						} else
+						if (var23 < var25)
+						{
+							if (var6 > var9)
+								var42 = 0;
+							else
+								var42 = 1;
+							par1Vec3.c += var27 * var23;
+							par1Vec3.d = var17;
+							par1Vec3.e += var31 * var23;
+						} else
+						{
+							if (var7 > var10)
+								var42 = 2;
+							else
+								var42 = 3;
+							par1Vec3.c += var27 * var25;
+							par1Vec3.d += var29 * var25;
+							par1Vec3.e = var19;
+						}
+						atc var34 = V().a(par1Vec3.c, par1Vec3.d, par1Vec3.e);
+						var8 = (int)(var34.c = ls.c(par1Vec3.c));
+						if (var42 == 5)
+						{
+							var8--;
+							var34.c++;
+						}
+						var9 = (int)(var34.d = ls.c(par1Vec3.d));
+						if (var42 == 1)
+						{
+							var9--;
+							var34.d++;
+						}
+						var10 = (int)(var34.e = ls.c(par1Vec3.e));
+						if (var42 == 3)
+						{
+							var10--;
+							var34.e++;
+						}
+						var35 = a(var8, var9, var10);
+					} while (var35 <= 0);
+					var37 = aqz.s[var35];
+				} while (!var37.a(h(var8, var9, var10), hit_liquids));
+				var38 = var37.tryRaycastVsBlock(raycast, var8, var9, var10, par1Vec3, par2Vec3);
+			} while (var38 == null);
+			return var38;
+		}
+		return null;
+	}
+
+	public void playSoundAtBlock(int x, int y, int z, String name, float volume, float pitch)
+	{
+		if (I)
+		{
+			atv.setErrorMessage("playSoundAtBlock: only meant to be called on server");
+			return;
+		}
+		if (name == null)
+			return;
+		for (int i = 0; i < u.size(); i++)
+			((acb)u.get(i)).a(name, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, volume, pitch);
+
+	}
+
+	public void playSoundAtBlock(int x, int y, int z, String name, float volume)
+	{
+		playSoundAtBlock(x, y, z, name, volume, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F);
+	}
+
+	public void playSoundAtEntity(nn par1Entity, String par2Str)
+	{
+		a(par1Entity, par2Str, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F);
+	}
+
+	public void playSoundAtEntity(nn par1Entity, String par2Str, float par3)
+	{
+		a(par1Entity, par2Str, par3, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F);
+	}
+
+	public void a(nn par1Entity, String par2Str, float par3, float par4)
+	{
+		if (par1Entity != null && par2Str != null)
+		{
+			if (par1Entity.isZevimrgvInTournament())
+				return;
+			for (int var5 = 0; var5 < u.size(); var5++)
+				((acb)u.get(var5)).a(par2Str, par1Entity.u, par1Entity.v - (double)par1Entity.N, par1Entity.w, par3, par4);
+
+		}
+	}
+
+	public void playLongDistanceSoundAtEntity(nn par1Entity, String par2Str, float par3, float par4)
+	{
+		if (par1Entity != null && par2Str != null)
+		{
+			for (int var5 = 0; var5 < u.size(); var5++)
+				((acb)u.get(var5)).playLongDistanceSound(par2Str, par1Entity.u, par1Entity.v - (double)par1Entity.N, par1Entity.w, par3, par4);
+
+		}
+	}
+
+	public void a(uf par1EntityPlayer, String par2Str, float par3, float par4)
+	{
+		if (par1EntityPlayer != null && par2Str != null)
+		{
+			for (int var5 = 0; var5 < u.size(); var5++)
+				((acb)u.get(var5)).a(par1EntityPlayer, par2Str, par1EntityPlayer.u, par1EntityPlayer.v - (double)par1EntityPlayer.N, par1EntityPlayer.w, par3, par4);
+
+		}
+	}
+
+	public void playSoundEffect(double par1, double par3, double par5, String par7Str)
+	{
+		a(par1, par3, par5, par7Str, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F);
+	}
+
+	public void playSoundEffect(double par1, double par3, double par5, String par7Str, 
+			float par8)
+	{
+		a(par1, par3, par5, par7Str, par8, 0.9F + (s.nextFloat() + s.nextFloat()) / 10F);
+	}
+
+	public void a(double par1, double par3, double par5, String par7Str, 
+			float par8, float par9)
+	{
+		if (par7Str != null)
+		{
+			for (int var10 = 0; var10 < u.size(); var10++)
+				((acb)u.get(var10)).a(par7Str, par1, par3, par5, par8, par9);
+
+		}
+	}
+
+	public void a(double d1, double d2, double d3, String s1, 
+			float f1, float f2, boolean flag)
+	{
+	}
+
+	public void a(String par1Str, int par2, int par3, int par4)
+	{
+		for (int var5 = 0; var5 < u.size(); var5++)
+			((acb)u.get(var5)).a(par1Str, par2, par3, par4);
+
+	}
+
+	public void spawnParticle(EnumParticle enum_particle, double par2, double par4, double par6, 
+			double par8, double par10, double par12)
+	{
+		if (!isWithinEntityDomain(par2, par6))
+			return;
+		for (int var14 = 0; var14 < u.size(); var14++)
+			((acb)u.get(var14)).spawnParticle(enum_particle, par2, par4, par6, par8, par10, par12);
+
+	}
+
+	public void spawnParticleEx(EnumParticle enum_particle, int index, int data, double par2, double par4, 
+			double par6, double par8, double par10, double par12)
+	{
+		if (!isWithinEntityDomain(par2, par6))
+			return;
+		for (int var14 = 0; var14 < u.size(); var14++)
+			((acb)u.get(var14)).spawnParticleEx(enum_particle, index, data, par2, par4, par6, par8, par10, par12);
+
+	}
+
+	public boolean c(nn par1Entity)
+	{
+		i.add(par1Entity);
+		return true;
+	}
+
+	public boolean d(nn par1Entity)
+	{
+		int var2 = ls.c(par1Entity.u / 16D);
+		int var3 = ls.c(par1Entity.w / 16D);
+		boolean var4 = par1Entity.p;
+		if (par1Entity instanceof uf)
+			var4 = true;
+		if (!var4 && (!c(var2, var3) || !isWithinEntityDomain(par1Entity.u, par1Entity.w)))
+			return false;
+		if (par1Entity instanceof uf)
+		{
+			uf var5 = (uf)par1Entity;
+			h.add(var5);
+		}
+		e(var2, var3).a(par1Entity);
+		e.add(par1Entity);
+		a(par1Entity);
+		par1Entity.spawn_x = ls.c(par1Entity.u);
+		par1Entity.spawn_y = ls.c(par1Entity.v);
+		par1Entity.spawn_z = ls.c(par1Entity.w);
+		par1Entity.onSpawned();
+		return true;
+	}
+
+	protected void a(nn par1Entity)
+	{
+		for (int var2 = 0; var2 < u.size(); var2++)
+			((acb)u.get(var2)).a(par1Entity);
+
+	}
+
+	protected void b(nn par1Entity)
+	{
+		for (int var2 = 0; var2 < u.size(); var2++)
+			((acb)u.get(var2)).b(par1Entity);
+
+	}
+
+	public void e(nn par1Entity)
+	{
+		if (par1Entity.n != null)
+			par1Entity.n.a((nn)null);
+		if (par1Entity.o != null)
+			par1Entity.a((nn)null);
+		par1Entity.x();
+		if (par1Entity instanceof uf)
+			h.remove(par1Entity);
+	}
+
+	public void f(nn par1Entity)
+	{
+		par1Entity.x();
+		if (par1Entity instanceof uf)
+			h.remove(par1Entity);
+		if (par1Entity.isAddedToAChunk())
+		{
+			adr chunk = par1Entity.getChunkAddedTo();
+			if (c(chunk.g, chunk.h))
+				par1Entity.removeFromChunk();
+		}
+		e.remove(par1Entity);
+		b(par1Entity);
+	}
+
+	public void a(acb par1IWorldAccess)
+	{
+		u.add(par1IWorldAccess);
+	}
+
+	public void b(acb par1IWorldAccess)
+	{
+		u.remove(par1IWorldAccess);
+	}
+
+	public final List a(nn par1Entity, asx par2AxisAlignedBB)
+	{
+		getCollidingBlockBounds(par2AxisAlignedBB, par1Entity);
+		if ((par1Entity instanceof uf) && par1Entity.getAsPlayer().tentative_bounding_boxes.size() > 0)
+		{
+			Iterator i = par1Entity.getAsPlayer().tentative_bounding_boxes.iterator();
+			do
+			{
+				if (!i.hasNext())
+					break;
+				TentativeBoundingBox tbb = (TentativeBoundingBox)i.next();
+				if (par2AxisAlignedBB.b(tbb.bb))
+					M.add(tbb.bb);
+			} while (true);
+		}
+		if (par1Entity.isEntityPlayer() && (par1Entity.getAsPlayer().isGhost() || par1Entity.isZevimrgvInTournament()))
+			return M;
+		double var14 = 0.25D;
+		List var16 = b(par1Entity, par2AxisAlignedBB.b(var14, var14, var14));
+		for (int var15 = 0; var15 < var16.size(); var15++)
+		{
+			nn entity = (nn)var16.get(var15);
+			if ((entity instanceof uf) && (((uf)entity).isGhost() || entity.isZevimrgvInTournament()))
+				continue;
+			asx var13 = entity.E();
+			if (var13 != null && var13.b(par2AxisAlignedBB))
+				M.add(var13);
+			var13 = par1Entity.g((nn)var16.get(var15));
+			if (var13 != null && var13.b(par2AxisAlignedBB))
+				M.add(var13);
+		}
+
+		return M;
+	}
+
+	public final List getCollidingBlockBounds(asx bounding_box, nn entity)
+	{
+		M.clear();
+		int min_x = bounding_box.getBlockCoordForMinX();
+		int max_x = bounding_box.getBlockCoordForMaxX();
+		int min_y = bounding_box.getBlockCoordForMinY();
+		int max_y = bounding_box.getBlockCoordForMaxY();
+		int min_z = bounding_box.getBlockCoordForMinZ();
+		int max_z = bounding_box.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int z = min_z; z <= max_z; z++)
+			{
+				if (!f(x, 64, z))
+					continue;
+				for (int y = min_y - 1; y <= max_y; y++)
+				{
+					aqz block = getBlock(x, y, z);
+					if (block != null)
+						block.addCollidingBoundsToList(this, x, y, z, bounding_box, M, entity);
+				}
+
+			}
+
+		}
+
+		return M;
+	}
+
+	public final BlockInfo getHighestCollidingBlockClosestTo(asx bounding_box, nn entity, double pos_x, double pos_z)
+	{
+		BlockInfo info = null;
+		double highest_max_y = 0.0D;
+		double shortest_distance_sq = 0.0D;
+		int min_x = bounding_box.getBlockCoordForMinX();
+		int max_x = bounding_box.getBlockCoordForMaxX();
+		int min_y = bounding_box.getBlockCoordForMinY();
+		int max_y = bounding_box.getBlockCoordForMaxY();
+		int min_z = bounding_box.getBlockCoordForMinZ();
+		int max_z = bounding_box.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int z = min_z; z <= max_z; z++)
+			{
+				if (!f(x, 64, z))
+					continue;
+label0:
+				for (int y = min_y - 1; y <= max_y; y++)
+				{
+					aqz block = getBlock(x, y, z);
+					if (block == null)
+						continue;
+					M.clear();
+					block.addCollidingBoundsToList(this, x, y, z, bounding_box, M, entity);
+					Iterator i = M.iterator();
+					do
+					{
+						if (!i.hasNext())
+							continue label0;
+						asx bb = (asx)i.next();
+						if (info == null || bb.e > highest_max_y)
+						{
+							info = new BlockInfo(block, x, y, z);
+							highest_max_y = bb.e;
+							double dx = ((double)x + 0.5D) - pos_x;
+							double dz = ((double)z + 0.5D) - pos_z;
+							shortest_distance_sq = dx * dx + dz * dz;
+						} else
+						if (bb.e == highest_max_y)
+						{
+							double dx = ((double)x + 0.5D) - pos_x;
+							double dz = ((double)z + 0.5D) - pos_z;
+							double distance_sq = dx * dx + dz * dz;
+							if (distance_sq < shortest_distance_sq)
+							{
+								info = new BlockInfo(block, x, y, z);
+								shortest_distance_sq = distance_sq;
+							}
+						}
+					} while (true);
+				}
+
+			}
+
+		}
+
+		return info;
+	}
+
+	public boolean isInsideSolidBlock(double pos_x, double pos_y, double pos_z)
+	{
+		int x = ls.c(pos_x);
+		int y = ls.c(pos_y);
+		int z = ls.c(pos_z);
+		int block_id = a(x, y, z);
+		if (block_id == 0)
+			return false;
+		aqz block = aqz.getBlock(block_id);
+		if (block.is_always_solid_standard_form_cube)
+			return true;
+		if (block.isNeverSolid())
+			return false;
+		if (isBlockSolid(block, x, y, z))
+		{
+			block.setBlockBoundsBasedOnStateAndNeighbors(this, x, y, z);
+			int index = atv.getThreadIndex();
+			pos_x -= x;
+			pos_y -= y;
+			pos_z -= z;
+			if (pos_x < block.cM[index] || pos_x >= block.cP[index])
+				return false;
+			if (pos_y < block.cN[index] || pos_y >= block.cQ[index])
+				return false;
+			return pos_z >= block.cO[index] && pos_z < block.cR[index];
+		} else
+		{
+			return false;
+		}
+	}
+
+	public int a(float par1)
+	{
+		float var2 = c(par1);
+		float var3 = 1.0F - (ls.b(var2 * 3.141593F * 2.0F) * 2.0F + 0.5F);
+		if (var3 < 0.0F)
+			var3 = 0.0F;
+		if (var3 > 1.0F)
+			var3 = 1.0F;
+		skylight_subtracted_ignoring_rain_and_thunder = (int)(var3 * 11F);
+		var3 = 1.0F - var3;
+		var3 = (float)((double)var3 * (1.0D - (double)(i(par1) * 5F) / 16D));
+		var3 = (float)((double)var3 * (1.0D - (double)(h(par1) * 5F) / 16D));
+		var3 = 1.0F - var3;
+		return (int)(var3 * 11F);
+	}
+
+	public float b(float par1)
+	{
+		float var2 = c(par1);
+		float var3 = 1.0F - (ls.b(var2 * 3.141593F * 2.0F) * 2.0F + 0.2F);
+		if (var3 < 0.0F)
+			var3 = 0.0F;
+		if (var3 > 1.0F)
+			var3 = 1.0F;
+		var3 = 1.0F - var3;
+		var3 = (float)((double)var3 * (1.0D - (double)(i(par1) * 5F) / 16D));
+		var3 = (float)((double)var3 * (1.0D - (double)(h(par1) * 5F) / 16D));
+		return var3 * 0.8F + 0.2F;
+	}
+
+	public atc a(nn par1Entity, float par2)
+	{
+		float var3 = c(par2);
+		float var4 = ls.b(var3 * 3.141593F * 2.0F) * 2.0F + 0.5F;
+		if (var4 < 0.0F)
+			var4 = 0.0F;
+		if (var4 > 1.0F)
+			var4 = 1.0F;
+		int var5 = ls.c(par1Entity.u);
+		int var6 = ls.c(par1Entity.w);
+		acq var7 = a(var5, var6);
+		float var8 = var7.j();
+		if (Float.isNaN(biome_temperature_transition_for_sky_color))
+		{
+			biome_temperature_transition_for_sky_color = var8;
+		} else
+		{
+			float delta_temperature = var8 - biome_temperature_transition_for_sky_color;
+			if (delta_temperature < -0.005F)
+				biome_temperature_transition_for_sky_color -= 0.005F;
+			else
+			if (delta_temperature > 0.005F)
+				biome_temperature_transition_for_sky_color += 0.005F;
+			else
+				biome_temperature_transition_for_sky_color = var8;
+			var8 = biome_temperature_transition_for_sky_color;
+		}
+		int var9 = var7.a(var8);
+		float var10 = (float)(var9 >> 16 & 0xff) / 255F;
+		float var11 = (float)(var9 >> 8 & 0xff) / 255F;
+		float var12 = (float)(var9 & 0xff) / 255F;
+		var10 *= var4;
+		var11 *= var4;
+		var12 *= var4;
+		float var13 = i(par2);
+		float var14;
+		if (var13 > 0.0F)
+		{
+			var14 = (var10 * 0.3F + var11 * 0.59F + var12 * 0.11F) * 0.6F;
+			float var15 = 1.0F - var13 * 0.75F;
+			var10 = var10 * var15 + var14 * (1.0F - var15);
+			var11 = var11 * var15 + var14 * (1.0F - var15);
+			var12 = var12 * var15 + var14 * (1.0F - var15);
+		}
+		var14 = h(par2);
+		if (var14 > 0.0F)
+		{
+			float var15 = (var10 * 0.3F + var11 * 0.59F + var12 * 0.11F) * 0.2F;
+			float var16 = 1.0F - var14 * 0.75F;
+			var10 = var10 * var16 + var15 * (1.0F - var16);
+			var11 = var11 * var16 + var15 * (1.0F - var16);
+			var12 = var12 * var16 + var15 * (1.0F - var16);
+		}
+		if (q > 0)
+		{
+			float var15 = (float)q - par2;
+			if (var15 > 1.0F)
+				var15 = 1.0F;
+			float var10_before_flash = var10;
+			float var11_before_flash = var11;
+			float var12_before_flash = var12;
+			var15 *= 0.45F;
+			var10 = var10 * (1.0F - var15) + 0.8F * var15;
+			var11 = var11 * (1.0F - var15) + 0.8F * var15;
+			var12 = var12 * (1.0F - var15) + 1.0F * var15;
+			if (this == atv.O.f)
+			{
+				float raining_strength_for_render_view_entity = atv.O.raining_strength_for_render_view_entity;
+				float distance_factor = (float)Math.pow(raining_strength_for_render_view_entity, 4D);
+				var10 = var10 * distance_factor + var10_before_flash * (1.0F - distance_factor);
+				var11 = var11 * distance_factor + var11_before_flash * (1.0F - distance_factor);
+				var12 = var12 * distance_factor + var12_before_flash * (1.0F - distance_factor);
+			}
+		}
+		return V().a(var10, var11, var12);
+	}
+
+	public float c(float par1)
+	{
+		return t.a(getTimeOfDay(), par1);
+	}
+
+	public int w()
+	{
+		return t.a(I());
+	}
+
+	public float x()
+	{
+		return aei.a[t.a(I())];
+	}
+
+	public final float getMoonBrightness(float partial_tick, boolean include_weather)
+	{
+		float brightness;
+		if (isBloodMoon24HourPeriod())
+			brightness = 0.6F;
+		else
+		if (isHarvestMoon24HourPeriod())
+			brightness = 1.0F;
+		else
+		if (isBlueMoon24HourPeriod())
+			brightness = 1.1F;
+		else
+			brightness = x() * 0.5F + 0.75F;
+		if (include_weather && brightness > 0.75F)
+		{
+			float apparent_raining_strength = i(partial_tick);
+			if (apparent_raining_strength > 0.0F)
+				brightness = brightness * (1.0F - apparent_raining_strength) + 0.75F * apparent_raining_strength;
+		}
+		return brightness;
+	}
+
+	public final boolean isFullMoon()
+	{
+		return w() == 0;
+	}
+
+	public final boolean isNewMoon()
+	{
+		return w() == 4;
+	}
+
+	public final float getMoonAscensionFactor()
+	{
+		int time_of_day = getAdjustedTimeOfDay();
+		float factor;
+		if (time_of_day <= getTimeOfSunrise())
+			factor = 1.0F - (float)time_of_day / (float)getTimeOfSunrise();
+		else
+		if (time_of_day >= getTimeOfSunset())
+			factor = (float)(time_of_day - getTimeOfSunset()) / (float)(24000 - getTimeOfSunset());
+		else
+			factor = 0.0F;
+		if (factor < 0.0F || factor > 1.0F)
+			Debug.setErrorMessage((new StringBuilder()).append("getMoonAscensionFactor: value out of bounds ").append(factor).toString());
+		return factor;
+	}
+
+	public static final boolean isBloodMoon(long unadjusted_tick, boolean exclusively_at_night)
+	{
+		if (exclusively_at_night && isDaytime(unadjusted_tick))
+			return false;
+		else
+			return (unadjusted_tick / 24000L + 1L) % 32L == 0L && !isBlueMoon(unadjusted_tick, exclusively_at_night);
+	}
+
+	public final boolean isBloodMoon(boolean exclusively_at_night)
+	{
+		if (!isOverworld())
+			return false;
+		if (exclusively_at_night && v())
+			return false;
+		else
+			return (I() / 24000L + 1L) % 32L == 0L && !isBlueMoon(exclusively_at_night);
+	}
+
+	public static final boolean isBlueMoon(long unadjusted_tick, boolean exclusively_at_night)
+	{
+		if (exclusively_at_night && isDaytime(unadjusted_tick))
+			return false;
+		else
+			return (unadjusted_tick / 24000L + 1L) % 128L == 0L;
+	}
+
+	public final boolean isBlueMoon(boolean exclusively_at_night)
+	{
+		if (!isOverworld())
+			return false;
+		if (exclusively_at_night && v())
+			return false;
+		else
+			return (I() / 24000L + 1L) % 128L == 0L;
+	}
+
+	public static final boolean isHarvestMoon(long unadjusted_tick, boolean exclusively_at_night)
+	{
+		if (exclusively_at_night && isDaytime(unadjusted_tick))
+			return false;
+		else
+			return isBloodMoon(unadjusted_tick + 0x2ee00L, exclusively_at_night);
+	}
+
+	public final boolean isHarvestMoon(boolean exclusively_at_night)
+	{
+		return isHarvestMoon(I(), exclusively_at_night);
+	}
+
+	public static final boolean isMoonDog(long unadjusted_tick, boolean exclusively_at_night)
+	{
+		if (exclusively_at_night && isDaytime(unadjusted_tick))
+			return false;
+		else
+			return isBlueMoon(unadjusted_tick + 0x2ee00L, exclusively_at_night);
+	}
+
+	public final boolean isMoonDog(boolean exclusively_at_night)
+	{
+		return isMoonDog(I(), exclusively_at_night);
+	}
+
+	public float d(float par1)
+	{
+		float var2 = c(par1);
+		return var2 * 3.141593F * 2.0F;
+	}
+
+	public atc e(float par1)
+	{
+		float var2 = c(par1);
+		float var3 = ls.b(var2 * 3.141593F * 2.0F) * 2.0F + 0.5F;
+		if (var3 < 0.0F)
+			var3 = 0.0F;
+		if (var3 > 1.0F)
+			var3 = 1.0F;
+		float var4 = (float)(c >> 16 & 255L) / 255F;
+		float var5 = (float)(c >> 8 & 255L) / 255F;
+		float var6 = (float)(c & 255L) / 255F;
+		float var7 = i(par1);
+		float var8;
+		if (var7 > 0.0F)
+		{
+			var8 = (var4 * 0.3F + var5 * 0.59F + var6 * 0.11F) * 0.6F;
+			float var9 = 1.0F - var7 * 0.95F;
+			var4 = var4 * var9 + var8 * (1.0F - var9);
+			var5 = var5 * var9 + var8 * (1.0F - var9);
+			var6 = var6 * var9 + var8 * (1.0F - var9);
+		}
+		var4 *= var3 * 0.9F + 0.1F;
+		var5 *= var3 * 0.9F + 0.1F;
+		var6 *= var3 * 0.85F + 0.15F;
+		var8 = h(par1);
+		if (var8 > 0.0F)
+		{
+			float var9 = (var4 * 0.3F + var5 * 0.59F + var6 * 0.11F) * 0.2F;
+			float var10 = 1.0F - var8 * 0.95F;
+			var4 = var4 * var10 + var9 * (1.0F - var10);
+			var5 = var5 * var10 + var9 * (1.0F - var10);
+			var6 = var6 * var10 + var9 * (1.0F - var10);
+		}
+		return V().a(var4, var5, var6);
+	}
+
+	public final atc getFogColor(float par1, of viewer)
+	{
+		float var2 = c(par1);
+		return t.getFogColor(var2, par1, viewer);
+	}
+
+	public int h(int par1, int par2)
+	{
+		return d(par1, par2).d(par1 & 0xf, par2 & 0xf);
+	}
+
+	public int i(int par1, int par2)
+	{
+		int x = par1;
+		int z = par2;
+		adr var3 = d(par1, par2);
+		int var4 = var3.h() + 15;
+		par1 &= 0xf;
+		par2 &= 0xf;
+		for (; var4 > 0; var4--)
+		{
+			int var5 = var3.a(par1, var4, par2);
+			if (var5 == 0)
+				continue;
+			aqz block = aqz.getBlock(var5);
+			if (isBlockSolid(block, x, var4, z) && block.cU != akc.tree_leaves)
+				return var4 + 1;
+		}
+
+		return -1;
+	}
+
+	public int getTopSolidOrLiquidBlockMITE(int par1, int par2, boolean ignore_leaves)
+	{
+		int x = par1;
+		int z = par2;
+		adr var3 = d(par1, par2);
+		int var4 = var3.h() + 15;
+		par1 &= 0xf;
+		par2 &= 0xf;
+		for (; var4 > 0; var4--)
+		{
+			aqz block = aqz.getBlock(var3.a(par1, var4, par2));
+			if (block != null && (!ignore_leaves || block.cU != akc.tree_leaves) && (block.isSolid(this, x, var4, z) || block.cU.d()))
+				return var4;
+		}
+
+		return -1;
+	}
+
+	public float g(float par1)
+	{
+		float var2 = c(par1);
+		float var3 = 1.0F - (ls.b(var2 * 3.141593F * 2.0F) * 2.0F + 0.25F);
+		if (var3 < 0.0F)
+			var3 = 0.0F;
+		if (var3 > 1.0F)
+			var3 = 1.0F;
+		return var3 * var3 * 0.5F;
+	}
+
+	public void a(int i1, int j1, int k1, int l1, int i2)
+	{
+	}
+
+	public void a(int i1, int j1, int k1, int l1, int i2, int j2)
+	{
+	}
+
+	public void b(int i1, int j1, int k1, int l1, int i2, int j2)
+	{
+	}
+
+	public int getHourOfDay()
+	{
+		return getAdjustedTimeOfDay() / 1000;
+	}
+
+	public String getHourOfDayAMPM()
+	{
+		return getHourOfDayAMPM(getHourOfDay());
+	}
+
+	public static String getHourOfDayAMPM(int hour_of_day)
+	{
+		return hour_of_day != 0 ? hour_of_day != 12 ? hour_of_day >= 12 ? (new StringBuilder()).append(hour_of_day - 12).append("PM").toString() : (new StringBuilder()).append(hour_of_day).append("AM").toString() : "NOON" : "MDNT";
+	}
+
+	public void h()
+	{
+		C.a("entities");
+		C.a("global");
+		for (int var1 = 0; var1 < i.size(); var1++)
+		{
+			nn var2 = (nn)i.get(var1);
+			try
+			{
+				var2.ac++;
+				var2.despawn_counter++;
+				var2.l_();
+			}
+			catch (Throwable var8)
+			{
+				b var4 = b.a(var8, "Ticking entity");
+				m var5 = var4.a("Entity being ticked");
+				if (var2 == null)
+					var5.a("Entity", "~~NULL~~");
+				else
+					var2.a(var5);
+				throw new u(var4);
+			}
+			if (var2.M)
+				i.remove(var1--);
+		}
+
+		C.c("remove");
+		e.removeAll(f);
+		for (int var1 = 0; var1 < f.size(); var1++)
+		{
+			nn var2 = (nn)f.get(var1);
+			if (!var2.isAddedToAChunk())
+				continue;
+			adr chunk = var2.getChunkAddedTo();
+			if (c(chunk.g, chunk.h))
+				var2.removeFromChunk();
+		}
+
+		for (int var1 = 0; var1 < f.size(); var1++)
+			b((nn)f.get(var1));
+
+		f.clear();
+		C.c("regular");
+		for (int var1 = 0; var1 < e.size(); var1++)
+		{
+			nn var2 = (nn)e.get(var1);
+			if (var2.o != null)
+			{
+				if (!var2.o.M && var2.o.n == var2)
+					continue;
+				var2.o.n = null;
+				var2.o = null;
+			}
+			C.a("tick");
+			if (!var2.M)
+				try
+				{
+					g(var2);
+				}
+				catch (Throwable var7)
+				{
+					b var4 = b.a(var7, "Ticking entity");
+					m var5 = var4.a("Entity being ticked");
+					var2.a(var5);
+					throw new u(var4);
+				}
+			C.b();
+			C.a("remove");
+			if (var2.M)
+			{
+				if (var2.isAddedToAChunk())
+				{
+					adr chunk = var2.getChunkAddedTo();
+					if (c(chunk.g, chunk.h))
+						var2.removeFromChunk();
+				}
+				e.remove(var1--);
+				b(var2);
+			}
+			C.b();
+		}
+
+		C.c("tileEntities");
+		N = true;
+		Iterator var14 = g.iterator();
+		do
+		{
+			if (!var14.hasNext())
+				break;
+			asp var9 = (asp)var14.next();
+			if (!var9.r() && var9.o() && f(var9.l, var9.m, var9.n))
+				try
+				{
+					var9.h();
+				}
+				catch (Throwable var6)
+				{
+					b var4 = b.a(var6, "Ticking tile entity");
+					m var5 = var4.a("Tile entity being ticked");
+					var9.a(var5);
+					throw new u(var4);
+				}
+			if (var9.r())
+			{
+				var14.remove();
+				if (c(var9.l >> 4, var9.n >> 4))
+				{
+					adr var11 = e(var9.l >> 4, var9.n >> 4);
+					if (var11 != null)
+						var11.f(var9.l & 0xf, var9.m, var9.n & 0xf);
+				}
+			}
+		} while (true);
+		N = false;
+		if (!b.isEmpty())
+		{
+			g.removeAll(b);
+			b.clear();
+		}
+		C.c("pendingTileEntities");
+		if (!a.isEmpty())
+		{
+			for (int var10 = 0; var10 < a.size(); var10++)
+			{
+				asp var12 = (asp)a.get(var10);
+				if (var12.r())
+					continue;
+				if (!g.contains(var12))
+					g.add(var12);
+				if (c(var12.l >> 4, var12.n >> 4))
+				{
+					adr var15 = e(var12.l >> 4, var12.n >> 4);
+					if (var15 != null)
+						var15.a(var12.l & 0xf, var12.m, var12.n & 0xf, var12);
+				}
+				j(var12.l, var12.m, var12.n);
+			}
+
+			a.clear();
+		}
+		C.b();
+		C.b();
+	}
+
+	public void a(Collection par1Collection)
+	{
+		if (N)
+			a.addAll(par1Collection);
+		else
+			g.addAll(par1Collection);
+	}
+
+	public void g(nn par1Entity)
+	{
+		a(par1Entity, true);
+	}
+
+	public void a(nn par1Entity, boolean par2)
+	{
+		int var3 = ls.c(par1Entity.u);
+		int var4 = ls.c(par1Entity.w);
+		byte var5 = 32;
+		if (!par2 || e(var3 - var5, 0, var4 - var5, var3 + var5, 0, var4 + var5))
+		{
+			par1Entity.U = par1Entity.u;
+			par1Entity.V = par1Entity.v;
+			par1Entity.W = par1Entity.w;
+			par1Entity.C = par1Entity.A;
+			par1Entity.D = par1Entity.B;
+			if (par2 && par1Entity.isAddedToAChunk())
+			{
+				par1Entity.ac++;
+				par1Entity.despawn_counter++;
+				if (par1Entity.o != null)
+					par1Entity.V();
+				else
+					par1Entity.l_();
+			}
+			C.a("chunkCheck");
+			if (Double.isNaN(par1Entity.u) || Double.isInfinite(par1Entity.u))
+				par1Entity.u = par1Entity.U;
+			if (Double.isNaN(par1Entity.v) || Double.isInfinite(par1Entity.v))
+				par1Entity.v = par1Entity.V;
+			if (Double.isNaN(par1Entity.w) || Double.isInfinite(par1Entity.w))
+				par1Entity.w = par1Entity.W;
+			if (Double.isNaN(par1Entity.B) || Double.isInfinite(par1Entity.B))
+				par1Entity.B = par1Entity.D;
+			if (Double.isNaN(par1Entity.A) || Double.isInfinite(par1Entity.A))
+				par1Entity.A = par1Entity.C;
+			int var6 = par1Entity.getChunkPosX();
+			int var7 = par1Entity.getChunkCurrentlyInSectionIndex();
+			int var8 = par1Entity.getChunkPosZ();
+			if (par1Entity.isAddedToAChunk() && par1Entity.getChunkAddedTo().e != this)
+				par1Entity.removeFromChunk();
+			if (!par1Entity.isAddedToAChunk() || par1Entity.getChunkAddedTo().g != var6 || par1Entity.chunk_added_to_section_index != var7 || par1Entity.getChunkAddedTo().h != var8)
+			{
+				if (par1Entity.isAddedToAChunk())
+				{
+					adr chunk = par1Entity.getChunkAddedTo();
+					if (chunk.e != this)
+					{
+						atv.setErrorMessage("updateEntityWithOptionalForce: entity still belongs to a chunk of a different world");
+						(new Exception()).printStackTrace();
+					}
+					if (c(chunk.g, chunk.h))
+						par1Entity.removeFromChunk();
+					else
+						atv.setErrorMessage((new StringBuilder()).append("updateEntityWithOptionalForce: ").append(par1Entity.an()).append(" was added to a chunk that no longer exists?").toString());
+				}
+				if (c(var6, var8))
+					e(var6, var8).a(par1Entity);
+				else
+					par1Entity.setChunkAddedToUnchecked(null, -1);
+			}
+			C.b();
+			if (par2 && par1Entity.isAddedToAChunk() && par1Entity.n != null)
+				if (!par1Entity.n.M && par1Entity.n.o == par1Entity)
+				{
+					g(par1Entity.n);
+				} else
+				{
+					par1Entity.n.o = null;
+					par1Entity.n = null;
+				}
+		} else
+		if ((par1Entity instanceof th) && (par1Entity instanceof og) && par1Entity.o == null && par1Entity.n == null)
+		{
+			par1Entity.despawn_counter++;
+			((og)par1Entity).tryDespawnEntity();
+		}
+	}
+
+	public boolean b(asx par1AxisAlignedBB)
+	{
+		return a(par1AxisAlignedBB, (nn)null);
+	}
+
+	public boolean a(asx par1AxisAlignedBB, nn par2Entity)
+	{
+		List var3 = b((nn)null, par1AxisAlignedBB);
+		for (int var4 = 0; var4 < var3.size(); var4++)
+		{
+			nn var5 = (nn)var3.get(var4);
+			if (!var5.M && var5.m && var5 != par2Entity)
+				return false;
+		}
+
+		return true;
+	}
+
+	public final boolean c(asx bounding_box)
+	{
+		int min_x = bounding_box.getBlockCoordForMinX();
+		int max_x = bounding_box.getBlockCoordForMaxX();
+		int min_y = bounding_box.getBlockCoordForMinY();
+		int max_y = bounding_box.getBlockCoordForMaxY();
+		int min_z = bounding_box.getBlockCoordForMinZ();
+		int max_z = bounding_box.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+					if (getBlock(x, y, z) != null)
+						return true;
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public final boolean d(asx bounding_box)
+	{
+		int min_x = bounding_box.getBlockCoordForMinX();
+		int max_x = bounding_box.getBlockCoordForMaxX();
+		int min_y = bounding_box.getBlockCoordForMinY();
+		int max_y = bounding_box.getBlockCoordForMaxY();
+		int min_z = bounding_box.getBlockCoordForMinZ();
+		int max_z = bounding_box.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+					if (g(x, y, z).d())
+						return true;
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public final boolean isAnyLava(asx bounding_box)
+	{
+		int min_x = bounding_box.getBlockCoordForMinX();
+		int max_x = bounding_box.getBlockCoordForMaxX();
+		int min_y = bounding_box.getBlockCoordForMinY();
+		int max_y = bounding_box.getBlockCoordForMaxY();
+		int min_z = bounding_box.getBlockCoordForMinZ();
+		int max_z = bounding_box.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+					if (g(x, y, z) == akc.i)
+						return true;
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public final boolean isOnlyWater(asx bounding_box)
+	{
+		int min_x = bounding_box.getBlockCoordForMinX();
+		int max_x = bounding_box.getBlockCoordForMaxX();
+		int min_y = bounding_box.getBlockCoordForMinY();
+		int max_y = bounding_box.getBlockCoordForMaxY();
+		int min_z = bounding_box.getBlockCoordForMinZ();
+		int max_z = bounding_box.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+					if (g(x, y, z) != akc.h)
+						return false;
+
+			}
+
+		}
+
+		return true;
+	}
+
+	public final boolean isBoundingBoxBurning(asx par1AxisAlignedBB, boolean include_lava)
+	{
+		int min_x = par1AxisAlignedBB.getBlockCoordForMinX();
+		int max_x = par1AxisAlignedBB.getBlockCoordForMaxX();
+		int min_y = par1AxisAlignedBB.getBlockCoordForMinY();
+		int max_y = par1AxisAlignedBB.getBlockCoordForMaxY();
+		int min_z = par1AxisAlignedBB.getBlockCoordForMinZ();
+		int max_z = par1AxisAlignedBB.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+				{
+					int block_id = a(x, y, z);
+					if (block_id == aqz.aw.cF || include_lava && (block_id == aqz.H.cF || block_id == aqz.I.cF))
+						return true;
+				}
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public final boolean doesBoundingBoxContainBlock(asx par1AxisAlignedBB, int block_id, int metadata)
+	{
+		int min_x = par1AxisAlignedBB.getBlockCoordForMinX();
+		int max_x = par1AxisAlignedBB.getBlockCoordForMaxX();
+		int min_y = par1AxisAlignedBB.getBlockCoordForMinY();
+		int max_y = par1AxisAlignedBB.getBlockCoordForMaxY();
+		int min_z = par1AxisAlignedBB.getBlockCoordForMinZ();
+		int max_z = par1AxisAlignedBB.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+					if (a(x, y, z) == block_id && (metadata < 0 || h(x, y, z) == metadata))
+						return true;
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public final boolean extinguishAllFireBlocksInBoundingBox(asx bb)
+	{
+		boolean result = false;
+		int min_x = bb.getBlockCoordForMinX();
+		int max_x = bb.getBlockCoordForMaxX();
+		int min_y = bb.getBlockCoordForMinY();
+		int max_y = bb.getBlockCoordForMaxY();
+		int min_z = bb.getBlockCoordForMinZ();
+		int max_z = bb.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+				{
+					int block_id = a(x, y, z);
+					if (block_id == aqz.aw.cF)
+					{
+						douseFire(x, y, z, null);
+						result = true;
+					}
+				}
+
+			}
+
+		}
+
+		return result;
+	}
+
+	public final boolean a(asx par1AxisAlignedBB, akc par2Material, nn par3Entity)
+	{
+		int min_x = par1AxisAlignedBB.getBlockCoordForMinX();
+		int max_x = par1AxisAlignedBB.getBlockCoordForMaxX();
+		int min_y = par1AxisAlignedBB.getBlockCoordForMinY();
+		int max_y = par1AxisAlignedBB.getBlockCoordForMaxY();
+		int min_z = par1AxisAlignedBB.getBlockCoordForMinZ();
+		int max_z = par1AxisAlignedBB.getBlockCoordForMaxZ();
+		boolean is_in_material = false;
+		atc vec3 = null;
+		boolean is_pushed_by_material = par3Entity.ax();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+				{
+					int block_id = a(x, y, z);
+					if (block_id == 0)
+						continue;
+					aqz block = aqz.getBlock(block_id);
+					if (block.cU != par2Material)
+						continue;
+					double fluid_top_y = (float)(y + 1) - apc.d(h(x, y, z));
+					if ((double)max_y + 1.0D < fluid_top_y)
+						continue;
+					is_in_material = true;
+					if (!is_pushed_by_material)
+						continue;
+					if (vec3 == null)
+						vec3 = V().a(0.0D, 0.0D, 0.0D);
+					block.a(this, x, y, z, par3Entity, vec3);
+				}
+
+			}
+
+		}
+
+		if (!is_in_material)
+			return false;
+		if (is_pushed_by_material && vec3.b() > 0.0D)
+		{
+			vec3 = vec3.a();
+			double var18 = 0.014D;
+			par3Entity.x += vec3.c * var18;
+			par3Entity.y += vec3.d * var18;
+			par3Entity.z += vec3.e * var18;
+		}
+		return true;
+	}
+
+	public boolean a(asx par1AxisAlignedBB, akc par2Material)
+	{
+		int var3 = ls.c(par1AxisAlignedBB.a);
+		int var4 = ls.c(par1AxisAlignedBB.d + 1.0D);
+		int var5 = ls.c(par1AxisAlignedBB.b);
+		int var6 = ls.c(par1AxisAlignedBB.e + 1.0D);
+		int var7 = ls.c(par1AxisAlignedBB.c);
+		int var8 = ls.c(par1AxisAlignedBB.f + 1.0D);
+		for (int var9 = var3; var9 < var4; var9++)
+		{
+			for (int var10 = var5; var10 < var6; var10++)
+			{
+				for (int var11 = var7; var11 < var8; var11++)
+				{
+					aqz var12 = aqz.s[a(var9, var10, var11)];
+					if (var12 != null && var12.cU == par2Material)
+						return true;
+				}
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public boolean b(asx par1AxisAlignedBB, akc par2Material)
+	{
+		int var3 = ls.c(par1AxisAlignedBB.a);
+		int var4 = ls.c(par1AxisAlignedBB.d + 1.0D);
+		int var5 = ls.c(par1AxisAlignedBB.b);
+		int var6 = ls.c(par1AxisAlignedBB.e + 1.0D);
+		int var7 = ls.c(par1AxisAlignedBB.c);
+		int var8 = ls.c(par1AxisAlignedBB.f + 1.0D);
+		for (int var9 = var3; var9 < var4; var9++)
+		{
+			for (int var10 = var5; var10 < var6; var10++)
+			{
+				for (int var11 = var7; var11 < var8; var11++)
+				{
+					aqz var12 = aqz.s[a(var9, var10, var11)];
+					if (var12 == null || var12.cU != par2Material)
+						continue;
+					int var13 = h(var9, var10, var11);
+					double var14 = var10 + 1;
+					if (var13 < 8)
+						var14 = (double)(var10 + 1) - (double)var13 / 8D;
+					if (var14 >= par1AxisAlignedBB.b)
+						return true;
+				}
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public abr createExplosion(nn exploder, double posX, double posY, double posZ, 
+			float explosion_size_vs_blocks, float explosion_size_vs_living_entities, boolean is_smoking)
+	{
+		return newExplosion(exploder, posX, posY, posZ, explosion_size_vs_blocks, explosion_size_vs_living_entities, false, is_smoking);
+	}
+
+	public abr newExplosion(nn exploder, double posX, double posY, double posZ, 
+			float explosion_size_vs_blocks, float explosion_size_vs_living_entities, boolean is_flaming, boolean is_smoking)
+	{
+		abr explosion = new abr(this, exploder, posX, posY, posZ, explosion_size_vs_blocks, explosion_size_vs_living_entities);
+		explosion.a = is_flaming;
+		explosion.b = is_smoking;
+		explosion.a();
+		explosion.a(true);
+		return explosion;
+	}
+
+	public float a(atc par1Vec3, asx par2AxisAlignedBB)
+	{
+		double var3 = 1.0D / ((par2AxisAlignedBB.d - par2AxisAlignedBB.a) * 2D + 1.0D);
+		double var5 = 1.0D / ((par2AxisAlignedBB.e - par2AxisAlignedBB.b) * 2D + 1.0D);
+		double var7 = 1.0D / ((par2AxisAlignedBB.f - par2AxisAlignedBB.c) * 2D + 1.0D);
+		int var9 = 0;
+		int var10 = 0;
+		for (float var11 = 0.0F; var11 <= 1.0F; var11 = (float)((double)var11 + var3))
+		{
+			for (float var12 = 0.0F; var12 <= 1.0F; var12 = (float)((double)var12 + var5))
+			{
+				for (float var13 = 0.0F; var13 <= 1.0F; var13 = (float)((double)var13 + var7))
+				{
+					double var14 = par2AxisAlignedBB.a + (par2AxisAlignedBB.d - par2AxisAlignedBB.a) * (double)var11;
+					double var16 = par2AxisAlignedBB.b + (par2AxisAlignedBB.e - par2AxisAlignedBB.b) * (double)var12;
+					double var18 = par2AxisAlignedBB.c + (par2AxisAlignedBB.f - par2AxisAlignedBB.c) * (double)var13;
+					if (checkForLineOfPhysicalReach(getVec3(var14, var16, var18), par1Vec3))
+						var9++;
+					var10++;
+				}
+
+			}
+
+		}
+
+		return (float)var9 / (float)var10;
+	}
+
+	public final RaycastCollision getBlockCollisionForSelection(atc origin, atc limit, boolean hit_liquids)
+	{
+		return (new Raycast(this, origin, limit)).setForSelection(hit_liquids).performVsBlocks().getBlockCollision();
+	}
+
+	public final RaycastCollision getBlockCollisionForVision(atc origin, atc limit, boolean ignore_leaves)
+	{
+		return (new Raycast(this, origin, limit)).setForVision(ignore_leaves).performVsBlocks().getBlockCollision();
+	}
+
+	public final boolean checkForLineOfSight(atc origin, atc limit, boolean ignore_leaves)
+	{
+		return getBlockCollisionForVision(origin, limit, ignore_leaves) == null;
+	}
+
+	public final RaycastCollision getBlockCollisionForPhysicalReach(atc origin, atc limit)
+	{
+		return (new Raycast(this, origin, limit)).setForPhysicalReach().performVsBlocks().getBlockCollision();
+	}
+
+	public final boolean checkForLineOfPhysicalReach(atc origin, atc limit)
+	{
+		return getBlockCollisionForPhysicalReach(origin, limit) == null;
+	}
+
+	public final RaycastCollision getBlockCollisionForPolicies(atc origin, atc limit, RaycastPolicies policies)
+	{
+		return (new Raycast(this, origin, limit)).setPolicies(policies).performVsBlocks().getBlockCollision();
+	}
+
+	public final boolean checkForNoBlockCollision(atc origin, atc limit, RaycastPolicies policies)
+	{
+		return getBlockCollisionForPolicies(origin, limit, policies) == null;
+	}
+
+	public final RaycastCollision getBlockCollisionForPolicies(atc origin, atc limit, RaycastPolicies policies, nn originator)
+	{
+		return (new Raycast(this, origin, limit)).setPolicies(policies).setOriginator(originator).performVsBlocks().getBlockCollision();
+	}
+
+	public boolean extinguishFire(uf player, int x, int y, int z, EnumFace face)
+	{
+		x = face.getNeighborX(x);
+		y = face.getNeighborY(y);
+		z = face.getNeighborZ(z);
+		if (getBlock(x, y, z) != aqz.aw)
+		{
+			return false;
+		} else
+		{
+			a(player, 1004, x, y, z, 0);
+			i(x, y, z);
+			return true;
+		}
+	}
+
+	public String y()
+	{
+		return (new StringBuilder()).append("All: ").append(e.size()).toString();
+	}
+
+	public String z()
+	{
+		return v.e();
+	}
+
+	public asp r(int par1, int par2, int par3)
+	{
+		if (par2 >= 0 && par2 < 256)
+		{
+			asp var4 = null;
+			if (N)
+			{
+				int var5 = 0;
+				do
+				{
+					if (var5 >= a.size())
+						break;
+					asp var6 = (asp)a.get(var5);
+					if (!var6.r() && var6.l == par1 && var6.m == par2 && var6.n == par3)
+					{
+						var4 = var6;
+						break;
+					}
+					var5++;
+				} while (true);
+			}
+			if (var4 == null)
+			{
+				adr var7 = e(par1 >> 4, par3 >> 4);
+				if (var7 != null)
+					var4 = var7.e(par1 & 0xf, par2, par3 & 0xf);
+			}
+			if (var4 == null)
+			{
+				int var5 = 0;
+				do
+				{
+					if (var5 >= a.size())
+						break;
+					asp var6 = (asp)a.get(var5);
+					if (!var6.r() && var6.l == par1 && var6.m == par2 && var6.n == par3)
+					{
+						var4 = var6;
+						break;
+					}
+					var5++;
+				} while (true);
+			}
+			return var4;
+		} else
+		{
+			return null;
+		}
+	}
+
+	public void a(int par1, int par2, int par3, asp par4TileEntity)
+	{
+		if (par4TileEntity != null && !par4TileEntity.r())
+			if (N)
+			{
+				par4TileEntity.l = par1;
+				par4TileEntity.m = par2;
+				par4TileEntity.n = par3;
+				Iterator var5 = a.iterator();
+				do
+				{
+					if (!var5.hasNext())
+						break;
+					asp var6 = (asp)var5.next();
+					if (var6.l == par1 && var6.m == par2 && var6.n == par3)
+					{
+						var6.w_();
+						var5.remove();
+					}
+				} while (true);
+				a.add(par4TileEntity);
+			} else
+			{
+				g.add(par4TileEntity);
+				adr var7 = e(par1 >> 4, par3 >> 4);
+				if (var7 != null)
+					var7.a(par1 & 0xf, par2, par3 & 0xf, par4TileEntity);
+			}
+	}
+
+	public void s(int par1, int par2, int par3)
+	{
+		asp var4 = r(par1, par2, par3);
+		if (var4 != null && N)
+		{
+			var4.w_();
+			a.remove(var4);
+		} else
+		{
+			if (var4 != null)
+			{
+				a.remove(var4);
+				g.remove(var4);
+			}
+			adr var5 = e(par1 >> 4, par3 >> 4);
+			if (var5 != null)
+				var5.f(par1 & 0xf, par2, par3 & 0xf);
+		}
+	}
+
+	public void a(asp par1TileEntity)
+	{
+		b.add(par1TileEntity);
+	}
+
+	public final boolean isBlockStandardFormOpaqueCube(int par1, int par2, int par3)
+	{
+		return aqz.isBlockOpaqueStandardFormCube(this, par1, par2, par3);
+	}
+
+	public final boolean u(int par1, int par2, int par3)
+	{
+		return aqz.l(a(par1, par2, par3));
+	}
+
+	public final boolean isBlockSolidStandardFormCube(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		if (block == null)
+			return false;
+		if (block.isAlwaysSolidStandardFormCube())
+			return true;
+		else
+			return block.isSolidStandardFormCube(h(x, y, z));
+	}
+
+	public final boolean isBlockFullSolidCube(int x, int y, int z)
+	{
+		int block_id = a(x, y, z);
+		if (block_id == 0)
+			return false;
+		aqz block = aqz.getBlock(block_id);
+		if (block == null)
+			return false;
+		if (block.isAlwaysSolidStandardFormCube())
+			return true;
+		if (block.isNeverSolidStandardFormCube())
+			return false;
+		else
+			return block.isSolidStandardFormCube(h(x, y, z));
+	}
+
+	public boolean isBlockTopFlatAndSolid(int x, int y, int z)
+	{
+		aqz block = aqz.s[a(x, y, z)];
+		return block != null && block.isTopFlatAndSolid(h(x, y, z));
+	}
+
+	public static boolean isBlockTopFlatAndSolid(aqz block, int metadata)
+	{
+		return block != null && block.isTopFlatAndSolid(metadata);
+	}
+
+	public final boolean c(int par1, int par2, int par3, boolean par4)
+	{
+		if (isWithinBlockDomain(par1, par3))
+		{
+			adr var5 = v.d(par1 >> 4, par3 >> 4);
+			if (var5 != null && !var5.g())
+				return aqz.is_normal_cube_lookup[a(par1, par2, par3)];
+			else
+				return par4;
+		} else
+		{
+			return par4;
+		}
+	}
+
+	public final void A()
+	{
+		int var1 = a(1.0F);
+		if (var1 != j)
+			j = var1;
+	}
+
+	public void a(boolean par1, boolean par2)
+	{
+		E = par1;
+		F = par2;
+	}
+
+	public void b()
+	{
+		if (I)
+		{
+			if (this instanceof js)
+				atv.setErrorMessage("tick: isRemote is true but world is instanceof WorldServer");
+		} else
+		if (!(this instanceof js))
+			atv.setErrorMessage("tick: isRemote is false but world is not instanceof WorldServer");
+		long tt = total_time;
+		long twt = I();
+		if (atv.inDevMode() && tt != twt)
+		{
+			atv.setErrorMessage((new StringBuilder()).append("tick: total world time discrepency: ").append(tt).append(" vs ").append(twt).append(" for ").append(getDimensionId()).append(", ").append(I).toString());
+			total_time = twt;
+		}
+		o();
+	}
+
+	public void checkPendingEntitySpawns()
+	{
+		if (I)
+			return;
+		long total_world_time = I();
+		Iterator i = pending_entity_spawns.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			EntitySpawnPendingEntry entry = (EntitySpawnPendingEntry)i.next();
+			if (entry.scheduled_spawn_time <= total_world_time)
+			{
+				d(entry.entity);
+				i.remove();
+			}
+		} while (true);
+	}
+
+	public final void _calculateInitialWeather()
+	{
+		if (!canPrecipitate())
+			return;
+		n = 0.0F;
+		p = 0.0F;
+		if (isPrecipitating(false))
+		{
+			n = 1.0F;
+			if (isThundering(false))
+				p = 1.0F;
+		}
+	}
+
+	protected void o()
+	{
+		if (I)
+			atv.setErrorMessage("updateWeather: Called on client?");
+		if (!t.g)
+		{
+			m = n;
+			if (isPrecipitating(false))
+				n = (float)((double)n + 0.01D);
+			else
+				n = (float)((double)n - 0.01D);
+			if (n < 0.0F)
+				n = 0.0F;
+			if (n > 1.0F)
+				n = 1.0F;
+			o = p;
+			if (isThundering(false))
+				p = (float)((double)p + 0.01D);
+			else
+				p = (float)((double)p - 0.01D);
+			if (p < 0.0F)
+				p = 0.0F;
+			if (p > 1.0F)
+				p = 1.0F;
+		}
+	}
+
+	public void checkLightingOfRandomBlockInView(boolean minimal)
+	{
+		if (!hasSkylight())
+		{
+			Debug.setErrorMessage("checkLightingOfRandomBlockInView: why called for world without skylight?");
+			return;
+		}
+		times_checkLightingOfRandomBlockInView_called++;
+		of viewer = atv.O.i;
+		if (viewer == null)
+			return;
+		if ((!minimal || times_checkLightingOfRandomBlockInView_called % 40 != 0) && (!minimal || times_checkLightingOfRandomBlockInView_called % 20 != 0) && MITEConstant.maxRandomRaycastsPerTickForCorrectiveLightingUpdates(this) > 0)
+		{
+			int raycast_seed_offset = viewer.raycast_seed_offset;
+			viewer.raycast_seed_offset = getTimeOfDay();
+			for (int i = 0; i < (minimal ? 4 : 4); i++)
+			{
+				float rotationYaw = viewer.A;
+				float rotationPitch = viewer.B;
+				viewer.A += Math.random() * 181D - 90D;
+				viewer.B += Math.random() * 181D - 90D;
+				Raycast raycast = new Raycast(viewer, 1.0F, 128D);
+				int raycast_type = i % 4;
+				if (raycast_type == 0)
+					raycast.setForSelection(true);
+				else
+				if (raycast_type == 1)
+					raycast.setForVision(false);
+				else
+				if (raycast_type == 2)
+					raycast.setForBluntProjectile(viewer);
+				else
+				if (raycast_type == 3)
+					raycast.setForPiercingProjectile(viewer);
+				RaycastCollision rc = raycast.performVsBlocksSingle().getBlockCollision();
+				if (rc != null && rc.isBlock() && ls.isInRange(rc.neighbor_block_y, 0, 255))
+				{
+					int x = rc.neighbor_block_x;
+					int z = rc.neighbor_block_z;
+					adr chunk = d(x, z);
+					if (!chunk.g())
+						updateLightByType(ach.a, x, rc.neighbor_block_y, z, canUpdateLightByType(x, z), chunk);
+				}
+				viewer.A = rotationYaw;
+				viewer.B = rotationPitch;
+			}
+
+			viewer.raycast_seed_offset = raycast_seed_offset;
+		}
+	}
+
+	protected void setActivePlayerChunks()
+	{
+		G.clear();
+		C.a("buildList");
+		for (int var1 = 0; var1 < h.size(); var1++)
+		{
+			uf var2 = (uf)h.get(var1);
+			int var3 = ls.c(var2.u / 16D);
+			int var4 = ls.c(var2.w / 16D);
+			byte var5 = 7;
+			for (int var6 = -var5; var6 <= var5; var6++)
+			{
+				for (int var7 = -var5; var7 <= var5; var7++)
+					G.add(new abp(var6 + var3, var7 + var4));
+
+			}
+
+		}
+
+		C.b();
+	}
+
+	protected void C()
+	{
+		setActivePlayerChunks();
+		if (O > 0)
+			O--;
+		C.a("playerCheckLight");
+		if (I && hasSkylight())
+			checkLightingOfRandomBlockInView(true);
+		C.b();
+	}
+
+	protected void a(int par1, int par2, adr par3Chunk)
+	{
+		C.c("moodSound");
+		if (O == 0 && !I)
+		{
+			k = k * 3 + 0x3c6ef35f;
+			int var4 = k >> 2;
+			int var5 = var4 & 0xf;
+			int var6 = var4 >> 8 & 0xf;
+			int var7 = var4 >> 16 & 0x7f;
+			int var8 = par3Chunk.a(var5, var7, var6);
+			var5 += par1;
+			var6 += par2;
+			if (var8 == 0 && m(var5, var7, var6) <= s.nextInt(8) && b(ach.a, var5, var7, var6) <= 0)
+			{
+				uf var9 = getClosestPlayer((double)var5 + 0.5D, (double)var7 + 0.5D, (double)var6 + 0.5D, 8D, true);
+				if (var9 != null && var9.e((double)var5 + 0.5D, (double)var7 + 0.5D, (double)var6 + 0.5D) > 4D)
+				{
+					if (atv.w() == null)
+						a((double)var5 + 0.5D, (double)var7 + 0.5D, (double)var6 + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + s.nextFloat() * 0.2F);
+					else
+						atv.w().v.a("ambient.cave.cave", 0.7F, 0.8F + s.nextFloat() * 0.2F);
+					O = getNextAmbientTickCountdown(false);
+				}
+			}
+		}
+		C.c("checkLight");
+		if (!I)
+		{
+			par3Chunk.performPendingSkylightUpdatesIfPossible();
+			par3Chunk.performPendingBlocklightUpdatesIfPossible();
+		}
+	}
+
+	protected void g()
+	{
+		C();
+	}
+
+	public boolean x(int par1, int par2, int par3)
+	{
+		return d(par1, par2, par3, false);
+	}
+
+	public boolean y(int par1, int par2, int par3)
+	{
+		return d(par1, par2, par3, true);
+	}
+
+	public boolean isFreezing(int x, int z)
+	{
+		return a(x, z).isFreezing();
+	}
+
+	public boolean d(int par1, int par2, int par3, boolean par4)
+	{
+		acq var5 = a(par1, par3);
+		float var6 = var5.j();
+		if (var6 > 0.15F)
+			return false;
+		if (par2 >= 0 && par2 < 256 && b(ach.b, par1, par2, par3) < 10)
+		{
+			int var7 = a(par1, par2, par3);
+			if ((var7 == aqz.G.cF || var7 == aqz.F.cF) && h(par1, par2, par3) == 0)
+			{
+				if (!par4)
+					return true;
+				boolean var8 = true;
+				if (var8 && g(par1 - 1, par2, par3) != akc.h)
+					var8 = false;
+				if (var8 && g(par1 + 1, par2, par3) != akc.h)
+					var8 = false;
+				if (var8 && g(par1, par2, par3 - 1) != akc.h)
+					var8 = false;
+				if (var8 && g(par1, par2, par3 + 1) != akc.h)
+					var8 = false;
+				if (!var8)
+					return true;
+			}
+		}
+		return false;
+	}
+
+	public final boolean z(int par1, int par2, int par3)
+	{
+		acq var4 = a(par1, par3);
+		float var5 = var4.j();
+		if (var5 > 0.15F)
+			return false;
+		if (par2 >= 0 && par2 < 256 && b(ach.b, par1, par2, par3) < 10)
+		{
+			int var6 = a(par1, par2 - 1, par3);
+			int var7 = a(par1, par2, par3);
+			aqz block_below = aqz.getBlock(var6);
+			aqz block = aqz.getBlock(var7);
+			if (block_below == aqz.aF && block != aqz.bx)
+				return true;
+			if (var7 == 0 && aqz.aX.isLegalAt(this, par1, par2, par3, 0) && var6 != aqz.aY.cF)
+				return true;
+		}
+		return false;
+	}
+
+	public final void placeNaturallyOccurringSnow(int min_x, int min_z, int max_x, int max_z)
+	{
+		boolean freezing_biome_nearby = isBiomeFreezing(min_x, min_z) || isBiomeFreezing(min_x, max_z) || isBiomeFreezing(max_x, min_z) || isBiomeFreezing(max_x, max_z);
+		if (!freezing_biome_nearby)
+			return;
+		for (int x = min_x; x <= max_x; x++)
+		{
+label0:
+			for (int z = min_z; z <= max_z; z++)
+			{
+				int y = h(x, z);
+				if (!z(x, y, z) || !f(x, y, z, aqz.aX.cF, 0, 2))
+					continue;
+				do
+					if (--y <= 62)
+						continue label0;
+				while (a(x, y, z) != aqz.aX.cF);
+				setBlockToAir(x, y, z, 2);
+			}
+
+		}
+
+	}
+
+	public final void updateAllLightTypes(int par1, int par2, int par3, adr chunk)
+	{
+		boolean trusted_xz = canUpdateLightByType(par1, par3);
+		if (hasSkylight())
+			updateLightByType(ach.a, par1, par2, par3, trusted_xz, chunk);
+		updateLightByType(ach.b, par1, par2, par3, trusted_xz, chunk);
+	}
+
+	private int a(int par1, int par2, int par3, ach par4EnumSkyBlock)
+	{
+		if (par4EnumSkyBlock == ach.a && l(par1, par2, par3))
+			return 15;
+		int var5 = a(par1, par2, par3);
+		int var6 = par4EnumSkyBlock != ach.a ? aqz.w[var5] : 0;
+		int var7 = aqz.u[var5];
+		if (var7 < 1)
+		{
+			var7 = 1;
+		} else
+		{
+			if (f(par1, par3) - 1 > par2)
+				var7++;
+			if (var7 >= 15)
+				if (aqz.w[var5] > 0)
+					var7 = 1;
+				else
+					return 0;
+		}
+		if (var6 >= 14)
+			return var6;
+		int local_x = par1 & 0xf;
+		int local_z = par3 & 0xf;
+		adr chunk = d(par1, par3);
+		int var12;
+		if (chunk.g())
+		{
+			if (atv.inDevMode())
+				atv.setErrorMessage((new StringBuilder()).append("computeLightValue: chunk was empty at ").append(par1).append(",").append(par3).toString(), false);
+			if (local_z == 0 && (var12 = b(par4EnumSkyBlock, par1, par2, par3 - 1) - var7) > var6 && (var6 = var12) >= 14)
+				return var6;
+			if (local_z == 15 && (var12 = b(par4EnumSkyBlock, par1, par2, par3 + 1) - var7) > var6 && (var6 = var12) >= 14)
+				return var6;
+			if (local_x == 0 && (var12 = b(par4EnumSkyBlock, par1 - 1, par2, par3) - var7) > var6 && (var6 = var12) >= 14)
+				return var6;
+			if (local_x == 15 && (var12 = b(par4EnumSkyBlock, par1 + 1, par2, par3) - var7) > var6 && (var6 = var12) >= 14)
+				return var6;
+			else
+				return var6;
+		}
+		if ((var12 = getSavedLightValueMITE(par4EnumSkyBlock, par1, par2 - 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = getSavedLightValueMITE(par4EnumSkyBlock, par1, par2 + 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_z <= 0 ? b(par4EnumSkyBlock, par1, par2, par3 - 1) : getSavedLightValueMITE(par4EnumSkyBlock, par1, par2, par3 - 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_z >= 15 ? b(par4EnumSkyBlock, par1, par2, par3 + 1) : getSavedLightValueMITE(par4EnumSkyBlock, par1, par2, par3 + 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_x <= 0 ? b(par4EnumSkyBlock, par1 - 1, par2, par3) : getSavedLightValueMITE(par4EnumSkyBlock, par1 - 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_x >= 15 ? b(par4EnumSkyBlock, par1 + 1, par2, par3) : getSavedLightValueMITE(par4EnumSkyBlock, par1 + 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		else
+			return var6;
+	}
+
+	private int computeLightValueMITE(int par1, int par2, int par3, ach par4EnumSkyBlock, adr chunk)
+	{
+		if (par4EnumSkyBlock == ach.a && chunk.canBlockSeeTheSkyForNonEmptyChunk(par1 & 0xf, par2, par3 & 0xf))
+			return 15;
+		int var5;
+		if (isWithinBlockBounds(par1, par2, par3))
+			var5 = chunk.getBlockIDOptimized((par1 & 0xf) + (par3 & 0xf) * 16, par2);
+		else
+			var5 = 0;
+		int var6 = par4EnumSkyBlock != ach.a ? aqz.w[var5] : 0;
+		int var7 = aqz.u[var5];
+		if (var7 < 1)
+		{
+			var7 = 1;
+		} else
+		{
+			if (chunk.b(par1 & 0xf, par3 & 0xf) - 1 > par2)
+				var7++;
+			if (var7 >= 15)
+				if (aqz.w[var5] > 0)
+					var7 = 1;
+				else
+					return 0;
+		}
+		if (var6 >= 14)
+			return var6;
+		int local_x = par1 & 0xf;
+		int local_z = par3 & 0xf;
+		int var12;
+		if ((var12 = getSavedLightValueMITE(par4EnumSkyBlock, par1, par2 - 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = getSavedLightValueMITE(par4EnumSkyBlock, par1, par2 + 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_z <= 0 ? b(par4EnumSkyBlock, par1, par2, par3 - 1) : getSavedLightValueMITE(par4EnumSkyBlock, par1, par2, par3 - 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_z >= 15 ? b(par4EnumSkyBlock, par1, par2, par3 + 1) : getSavedLightValueMITE(par4EnumSkyBlock, par1, par2, par3 + 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_x <= 0 ? b(par4EnumSkyBlock, par1 - 1, par2, par3) : getSavedLightValueMITE(par4EnumSkyBlock, par1 - 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_x >= 15 ? b(par4EnumSkyBlock, par1 + 1, par2, par3) : getSavedLightValueMITE(par4EnumSkyBlock, par1 + 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		else
+			return var6;
+	}
+
+	private int computeSkylightValueMITE(int par1, int par2, int par3, adr chunk)
+	{
+		if (chunk.canBlockSeeTheSkyForNonEmptyChunk(par1 & 0xf, par2, par3 & 0xf))
+			return 15;
+		int var5 = isWithinBlockBounds(par1, par2, par3) ? chunk.getBlockIDOptimized((par1 & 0xf) + (par3 & 0xf) * 16, par2) : 0;
+		int var7 = aqz.u[var5];
+		if (var7 < 1)
+		{
+			var7 = 1;
+		} else
+		{
+			if (chunk.b(par1 & 0xf, par3 & 0xf) - 1 > par2)
+				var7++;
+			if (var7 >= 15)
+				if (aqz.w[var5] > 0)
+					var7 = 1;
+				else
+					return 0;
+		}
+		int var6 = 0;
+		int var12;
+		if ((var12 = getSavedSkylightValueMITE(par1, par2 - 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = getSavedSkylightValueMITE(par1, par2 + 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		int local_z = par3 & 0xf;
+		if ((var12 = (local_z <= 0 ? getSavedSkylightValue(par1, par2, par3 - 1) : getSavedSkylightValueMITE(par1, par2, par3 - 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_z >= 15 ? getSavedSkylightValue(par1, par2, par3 + 1) : getSavedSkylightValueMITE(par1, par2, par3 + 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		int local_x = par1 & 0xf;
+		if ((var12 = (local_x <= 0 ? getSavedSkylightValue(par1 - 1, par2, par3) : getSavedSkylightValueMITE(par1 - 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_x >= 15 ? getSavedSkylightValue(par1 + 1, par2, par3) : getSavedSkylightValueMITE(par1 + 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		else
+			return var6;
+	}
+
+	private int computeBlocklightValueMITE(int par1, int par2, int par3, adr chunk)
+	{
+		int var5 = isWithinBlockBounds(par1, par2, par3) ? chunk.getBlockIDOptimized((par1 & 0xf) + (par3 & 0xf) * 16, par2) : 0;
+		int var6 = aqz.w[var5];
+		int var7 = aqz.u[var5];
+		if (var7 < 1)
+		{
+			var7 = 1;
+		} else
+		{
+			if (chunk.b(par1 & 0xf, par3 & 0xf) - 1 > par2)
+				var7++;
+			if (var7 >= 15)
+				if (var6 > 0)
+					var7 = 1;
+				else
+					return 0;
+		}
+		if (var6 >= 14)
+			return var6;
+		int var12;
+		if ((var12 = getSavedBlocklightValueMITE(par1, par2 - 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = getSavedBlocklightValueMITE(par1, par2 + 1, par3, chunk) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		int local_z = par3 & 0xf;
+		if ((var12 = (local_z <= 0 ? getSavedBlocklightValue(par1, par2, par3 - 1) : getSavedBlocklightValueMITE(par1, par2, par3 - 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_z >= 15 ? getSavedBlocklightValue(par1, par2, par3 + 1) : getSavedBlocklightValueMITE(par1, par2, par3 + 1, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		int local_x = par1 & 0xf;
+		if ((var12 = (local_x <= 0 ? getSavedBlocklightValue(par1 - 1, par2, par3) : getSavedBlocklightValueMITE(par1 - 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		if ((var12 = (local_x >= 15 ? getSavedBlocklightValue(par1 + 1, par2, par3) : getSavedBlocklightValueMITE(par1 + 1, par2, par3, chunk)) - var7) > var6 && (var6 = var12) >= 14)
+			return var6;
+		else
+			return var6;
+	}
+
+	public final boolean canUpdateLightByType(int x, int z)
+	{
+		return doesChunkAndAllNeighborsExist(x >> 4, z >> 4, 1, MITEConstant.includeEmptyChunksForLighting());
+	}
+
+	public final boolean canUpdateLightByType(int x, int z, adr chunk)
+	{
+		if (chunk.g() && !MITEConstant.includeEmptyChunksForLighting())
+			return false;
+		else
+			return chunk.doAllNeighborsExist(1, false, MITEConstant.includeEmptyChunksForLighting());
+	}
+
+	public void updateLightByType(ach par1EnumSkyBlock, int par2, int par3, int par4, boolean trusted_xz, adr chunk)
+	{
+		if (par1EnumSkyBlock == ach.a)
+			propagateSkylight(par2, par3, par4, trusted_xz, chunk);
+		else
+			propagateBlocklight(par2, par3, par4, trusted_xz, chunk);
+	}
+
+	public void propagateSkylight(int par2, int par3, int par4, boolean trusted_xz, adr chunk)
+	{
+		if (chunk.g())
+			Debug.setErrorMessage("propagateSkylight: Why called for empty chunk?");
+		if (!decorating && (trusted_xz || canUpdateLightByType(par2, par4, chunk)))
+		{
+			int var5 = 0;
+			int var6 = 0;
+			int var7 = getSavedSkylightValueMITE(par2, par3, par4, chunk);
+			int var8 = computeSkylightValueMITE(par2, par3, par4, chunk);
+			int par2_minus_32 = par2 - 32;
+			int par3_minus_32 = par3 - 32;
+			int par4_minus_32 = par4 - 32;
+			int minus_par2_plus_32 = -par2 + 32;
+			int minus_par3_plus_32 = -par3 + 32;
+			int minus_par4_plus_32 = -par4 + 32;
+			int pos_max_distance = Math.max(var7, var8) + 1;
+			int neg_max_distance = -pos_max_distance;
+			if (var8 > var7)
+				H[var6++] = 0x20820;
+			else
+			if (var8 < var7)
+			{
+				H[var6++] = 0x20820 | var7 << 18;
+				do
+				{
+					if (var5 >= var6)
+						break;
+					int var9 = H[var5++];
+					int var10 = (var9 & 0x3f) + par2_minus_32;
+					int var11 = (var9 >> 6 & 0x3f) + par3_minus_32;
+					int var12 = (var9 >> 12 & 0x3f) + par4_minus_32;
+					int var13 = var9 >> 18 & 0xf;
+					boolean same_chunk = chunk.hasCoords(var10 >> 4, var12 >> 4);
+					if ((same_chunk ? getSavedSkylightValueMITE(var10, var11, var12, chunk) : getSavedSkylightValue(var10, var11, var12)) == var13)
+					{
+						if (same_chunk)
+							setSkylightValueMITE(var10, var11, var12, 0, chunk);
+						else
+							setSkylightValue(var10, var11, var12, 0);
+						if (var13 > 0)
+						{
+							int var15 = var10 - par2;
+							int var16 = var11 - par3;
+							int var17 = var12 - par4;
+							if (var15 >= neg_max_distance && var15 <= pos_max_distance && var16 >= neg_max_distance && var16 <= pos_max_distance && var17 >= neg_max_distance && var17 <= pos_max_distance)
+							{
+								int var18 = 0;
+								while (var18 < 6) 
+								{
+									int var19 = var10 + s.b[var18];
+									int var20 = var11 + s.c[var18];
+									int var21 = var12 + s.d[var18];
+									int opacity = aqz.u[a(var19, var20, var21)];
+									if (opacity == 0 || f(var19, var21) - 1 > var20)
+										opacity++;
+									adr chunk2 = chunk.hasCoords(var19 >> 4, var21 >> 4) ? chunk : d(var19, var21);
+									if (chunk2.g())
+										Debug.setErrorMessage("You need to handle an empty chunk");
+									if (getSavedSkylightValueMITE(var19, var20, var21, chunk2) == var13 - opacity)
+										H[var6++] = var19 + minus_par2_plus_32 | var20 + minus_par3_plus_32 << 6 | var21 + minus_par4_plus_32 << 12 | var13 - opacity << 18;
+									var18++;
+								}
+							}
+						}
+					}
+				} while (true);
+				var5 = 0;
+			}
+			do
+			{
+				if (var5 >= var6)
+					break;
+				int var9 = H[var5++];
+				int var10 = (var9 & 0x3f) + par2_minus_32;
+				int var11 = (var9 >> 6 & 0x3f) + par3_minus_32;
+				int var12 = (var9 >> 12 & 0x3f) + par4_minus_32;
+				boolean same_chunk = chunk.hasCoords(var10 >> 4, var12 >> 4);
+				int var13;
+				int var14;
+				if (same_chunk)
+				{
+					var13 = getSavedSkylightValueMITE(var10, var11, var12, chunk);
+					var14 = computeSkylightValueMITE(var10, var11, var12, chunk);
+				} else
+				{
+					var13 = getSavedSkylightValue(var10, var11, var12);
+					var14 = a(var10, var11, var12, ach.a);
+				}
+				if (var14 != var13)
+				{
+					if (same_chunk)
+						setSkylightValueMITE(var10, var11, var12, var14, chunk);
+					else
+						setSkylightValue(var10, var11, var12, var14);
+					if (var14 > var13)
+					{
+						int var15 = var10 - par2;
+						int var16 = var11 - par3;
+						int var17 = var12 - par4;
+						boolean var23 = var6 < H.length - 6;
+						if (var15 > -18 && var15 < 18 && var16 > -18 && var16 < 18 && var17 > -18 && var17 < 18 && var23)
+						{
+							int local_x = var10 & 0xf;
+							int local_z = var12 & 0xf;
+							if (local_x > 0 && local_x < 15 && local_z > 0 && local_z < 15)
+							{
+								adr chunk2 = chunk.hasCoords(var10 >> 4, var12 >> 4) ? chunk : d(var10, var12);
+								if (chunk2.g())
+									Debug.setErrorMessage("updateLightByType: chunk was empty");
+								int x = var10 - 1;
+								int y = var11;
+								int z = var12;
+								if (getSavedSkylightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10 + 1;
+								y = var11;
+								z = var12;
+								if (getSavedSkylightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 - 1;
+								z = var12;
+								if (getSavedSkylightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 + 1;
+								z = var12;
+								if (getSavedSkylightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 - 1;
+								if (getSavedSkylightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 + 1;
+								if (getSavedSkylightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+							} else
+							{
+								int x = var10 - 1;
+								int y = var11;
+								int z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedSkylightValueMITE(x, y, z, chunk) : getSavedSkylightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10 + 1;
+								y = var11;
+								z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedSkylightValueMITE(x, y, z, chunk) : getSavedSkylightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 - 1;
+								z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedSkylightValueMITE(x, y, z, chunk) : getSavedSkylightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 + 1;
+								z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedSkylightValueMITE(x, y, z, chunk) : getSavedSkylightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 - 1;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedSkylightValueMITE(x, y, z, chunk) : getSavedSkylightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 + 1;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedSkylightValueMITE(x, y, z, chunk) : getSavedSkylightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+							}
+						}
+					}
+				}
+			} while (true);
+		} else
+		{
+			chunk.addPendingSkylightUpdate(par2, par3, par4);
+		}
+	}
+
+	public void propagateBlocklight(int par2, int par3, int par4, boolean trusted_xz, adr chunk)
+	{
+		if (chunk.g())
+			Debug.setErrorMessage("propagateBlocklight: Why called for empty chunk?");
+		if (!decorating && (trusted_xz || canUpdateLightByType(par2, par4, chunk)))
+		{
+			int var5 = 0;
+			int var6 = 0;
+			int var7 = getSavedBlocklightValueMITE(par2, par3, par4, chunk);
+			int var8 = computeBlocklightValueMITE(par2, par3, par4, chunk);
+			int par2_minus_32 = par2 - 32;
+			int par3_minus_32 = par3 - 32;
+			int par4_minus_32 = par4 - 32;
+			int minus_par2_plus_32 = -par2 + 32;
+			int minus_par3_plus_32 = -par3 + 32;
+			int minus_par4_plus_32 = -par4 + 32;
+			int pos_max_distance = Math.max(var7, var8) + 1;
+			int neg_max_distance = -pos_max_distance;
+			if (var8 > var7)
+			{
+				H[var6++] = 0x20820;
+			} else
+			{
+				H[var6++] = 0x20820 | var7 << 18;
+				do
+				{
+					if (var5 >= var6)
+						break;
+					int var9 = H[var5++];
+					int var10 = (var9 & 0x3f) + par2_minus_32;
+					int var11 = (var9 >> 6 & 0x3f) + par3_minus_32;
+					int var12 = (var9 >> 12 & 0x3f) + par4_minus_32;
+					int var13 = var9 >> 18 & 0xf;
+					boolean same_chunk = chunk.hasCoords(var10 >> 4, var12 >> 4);
+					if ((same_chunk ? getSavedBlocklightValueMITE(var10, var11, var12, chunk) : getSavedBlocklightValue(var10, var11, var12)) == var13)
+					{
+						if (same_chunk)
+							setBlocklightValueMITE(var10, var11, var12, 0, chunk);
+						else
+							setBlocklightValue(var10, var11, var12, 0);
+						if (var13 > 0)
+						{
+							int var15 = var10 - par2;
+							int var16 = var11 - par3;
+							int var17 = var12 - par4;
+							if (var15 < 0)
+								var15 = -var15;
+							if (var16 < 0)
+								var16 = -var16;
+							if (var17 < 0)
+								var17 = -var17;
+							if (var15 + var16 + var17 <= pos_max_distance)
+							{
+								int var18 = 0;
+								while (var18 < 6) 
+								{
+									int var19 = var10 + s.b[var18];
+									int var20 = var11 + s.c[var18];
+									int var21 = var12 + s.d[var18];
+									int opacity = aqz.u[a(var19, var20, var21)];
+									if (opacity == 0 || f(var19, var21) - 1 > var20)
+										opacity++;
+									adr chunk2 = chunk.hasCoords(var19 >> 4, var21 >> 4) ? chunk : d(var19, var21);
+									if (chunk2.g())
+										Debug.setErrorMessage("You need to handle an empty chunk");
+									if (getSavedBlocklightValueMITE(var19, var20, var21, chunk2) == var13 - opacity)
+										H[var6++] = var19 + minus_par2_plus_32 | var20 + minus_par3_plus_32 << 6 | var21 + minus_par4_plus_32 << 12 | var13 - opacity << 18;
+									var18++;
+								}
+							}
+						}
+					}
+				} while (true);
+				var5 = 0;
+			}
+			do
+			{
+				if (var5 >= var6)
+					break;
+				int var9 = H[var5++];
+				int var10 = (var9 & 0x3f) + par2_minus_32;
+				int var11 = (var9 >> 6 & 0x3f) + par3_minus_32;
+				int var12 = (var9 >> 12 & 0x3f) + par4_minus_32;
+				boolean same_chunk = chunk.hasCoords(var10 >> 4, var12 >> 4);
+				int var13;
+				int var14;
+				if (same_chunk)
+				{
+					var13 = getSavedBlocklightValueMITE(var10, var11, var12, chunk);
+					var14 = computeBlocklightValueMITE(var10, var11, var12, chunk);
+				} else
+				{
+					var13 = getSavedBlocklightValue(var10, var11, var12);
+					var14 = a(var10, var11, var12, ach.b);
+				}
+				if (var14 != var13)
+				{
+					if (same_chunk)
+						setBlocklightValueMITE(var10, var11, var12, var14, chunk);
+					else
+						setBlocklightValue(var10, var11, var12, var14);
+					if (var6 < H.length - 6 && var14 > var13)
+					{
+						int var15 = var10 - par2;
+						int var16 = var11 - par3;
+						int var17 = var12 - par4;
+						if (var15 < 0)
+							var15 = -var15;
+						if (var16 < 0)
+							var16 = -var16;
+						if (var17 < 0)
+							var17 = -var17;
+						if (var15 + var16 + var17 <= pos_max_distance)
+						{
+							int local_x = var10 & 0xf;
+							int local_z = var12 & 0xf;
+							if (local_x > 0 && local_x < 15 && local_z > 0 && local_z < 15)
+							{
+								adr chunk2 = chunk.hasCoords(var10 >> 4, var12 >> 4) ? chunk : d(var10, var12);
+								if (chunk2.g())
+									Debug.setErrorMessage("updateLightByType: chunk was empty");
+								int x = var10 - 1;
+								int y = var11;
+								int z = var12;
+								if (getSavedBlocklightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10 + 1;
+								y = var11;
+								z = var12;
+								if (getSavedBlocklightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 - 1;
+								z = var12;
+								if (getSavedBlocklightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 + 1;
+								z = var12;
+								if (getSavedBlocklightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 - 1;
+								if (getSavedBlocklightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 + 1;
+								if (getSavedBlocklightValueMITE(x, y, z, chunk2) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+							} else
+							{
+								int x = var10 - 1;
+								int y = var11;
+								int z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedBlocklightValueMITE(x, y, z, chunk) : getSavedBlocklightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10 + 1;
+								y = var11;
+								z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedBlocklightValueMITE(x, y, z, chunk) : getSavedBlocklightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 - 1;
+								z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedBlocklightValueMITE(x, y, z, chunk) : getSavedBlocklightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11 + 1;
+								z = var12;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedBlocklightValueMITE(x, y, z, chunk) : getSavedBlocklightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 - 1;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedBlocklightValueMITE(x, y, z, chunk) : getSavedBlocklightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+								x = var10;
+								y = var11;
+								z = var12 + 1;
+								if ((chunk.hasCoords(x >> 4, z >> 4) ? getSavedBlocklightValueMITE(x, y, z, chunk) : getSavedBlocklightValue(x, y, z)) < var14)
+									H[var6++] = x + minus_par2_plus_32 + (y + minus_par3_plus_32 << 6) + (z + minus_par4_plus_32 << 12);
+							}
+						}
+					}
+				}
+			} while (true);
+		} else
+		{
+			chunk.addPendingBlocklightUpdate(par2, par3, par4);
+		}
+	}
+
+	public boolean a(boolean par1)
+	{
+		return false;
+	}
+
+	public List a(adr par1Chunk, boolean par2)
+	{
+		return null;
+	}
+
+	public boolean occupiedByLivingEntity(int x, int y, int z)
+	{
+		List entities = a(og, asx.a().a(x, y, z, x + 1, y + 1, z + 1));
+		return entities != null && entities.size() > 0;
+	}
+
+	public List getPredatorsWithinAABBForEntity(nn prey, asx bounding_box)
+	{
+		List entities = b(prey, bounding_box);
+		List predators = new ArrayList();
+		Iterator i = entities.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			nn entity = (nn)i.next();
+			if ((entity instanceof og) && ((og)entity).preysUpon(prey))
+				predators.add(entity);
+		} while (true);
+		return predators;
+	}
+
+	public List getFoodItemEntitiesWithinAABBForLivingEntity(og entity_living, asx bounding_box)
+	{
+		List entities = a(ss, bounding_box);
+		List food_item_entities = new ArrayList();
+		Iterator i = entities.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			ss entity_item = (ss)i.next();
+			if (entity_living.isFoodItem(entity_item.d()))
+				food_item_entities.add(entity_item);
+		} while (true);
+		return food_item_entities;
+	}
+
+	public List getRepairItemEntitiesWithinAABBForLivingEntity(og entity_living, asx bounding_box)
+	{
+		List entities = a(ss, bounding_box);
+		List repair_item_entities = new ArrayList();
+		Iterator i = entities.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			ss entity_item = (ss)i.next();
+			if (entity_living.isRepairItem(entity_item.d()))
+				repair_item_entities.add(entity_item);
+		} while (true);
+		return repair_item_entities;
+	}
+
+	public List b(nn par1Entity, asx par2AxisAlignedBB)
+	{
+		return a(par1Entity, par2AxisAlignedBB, (nw)null);
+	}
+
+	public List a(nn par1Entity, asx par2AxisAlignedBB, nw par3IEntitySelector)
+	{
+		ArrayList var4 = new ArrayList();
+		int var5 = ls.c((par2AxisAlignedBB.a - 2D) / 16D);
+		int var6 = ls.c((par2AxisAlignedBB.d + 2D) / 16D);
+		int var7 = ls.c((par2AxisAlignedBB.c - 2D) / 16D);
+		int var8 = ls.c((par2AxisAlignedBB.f + 2D) / 16D);
+		for (int var9 = var5; var9 <= var6; var9++)
+		{
+			for (int var10 = var7; var10 <= var8; var10++)
+				if (c(var9, var10))
+					e(var9, var10).a(par1Entity, par2AxisAlignedBB, var4, par3IEntitySelector);
+
+		}
+
+		return var4;
+	}
+
+	public List a(Class par1Class, asx par2AxisAlignedBB)
+	{
+		return a(par1Class, par2AxisAlignedBB, (nw)null);
+	}
+
+	public List a(Class par1Class, asx par2AxisAlignedBB, nw par3IEntitySelector)
+	{
+		int var4 = ls.c((par2AxisAlignedBB.a - 2D) / 16D);
+		int var5 = ls.c((par2AxisAlignedBB.d + 2D) / 16D);
+		int var6 = ls.c((par2AxisAlignedBB.c - 2D) / 16D);
+		int var7 = ls.c((par2AxisAlignedBB.f + 2D) / 16D);
+		ArrayList var8 = new ArrayList();
+		for (int var9 = var4; var9 <= var5; var9++)
+		{
+			for (int var10 = var6; var10 <= var7; var10++)
+				if (c(var9, var10))
+					e(var9, var10).a(par1Class, par2AxisAlignedBB, var8, par3IEntitySelector);
+
+		}
+
+		return var8;
+	}
+
+	public nn a(Class par1Class, asx par2AxisAlignedBB, nn par3Entity)
+	{
+		List var4 = a(par1Class, par2AxisAlignedBB);
+		nn var5 = null;
+		double var6 = 1.7976931348623157E+308D;
+		for (int var8 = 0; var8 < var4.size(); var8++)
+		{
+			nn var9 = (nn)var4.get(var8);
+			if (var9 == par3Entity)
+				continue;
+			double var10 = par3Entity.e(var9);
+			if (var10 <= var6)
+			{
+				var5 = var9;
+				var6 = var10;
+			}
+		}
+
+		return var5;
+	}
+
+	public nn findNearestSeenEntityWithinAABB(Class par1Class, asx par2AxisAlignedBB, nn par3Entity, rg entity_senses)
+	{
+		List var4 = a(par1Class, par2AxisAlignedBB);
+		nn var5 = null;
+		double var6 = 1.7976931348623157E+308D;
+		for (int var8 = 0; var8 < var4.size(); var8++)
+		{
+			nn var9 = (nn)var4.get(var8);
+			if (var9.M || var9.isEntityLivingBase() && var9.getAsEntityLivingBase().aN() <= 0.0F || var9 == par3Entity || !entity_senses.a(var9))
+				continue;
+			double var10 = par3Entity.e(var9);
+			if (var10 <= var6)
+			{
+				var5 = var9;
+				var6 = var10;
+			}
+		}
+
+		return var5;
+	}
+
+	public abstract nn a(int i1);
+
+	public List D()
+	{
+		return e;
+	}
+
+	public void b(int par1, int par2, int par3, asp par4TileEntity)
+	{
+		if (f(par1, par2, par3))
+			d(par1, par3).e();
+	}
+
+	public int a(Class par1Class)
+	{
+		int var2 = 0;
+		for (int var3 = 0; var3 < e.size(); var3++)
+		{
+			nn var4 = (nn)e.get(var3);
+			if ((!(var4 instanceof og) || !((og)var4).bE()) && par1Class.isAssignableFrom(var4.getClass()))
+				var2++;
+		}
+
+		return var2;
+	}
+
+	public int countMobs(boolean include_mobs_below_height_of_60, boolean include_mobs_at_height_of_60_or_higher)
+	{
+		int count = 0;
+		for (int i = 0; i < e.size(); i++)
+		{
+			nn entity = (nn)e.get(i);
+			if (!(entity instanceof th))
+				continue;
+			if (entity.getBlockPosY() < 60)
+			{
+				if (include_mobs_below_height_of_60)
+					count++;
+				continue;
+			}
+			if (include_mobs_at_height_of_60_or_higher)
+				count++;
+		}
+
+		return count;
+	}
+
+	public final nn getEntityWithSameClassAndUUIDInLoadedEntityList(nn entity, boolean report_error_on_object_match)
+	{
+		for (Iterator i = e.iterator(); i.hasNext();)
+		{
+			nn loaded_entity = (nn)i.next();
+			if (loaded_entity == entity)
+			{
+				if (report_error_on_object_match)
+					System.out.println("getEntityWithSameClassAndUUIDInLoadedEntityList: object match!");
+				return loaded_entity;
+			}
+			if (loaded_entity.getClass() == entity.getClass() && loaded_entity.aw().equals(entity.aw()))
+				return loaded_entity;
+		}
+
+		return null;
+	}
+
+	public static final nn getEntityWithSameClassAndUUIDInEntityList(String name_of_calling_function, nn entity, List entity_list, boolean report_error_on_object_match)
+	{
+		for (Iterator i = entity_list.iterator(); i.hasNext();)
+		{
+			nn entity_in_list = (nn)i.next();
+			if (entity_in_list == entity)
+			{
+				if (report_error_on_object_match)
+					System.out.println((new StringBuilder()).append(name_of_calling_function).append(": object match!").toString());
+				return entity_in_list;
+			}
+			if (entity_in_list.getClass() == entity.getClass() && entity_in_list.aw().equals(entity.aw()))
+				return entity_in_list;
+		}
+
+		return null;
+	}
+
+	public final boolean isEntityObjectInLoadedEntityList(nn entity)
+	{
+		return e.contains(entity);
+	}
+
+	public final boolean isEntityWithSameClassAndUUIDInUnloadedEntityList(nn entity)
+	{
+		for (Iterator i = f.iterator(); i.hasNext();)
+		{
+			nn unloaded_entity = (nn)i.next();
+			if (unloaded_entity == entity)
+				return true;
+			if (unloaded_entity.getClass() == entity.getClass() && unloaded_entity.aw().equals(entity.aw()))
+				return true;
+		}
+
+		return false;
+	}
+
+	public final boolean isEntityObjectInUnloadedEntityList(nn entity)
+	{
+		return f.contains(entity);
+	}
+
+	public void a(List par1List)
+	{
+		e.addAll(par1List);
+		for (int var2 = 0; var2 < par1List.size(); var2++)
+			a((nn)par1List.get(var2));
+
+	}
+
+	public void b(List par1List)
+	{
+		f.addAll(par1List);
+	}
+
+	public alf a(nn par1Entity, nn par2Entity, float max_path_length, boolean can_pass_open_wooden_doors, boolean can_path_through_closed_wooden_doors, boolean avoid_water, boolean can_entity_swim)
+	{
+		if (max_path_length > 32F)
+			max_path_length = 32F;
+		C.a("pathfind");
+		int var8 = ls.c(par1Entity.u);
+		int var9 = ls.c(par1Entity.v + 1.0D);
+		int var10 = ls.c(par1Entity.w);
+		int var11 = (int)(max_path_length + 16F);
+		int var12 = var8 - var11;
+		int var13 = var9 - var11;
+		int var14 = var10 - var11;
+		int var15 = var8 + var11;
+		int var16 = var9 + var11;
+		int var17 = var10 + var11;
+		acl var18 = new acl(this, var12, var13, var14, var15, var16, var17, 0);
+		alf var19 = (new alg(var18, can_pass_open_wooden_doors, can_path_through_closed_wooden_doors, avoid_water, can_entity_swim)).a(par1Entity, par2Entity, max_path_length);
+		C.b();
+		return var19;
+	}
+
+	protected alf findEntityPathTowardXYZ(nn entity, int x, int y, int z, int max_path_length, boolean use_navigator)
+	{
+		int entity_x = ls.c(entity.u);
+		int entity_y = ls.c(entity.v);
+		int entity_z = ls.c(entity.w);
+		double shortest_distance_to_xyz_sq = getDistanceSqFromDeltas(entity_x - x, entity_y - y, entity_z - z);
+		alf selected_path = null;
+		int random_number_index = s.nextInt();
+		for (int attempt = 0; attempt < 16; attempt++)
+		{
+			int dx = RNG.int_max[++random_number_index & 0x7fff] % (max_path_length * 2 + 1) - max_path_length;
+			int dy = RNG.int_7_minus_3[++random_number_index & 0x7fff];
+			int dz = RNG.int_max[++random_number_index & 0x7fff] % (max_path_length * 2 + 1) - max_path_length;
+			int trial_x = entity_x + dx;
+			int trial_y = entity_y + dy;
+			int trial_z = entity_z + dz;
+			for (int i = 0; i < 8 && isAirOrPassableBlock(trial_x, trial_y - 1, trial_z, false); i++)
+				trial_y--;
+
+			for (int i = 0; i < 8 && !isAirOrPassableBlock(trial_x, trial_y, trial_z, false); i++)
+				trial_y++;
+
+			double distance_to_xyz_sq = getDistanceSqFromDeltas(trial_x - x, trial_y - y, trial_z - z);
+			if (distance_to_xyz_sq >= shortest_distance_to_xyz_sq)
+				continue;
+			alf path;
+			if (use_navigator && (entity instanceof og))
+				path = ((og)entity).k().getPathToXYZ(trial_x, trial_y, trial_z, max_path_length);
+			else
+				path = a(entity, trial_x, trial_y, trial_z, max_path_length, true, false, false, true);
+			if (path == null)
+				continue;
+			ale final_point = path.c();
+			distance_to_xyz_sq = getDistanceSqFromDeltas(final_point.a - x, final_point.b - y, final_point.c - z);
+			if (distance_to_xyz_sq < shortest_distance_to_xyz_sq)
+			{
+				shortest_distance_to_xyz_sq = distance_to_xyz_sq;
+				selected_path = path;
+			}
+		}
+
+		return selected_path;
+	}
+
+	protected alf findEntityPathAwayFromXYZ(nn entity, int x, int y, int z, int min_distance, int max_path_length, boolean use_navigator)
+	{
+		int entity_x = ls.c(entity.u);
+		int entity_y = ls.c(entity.v);
+		int entity_z = ls.c(entity.w);
+		int min_distance_sq = min_distance * min_distance;
+		double furthest_distance_from_xyz_sq = getDistanceSqFromDeltas(entity_x - x, entity_y - y, entity_z - z);
+		alf selected_path = null;
+		int random_number_index = s.nextInt();
+		for (int attempt = 0; attempt < 16; attempt++)
+		{
+			int dx = RNG.int_max[++random_number_index & 0x7fff] % (max_path_length * 2 + 1) - max_path_length;
+			int dy = RNG.int_7_minus_3[++random_number_index & 0x7fff];
+			int dz = RNG.int_max[++random_number_index & 0x7fff] % (max_path_length * 2 + 1) - max_path_length;
+			int trial_x = entity_x + dx;
+			int trial_y = entity_y + dy;
+			int trial_z = entity_z + dz;
+			for (int i = 0; i < 8 && isAirOrPassableBlock(trial_x, trial_y - 1, trial_z, false); i++)
+				trial_y--;
+
+			for (int i = 0; i < 8 && !isAirOrPassableBlock(trial_x, trial_y, trial_z, false); i++)
+				trial_y++;
+
+			double distance_from_xyz_sq = getDistanceSqFromDeltas(trial_x - x, trial_y - y, trial_z - z);
+			if (distance_from_xyz_sq < (double)min_distance_sq || distance_from_xyz_sq <= furthest_distance_from_xyz_sq)
+				continue;
+			alf path;
+			if (use_navigator && (entity instanceof og))
+				path = ((og)entity).k().getPathToXYZ(trial_x, trial_y, trial_z, max_path_length);
+			else
+				path = a(entity, trial_x, trial_y, trial_z, max_path_length, true, false, false, true);
+			if (path == null)
+				continue;
+			ale final_point = path.c();
+			distance_from_xyz_sq = getDistanceSqFromDeltas(final_point.a - x, final_point.b - y, final_point.c - z);
+			if (distance_from_xyz_sq >= (double)min_distance_sq && distance_from_xyz_sq > furthest_distance_from_xyz_sq)
+			{
+				furthest_distance_from_xyz_sq = distance_from_xyz_sq;
+				selected_path = path;
+			}
+		}
+
+		return selected_path;
+	}
+
+	public alf a(nn par1Entity, int par2, int par3, int par4, float par5, boolean can_pass_open_wooden_doors, boolean can_path_through_closed_wooden_doors, 
+			boolean avoid_water, boolean can_entity_swim)
+	{
+		C.a("pathfind");
+		int var10 = ls.c(par1Entity.u);
+		int var11 = ls.c(par1Entity.v);
+		int var12 = ls.c(par1Entity.w);
+		int var13 = (int)(par5 + 8F);
+		int var14 = var10 - var13;
+		int var15 = var11 - var13;
+		int var16 = var12 - var13;
+		int var17 = var10 + var13;
+		int var18 = var11 + var13;
+		int var19 = var12 + var13;
+		acl var20 = new acl(this, var14, var15, var16, var17, var18, var19, 0);
+		alf var21 = (new alg(var20, can_pass_open_wooden_doors, can_path_through_closed_wooden_doors, avoid_water, can_entity_swim)).a(par1Entity, par2, par3, par4, par5);
+		C.b();
+		return var21;
+	}
+
+	public int j(int par1, int par2, int par3, int par4)
+	{
+		int var5 = a(par1, par2, par3);
+		return var5 != 0 ? aqz.s[var5].c(this, par1, par2, par3, par4) : 0;
+	}
+
+	public int B(int par1, int par2, int par3)
+	{
+		byte var4 = 0;
+		int var5 = Math.max(var4, j(par1, par2 - 1, par3, 0));
+		if (var5 >= 15)
+			return var5;
+		var5 = Math.max(var5, j(par1, par2 + 1, par3, 1));
+		if (var5 >= 15)
+			return var5;
+		var5 = Math.max(var5, j(par1, par2, par3 - 1, 2));
+		if (var5 >= 15)
+			return var5;
+		var5 = Math.max(var5, j(par1, par2, par3 + 1, 3));
+		if (var5 >= 15)
+			return var5;
+		var5 = Math.max(var5, j(par1 - 1, par2, par3, 4));
+		if (var5 >= 15)
+		{
+			return var5;
+		} else
+		{
+			var5 = Math.max(var5, j(par1 + 1, par2, par3, 5));
+			return var5 < 15 ? var5 : var5;
+		}
+	}
+
+	public boolean k(int par1, int par2, int par3, int par4)
+	{
+		return l(par1, par2, par3, par4) > 0;
+	}
+
+	public int l(int par1, int par2, int par3, int par4)
+	{
+		if (u(par1, par2, par3))
+		{
+			return B(par1, par2, par3);
+		} else
+		{
+			int var5 = a(par1, par2, par3);
+			return var5 != 0 ? aqz.s[var5].b(this, par1, par2, par3, par4) : 0;
+		}
+	}
+
+	public boolean C(int par1, int par2, int par3)
+	{
+		return l(par1, par2 - 1, par3, 0) <= 0 ? l(par1, par2 + 1, par3, 1) <= 0 ? l(par1, par2, par3 - 1, 2) <= 0 ? l(par1, par2, par3 + 1, 3) <= 0 ? l(par1 - 1, par2, par3, 4) <= 0 ? l(par1 + 1, par2, par3, 5) > 0 : true : true : true : true : true;
+	}
+
+	public int D(int par1, int par2, int par3)
+	{
+		int var4 = 0;
+		for (int var5 = 0; var5 < 6; var5++)
+		{
+			int var6 = l(par1 + s.b[var5], par2 + s.c[var5], par3 + s.d[var5], var5);
+			if (var6 >= 15)
+				return 15;
+			if (var6 > var4)
+				var4 = var6;
+		}
+
+		return var4;
+	}
+
+	public uf getClosestPlayerToEntity(nn par1Entity, double max_distance, boolean must_be_alive)
+	{
+		return getClosestPlayer(par1Entity.u, par1Entity.v, par1Entity.w, max_distance, must_be_alive);
+	}
+
+	public uf getClosestPlayer(double par1, double par3, double par5, double max_distance, boolean must_be_alive)
+	{
+		double var9 = -1D;
+		uf var11 = null;
+		for (int var12 = 0; var12 < h.size(); var12++)
+		{
+			uf var13 = (uf)h.get(var12);
+			if (var13.isGhost() || var13.isZevimrgvInTournament() || must_be_alive && (var13.M || var13.aN() <= 0.0F))
+				continue;
+			double var14 = var13.e(par1, par3, par5);
+			if ((max_distance < 0.0D || var14 < max_distance * max_distance) && (var9 == -1D || var14 < var9))
+			{
+				var9 = var14;
+				var11 = var13;
+			}
+		}
+
+		return var11;
+	}
+
+	public uf getClosestVulnerablePlayer(og attacker, double par7, boolean requires_line_of_sight)
+	{
+		double par1 = attacker.u;
+		double par3 = attacker.v + (double)(attacker.P / 2.0F);
+		double par5 = attacker.w;
+		if (I)
+			atv.setErrorMessage("getClosestVulnerablePlayer: no meant to be called on client");
+		double var9 = -1D;
+		uf var11 = null;
+		for (int var12 = 0; var12 < h.size(); var12++)
+		{
+			uf var13 = (uf)h.get(var12);
+			if (var13.isGhost() || var13.isZevimrgvInTournament() || var13.isImmuneByGrace() || var13.bG.a || !var13.T())
+				continue;
+			double var14 = var13.e(par1, par3, par5);
+			double var16 = par7;
+			if (var13.ah())
+				var16 = par7 * 0.80000001192092896D;
+			if (var13.aj())
+			{
+				float var18 = var13.bx();
+				if (var18 < 0.1F)
+					var18 = 0.1F;
+				var16 *= 0.7F * var18;
+			}
+			if ((par7 < 0.0D || var14 < var16 * var16) && (var9 == -1D || var14 < var9) && (!requires_line_of_sight || attacker.l().a(var13)))
+			{
+				var9 = var14;
+				var11 = var13;
+			}
+		}
+
+		return var11;
+	}
+
+	public rp getClosestAnimal(og attacker, double max_distance, boolean requires_line_of_sight, boolean requires_path)
+	{
+		List animals = a(rp, attacker.E.b(max_distance, max_distance, max_distance));
+		if (animals.isEmpty())
+			return null;
+		rp closest_animal = null;
+		float closest_distance = 0.0F;
+		Iterator i = animals.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			rp animal = (rp)i.next();
+			if (!animal.M && animal.aN() > 0.0F && animal.isTrueAnimal() && (!requires_line_of_sight || attacker.l().a(animal)) && (!requires_path || attacker.canPathTo(animal.getBlockPosX(), animal.getFootBlockPosY(), animal.getBlockPosZ(), (int)max_distance)))
+			{
+				float distance = attacker.d(animal);
+				if (closest_animal == null || distance < closest_distance)
+				{
+					closest_animal = animal;
+					closest_distance = distance;
+				}
+			}
+		} while (true);
+		return closest_animal;
+	}
+
+	public of getClosestEntityLivingBase(og attacker, Class target_classes[], double max_distance, boolean requires_line_of_sight, boolean requires_path)
+	{
+		List targets = a(of, attacker.E.b(max_distance, max_distance, max_distance));
+		if (targets.isEmpty())
+			return null;
+		of closest_target = null;
+		float closest_distance = 0.0F;
+		Iterator i = targets.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			of target = (of)i.next();
+			if (!target.M && target.aN() > 0.0F)
+			{
+				boolean is_a_target_class = false;
+				int index = 0;
+				do
+				{
+					if (index >= target_classes.length)
+						break;
+					if ((target_classes[index] != rp || !(target instanceof rp) || target.isTrueAnimal()) && target.getClass().isAssignableFrom(target_classes[index]))
+					{
+						is_a_target_class = true;
+						break;
+					}
+					index++;
+				} while (true);
+				if (is_a_target_class && (!requires_line_of_sight || attacker.l().a(target)) && (!requires_path || attacker.canPathTo(target.getBlockPosX(), target.getFootBlockPosY(), target.getBlockPosZ(), (int)max_distance)))
+				{
+					float distance = attacker.d(target);
+					if (closest_target == null || distance < closest_distance)
+					{
+						closest_target = target;
+						closest_distance = distance;
+					}
+				}
+			}
+		} while (true);
+		return closest_target;
+	}
+
+	public of getClosestPrey(og attacker, double max_distance, boolean requires_line_of_sight, boolean requires_path)
+	{
+		List targets = a(of, attacker.E.b(max_distance, max_distance, max_distance));
+		if (targets.isEmpty())
+			return null;
+		of closest_target = null;
+		float closest_distance = 0.0F;
+		Iterator i = targets.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			of target = (of)i.next();
+			if (!target.M && target.aN() > 0.0F && attacker.preysUpon(target) && (!requires_line_of_sight || attacker.l().a(target)) && (!requires_path || attacker.canPathTo(target.getBlockPosX(), target.getFootBlockPosY(), target.getBlockPosZ(), (int)max_distance)))
+			{
+				float distance = attacker.d(target);
+				if (closest_target == null || distance < closest_distance)
+				{
+					closest_target = target;
+					closest_distance = distance;
+				}
+			}
+		} while (true);
+		return closest_target;
+	}
+
+	public boolean isPlayerNearby(double x, double y, double z, double range)
+	{
+		double range_sq = range * range;
+		for (int i = 0; i < h.size(); i++)
+		{
+			uf player = (uf)h.get(i);
+			if (!player.isGhost() && !player.isZevimrgvInTournament() && player.e(x, y, z) <= range_sq)
+				return true;
+		}
+
+		return false;
+	}
+
+	public boolean hasNonGhostPlayers()
+	{
+		int size = h.size();
+		for (int i = 0; i < size; i++)
+		{
+			uf player = (uf)h.get(i);
+			if (!player.isGhost() && !player.isZevimrgvInTournament())
+				return true;
+		}
+
+		return false;
+	}
+
+	public double getDistanceSqToNearestPlayer(int x, int y, int z)
+	{
+		if (!hasNonGhostPlayers())
+			return 1.7976931348623157E+308D;
+		double distance_sq_to_nearest_player = 1.7976931348623157E+308D;
+		Iterator i = h.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			uf player = (uf)i.next();
+			if (!player.isGhost() && !player.isZevimrgvInTournament())
+			{
+				double distance_sq_to_player = getDistanceSqFromDeltas(x - player.getBlockPosX(), y - player.getBlockPosY(), z - player.getBlockPosZ());
+				if (distance_sq_to_player < distance_sq_to_nearest_player)
+					distance_sq_to_nearest_player = distance_sq_to_player;
+			}
+		} while (true);
+		if (distance_sq_to_nearest_player > 65536D)
+			return 1.7976931348623157E+308D;
+		else
+			return distance_sq_to_nearest_player;
+	}
+
+	public float distanceToNearestPlayer(double x, double y, double z)
+	{
+		if (!hasNonGhostPlayers())
+			return 3.402823E+038F;
+		double distance_to_nearest_player_sq = 1.7976931348623157E+308D;
+		int size = h.size();
+		for (int i = 0; i < size; i++)
+		{
+			uf player = (uf)h.get(i);
+			if (player.isGhost() || player.isZevimrgvInTournament())
+				continue;
+			double distance_sq = player.e(x, y, z);
+			if (distance_sq < distance_to_nearest_player_sq)
+				distance_to_nearest_player_sq = distance_sq;
+		}
+
+		if (distance_to_nearest_player_sq > 65536D)
+			return 3.402823E+038F;
+		else
+			return (float)Math.sqrt(distance_to_nearest_player_sq);
+	}
+
+	public double getDistanceSqToNearestPlayer(int x, int z)
+	{
+		if (!hasNonGhostPlayers())
+			return 1.7976931348623157E+308D;
+		double distance_sq_to_nearest_player = 1.7976931348623157E+308D;
+		Iterator i = h.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			uf player = (uf)i.next();
+			if (!player.isGhost() && !player.isZevimrgvInTournament())
+			{
+				double distance_sq_to_player = getDistanceSqFromDeltas(x - player.getBlockPosX(), z - player.getBlockPosZ());
+				if (distance_sq_to_player < distance_sq_to_nearest_player)
+					distance_sq_to_nearest_player = distance_sq_to_player;
+			}
+		} while (true);
+		if (distance_sq_to_nearest_player > 65536D)
+			return 1.7976931348623157E+308D;
+		else
+			return distance_sq_to_nearest_player;
+	}
+
+	public uf a(String par1Str)
+	{
+		for (int var2 = 0; var2 < h.size(); var2++)
+			if (par1Str.equals(((uf)h.get(var2)).c_()))
+				return (uf)h.get(var2);
+
+		return null;
+	}
+
+	public void F()
+	{
+	}
+
+	public void G()
+		throws aca
+	{
+		w.c();
+	}
+
+	public final void setTotalWorldTime(long par1)
+	{
+		x.setTotalWorldTime(par1, this);
+	}
+
+	public final void advanceTotalWorldTime(long ticks)
+	{
+		setTotalWorldTime(I() + ticks);
+	}
+
+	public long H()
+	{
+		return x.b();
+	}
+
+	public long getHashedSeed()
+	{
+		return x.getHashedSeed();
+	}
+
+	public final long I()
+	{
+		return x.getWorldTotalTime(getDimensionId());
+	}
+
+	public final long getTotalWorldTimeAtStartOfToday()
+	{
+		return getTotalWorldTimeAtStartOfDay(getDayOfWorld());
+	}
+
+	public final long getTotalWorldTimeAtEndOfToday()
+	{
+		return getTotalWorldTimeAtEndOfDay(getDayOfWorld());
+	}
+
+	public static final long getTotalWorldTimeAtStartOfDay(int day)
+	{
+		return (long)((day - 1) * 24000 - 6000);
+	}
+
+	public static final long getTotalWorldTimeAtEndOfDay(int day)
+	{
+		return (getTotalWorldTimeAtStartOfDay(day) + 24000L) - 1L;
+	}
+
+	public static final long getAdjustedTotalWorldTime(long unadjusted_tick)
+	{
+		return unadjusted_tick + 6000L;
+	}
+
+	public static final int getDayOfWorld(long unadjusted_tick)
+	{
+		return (int)(getAdjustedTotalWorldTime(unadjusted_tick) / 24000L) + 1;
+	}
+
+	public final int getDayOfWorld()
+	{
+		return getDayOfWorld(I());
+	}
+
+	public t K()
+	{
+		return new t(x.c(), x.d(), x.e());
+	}
+
+	public int getSpawnX()
+	{
+		return x.c();
+	}
+
+	public int getSpawnY()
+	{
+		return x.d();
+	}
+
+	public int getSpawnZ()
+	{
+		return x.e();
+	}
+
+	public void E(int par1, int par2, int par3)
+	{
+		x.a(par1, par2, par3);
+	}
+
+	public void h(nn par1Entity)
+	{
+		int var2 = ls.c(par1Entity.u / 16D);
+		int var3 = ls.c(par1Entity.w / 16D);
+		byte var4 = 2;
+		for (int var5 = var2 - var4; var5 <= var2 + var4; var5++)
+		{
+			for (int var6 = var3 - var4; var6 <= var3 + var4; var6++)
+				e(var5, var6);
+
+		}
+
+		if (!e.contains(par1Entity))
+			e.add(par1Entity);
+	}
+
+	public boolean a(uf par1EntityPlayer, int par2, int par3, int i1)
+	{
+		return true;
+	}
+
+	public void setEntityState(nn nn1, EnumEntityState enumentitystate)
+	{
+	}
+
+	public ado L()
+	{
+		return v;
+	}
+
+	public void d(int par1, int par2, int par3, int par4, int par5, int par6)
+	{
+		if (par4 > 0)
+			aqz.s[par4].b(this, par1, par2, par3, par5, par6);
+	}
+
+	public amc M()
+	{
+		return w;
+	}
+
+	public final als N()
+	{
+		return x;
+	}
+
+	public abt O()
+	{
+		return x.x();
+	}
+
+	public float h(float par1)
+	{
+		return (o + (p - o) * par1) * i(par1);
+	}
+
+	public float i(float par1)
+	{
+		return m + (n - m) * par1;
+	}
+
+	public void j(float par1)
+	{
+		m = par1;
+		n = par1;
+	}
+
+	public final boolean isPrecipitatingAt(int x, int y, int z)
+	{
+		return (a(x, z).G > 0.0F || isBloodMoon24HourPeriod()) && isPrecipitating(true) && h(x, z) <= y;
+	}
+
+	public final boolean isSnowing(int x, int z)
+	{
+		return isPrecipitating(true) && isFreezing(x, z);
+	}
+
+	public final boolean isInRain(int x, int y, int z)
+	{
+		if (!isPrecipitating(true))
+			return false;
+		acq biome = a(x, z);
+		if (biome.G == 0.0F && !isBloodMoon24HourPeriod() || biome.isFreezing())
+			return false;
+		else
+			return l(x, y, z) && h(x, z) <= y;
+	}
+
+	public boolean F(int par1, int par2, int par3)
+	{
+		if (!isPrecipitating(true))
+			return false;
+		if (!l(par1, par2, par3))
+			return false;
+		if (h(par1, par3) > par2)
+		{
+			return false;
+		} else
+		{
+			acq var4 = a(par1, par3);
+			return var4.c() ? false : var4.canSpawnLightningBolt(isBloodMoon24HourPeriod());
+		}
+	}
+
+	public boolean isSkyOvercast(int x, int z)
+	{
+		if (!isPrecipitating(true))
+		{
+			return false;
+		} else
+		{
+			acq biome = a(x, z);
+			return biome.hasRainfall() || isBloodMoon24HourPeriod();
+		}
+	}
+
+	public boolean G(int par1, int par2, int par3)
+	{
+		acq var4 = a(par1, par3);
+		return var4.e();
+	}
+
+	public void a(String par1Str, all par2WorldSavedData)
+	{
+		z.a(par1Str, par2WorldSavedData);
+	}
+
+	public all a(Class par1Class, String par2Str)
+	{
+		return z.a(par1Class, par2Str);
+	}
+
+	public int peekUniqueDataId(String prefix)
+	{
+		return z.peekUniqueDataId(prefix);
+	}
+
+	public void setUniqueDataId(String prefix, short value)
+	{
+		z.setUniqueDataId(this, prefix, value);
+	}
+
+	public int b(String par1Str)
+	{
+		return z.getUniqueDataId(this, par1Str);
+	}
+
+	public void d(int par1, int par2, int par3, int par4, int par5)
+	{
+		for (int var6 = 0; var6 < u.size(); var6++)
+			((acb)u.get(var6)).a(par1, par2, par3, par4, par5);
+
+	}
+
+	public void e(int id, int x, int y, int z, int data)
+	{
+		a((uf)null, id, x, y, z, data);
+	}
+
+	public void a(uf par1EntityPlayer, int par2, int par3, int par4, int par5, int par6)
+	{
+		try
+		{
+			for (int var7 = 0; var7 < u.size(); var7++)
+				((acb)u.get(var7)).a(par1EntityPlayer, par2, par3, par4, par5, par6);
+
+		}
+		catch (Throwable var10)
+		{
+			b var8 = b.a(var10, "Playing level event");
+			m var9 = var8.a("Level event being played");
+			var9.a("Block coordinates", m.a(par3, par4, par5));
+			var9.a("Event source", par1EntityPlayer);
+			var9.a("Event type", Integer.valueOf(par2));
+			var9.a("Event data", Integer.valueOf(par6));
+			throw new u(var8);
+		}
+	}
+
+	public final int R()
+	{
+		return 256;
+	}
+
+	public static final int getMaxBlockY()
+	{
+		return 255;
+	}
+
+	public int S()
+	{
+		if (underworld_y_offset != 0)
+			return 256;
+		else
+			return t.g ? 128 : '\u0100';
+	}
+
+	public hr a(st par1EntityMinecart)
+	{
+		return null;
+	}
+
+	public Random H(int par1, int par2, int par3)
+	{
+		long var4 = (long)par1 * 0x4f9939f508L + (long)par2 * 0x1ef1565bd5L + N().b() + (long)par3;
+		s.setSeed(var4);
+		return s;
+	}
+
+	public aco b(String par1Str, int par2, int par3, int par4)
+	{
+		return L().a(this, par1Str, par2, par3, par4);
+	}
+
+	public boolean T()
+	{
+		return false;
+	}
+
+	public double U()
+	{
+		return x.u() != acg.c ? 63D : 0.0D;
+	}
+
+	public m a(b par1CrashReport)
+	{
+		m var2 = par1CrashReport.a("Affected level", 1);
+		var2.a("Level name", x != null ? ((Object) (x.k())) : "????");
+		var2.a("All players", new aby(this));
+		var2.a("Chunk stats", new abz(this));
+		try
+		{
+			x.a(var2);
+		}
+		catch (Throwable var4)
+		{
+			var2.a("Level Data Unobtainable", var4);
+		}
+		return var2;
+	}
+
+	public void f(int destroying_entity_id, int x, int y, int z, int tenths_destroyed)
+	{
+		for (int i = 0; i < u.size(); i++)
+		{
+			acb world_access = (acb)u.get(i);
+			world_access.b(destroying_entity_id, x, y, z, tenths_destroyed);
+		}
+
+	}
+
+	public atd V()
+	{
+		return J;
+	}
+
+	public Calendar W()
+	{
+		if (I() % 600L == 0L)
+			K.setTimeInMillis(MinecraftServer.aq());
+		return K;
+	}
+
+	public void a(double d1, double d2, double d3, double d4, double d5, double d6, by by)
+	{
+	}
+
+	public atj X()
+	{
+		return D;
+	}
+
+	public void m(int par1, int par2, int par3, int par4)
+	{
+		for (int var5 = 0; var5 < 4; var5++)
+		{
+			int var6 = par1 + r.a[var5];
+			int var7 = par3 + r.b[var5];
+			int var8 = a(var6, par2, var7);
+			if (var8 == 0)
+				continue;
+			aqz var9 = aqz.s[var8];
+			if (aqz.cq.g(var8))
+			{
+				var9.onNeighborBlockChange(this, var6, par2, var7, par4);
+				continue;
+			}
+			if (!aqz.l(var8))
+				continue;
+			var6 += r.a[var5];
+			var7 += r.b[var5];
+			var8 = a(var6, par2, var7);
+			var9 = aqz.s[var8];
+			if (aqz.cq.g(var8))
+				var9.onNeighborBlockChange(this, var6, par2, var7, par4);
+		}
+
+	}
+
+	public lp Y()
+	{
+		return L;
+	}
+
+	public float b(double par1, double par3, double par5)
+	{
+		return I(ls.c(par1), ls.c(par3), ls.c(par5));
+	}
+
+	public float I(int par1, int par2, int par3)
+	{
+		float var4 = 0.0F;
+		boolean var5 = r == 3;
+		if (f(par1, par2, par3))
+		{
+			float var6 = x();
+			var4 += ls.a((float)d(par1, par3).q / 3600000F, 0.0F, 1.0F) * (var5 ? 1.0F : 0.75F);
+			var4 += var6 * 0.25F;
+		}
+		if (r < 2)
+			var4 *= (float)r / 2.0F;
+		return ls.a(var4, 0.0F, var5 ? 1.5F : 1.0F);
+	}
+
+	public boolean isServerRunning()
+	{
+		return is.it();
+	}
+
+	public aqz getNearestBlockDirectlyAbove(int x, int y, int z)
+	{
+		while (++y < 256) 
+		{
+			int block_id = a(x, y, z);
+			if (block_id != 0)
+				return aqz.s[block_id];
+		}
+		return null;
+	}
+
+	public final boolean isAirOrPassableBlock(int x, int y, int z, boolean include_liquid)
+	{
+		if (y < 0 || y > 255)
+			return true;
+		if (!f(x, y, z))
+			return false;
+		int block_id = a(x, y, z);
+		if (block_id == 0)
+			return true;
+		aqz block = aqz.getBlock(block_id);
+		if (block == null)
+			return false;
+		else
+			return include_liquid || !block.isLiquid() ? !block.isSolid(this, x, y, z) : false;
+	}
+
+	public final boolean isAirOrPassableBlock(int coords[], boolean include_liquid)
+	{
+		return isAirOrPassableBlock(coords[0], coords[1], coords[2], include_liquid);
+	}
+
+	public boolean isOutdoors(int x, int y, int z, boolean initial_call)
+	{
+		if (t.g)
+			return false;
+		boolean check_block[] = new boolean[49];
+		if (initial_call && isAirOrPassableBlock(x, y + 1, z, false))
+		{
+			if (isOutdoors(x, y + 1, z, false))
+				return true;
+			if (isAirOrPassableBlock(x, y + 2, z, false) && isOutdoors(x, y + 2, z, false))
+				return true;
+		}
+		if (isAirOrPassableBlock(x, y, z, false) && h(x, z) <= y)
+			return true;
+		if (isAirOrPassableBlock(x + 1, y, z, false))
+		{
+			if (h(x + 1, z) <= y)
+				return true;
+			check_block[18] = true;
+			check_block[26] = true;
+			check_block[32] = true;
+		}
+		if (isAirOrPassableBlock(x - 1, y, z, false))
+		{
+			if (h(x - 1, z) <= y)
+				return true;
+			check_block[16] = true;
+			check_block[22] = true;
+			check_block[30] = true;
+		}
+		if (isAirOrPassableBlock(x, y, z + 1, false))
+		{
+			if (h(x, z + 1) <= y)
+				return true;
+			check_block[30] = true;
+			check_block[38] = true;
+			check_block[32] = true;
+		}
+		if (isAirOrPassableBlock(x, y, z - 1, false))
+		{
+			if (h(x, z - 1) <= y)
+				return true;
+			check_block[16] = true;
+			check_block[10] = true;
+			check_block[18] = true;
+		}
+		if (check_block[18] && isAirOrPassableBlock(x + 1, y, z - 1, false))
+		{
+			if (h(x + 1, z - 1) <= y)
+				return true;
+			check_block[11] = true;
+			check_block[19] = true;
+		}
+		if (check_block[32] && isAirOrPassableBlock(x + 1, y, z + 1, false))
+		{
+			if (h(x + 1, z + 1) <= y)
+				return true;
+			check_block[33] = true;
+			check_block[39] = true;
+		}
+		if (check_block[30] && isAirOrPassableBlock(x - 1, y, z + 1, false))
+		{
+			if (h(x - 1, z + 1) <= y)
+				return true;
+			check_block[29] = true;
+			check_block[37] = true;
+		}
+		if (check_block[16] && isAirOrPassableBlock(x - 1, y, z - 1, false))
+		{
+			if (h(x - 1, z - 1) <= y)
+				return true;
+			check_block[9] = true;
+			check_block[15] = true;
+		}
+		if (check_block[26] && isAirOrPassableBlock(x + 2, y, z, false))
+		{
+			if (h(x + 2, z) <= y)
+				return true;
+			check_block[19] = true;
+			check_block[27] = true;
+			check_block[33] = true;
+		}
+		if (check_block[38] && isAirOrPassableBlock(x, y, z + 2, false))
+		{
+			if (h(x, z + 2) <= y)
+				return true;
+			check_block[37] = true;
+			check_block[39] = true;
+			check_block[45] = true;
+		}
+		if (check_block[22] && isAirOrPassableBlock(x - 2, y, z, false))
+		{
+			if (h(x - 2, z) <= y)
+				return true;
+			check_block[15] = true;
+			check_block[21] = true;
+			check_block[29] = true;
+		}
+		if (check_block[10] && isAirOrPassableBlock(x, y, z - 2, false))
+		{
+			if (h(x, z - 2) <= y)
+				return true;
+			check_block[3] = true;
+			check_block[9] = true;
+			check_block[11] = true;
+		}
+		if (check_block[11] && isAirOrPassableBlock(x + 1, y, z - 2, false))
+		{
+			if (h(x + 1, z - 2) <= y)
+				return true;
+			check_block[12] = true;
+		}
+		if (check_block[19] && isAirOrPassableBlock(x + 2, y, z - 1, false))
+		{
+			if (h(x + 2, z - 1) <= y)
+				return true;
+			check_block[12] = true;
+		}
+		if (check_block[33] && isAirOrPassableBlock(x + 2, y, z + 1, false))
+		{
+			if (h(x + 2, z + 1) <= y)
+				return true;
+			check_block[40] = true;
+		}
+		if (check_block[39] && isAirOrPassableBlock(x + 1, y, z + 2, false))
+		{
+			if (h(x + 1, z + 2) <= y)
+				return true;
+			check_block[40] = true;
+		}
+		if (check_block[37] && isAirOrPassableBlock(x - 1, y, z + 2, false))
+		{
+			if (h(x - 1, z + 2) <= y)
+				return true;
+			check_block[36] = true;
+		}
+		if (check_block[29] && isAirOrPassableBlock(x - 2, y, z + 1, false))
+		{
+			if (h(x - 2, z + 1) <= y)
+				return true;
+			check_block[36] = true;
+		}
+		if (check_block[15] && isAirOrPassableBlock(x - 2, y, z - 1, false))
+		{
+			if (h(x - 2, z - 1) <= y)
+				return true;
+			check_block[8] = true;
+		}
+		if (check_block[9] && isAirOrPassableBlock(x - 1, y, z - 2, false))
+		{
+			if (h(x - 1, z - 2) <= y)
+				return true;
+			check_block[8] = true;
+		}
+		if (check_block[12] && isAirOrPassableBlock(x + 2, y, z - 2, false) && h(x + 2, z - 2) <= y)
+			return true;
+		if (check_block[40] && isAirOrPassableBlock(x + 2, y, z + 2, false) && h(x + 2, z + 2) <= y)
+			return true;
+		if (check_block[36] && isAirOrPassableBlock(x - 2, y, z + 2, false) && h(x - 2, z + 2) <= y)
+			return true;
+		if (check_block[8] && isAirOrPassableBlock(x - 2, y, z - 2, false) && h(x - 2, z - 2) <= y)
+			return true;
+		if (check_block[27] && isAirOrPassableBlock(x + 3, y, z, false) && h(x + 3, z) <= y)
+			return true;
+		if (check_block[45] && isAirOrPassableBlock(x, y, z + 3, false) && h(x, z + 3) <= y)
+			return true;
+		if (check_block[21] && isAirOrPassableBlock(x - 3, y, z, false) && h(x - 3, z) <= y)
+			return true;
+		return check_block[3] && isAirOrPassableBlock(x, y, z - 3, false) && h(x, z - 3) <= y;
+	}
+
+	public boolean isOutdoors(int x, int y, int z)
+	{
+		return isOutdoors(x, y, z, true);
+	}
+
+	public boolean isInSunlight(int x, int y, int z)
+	{
+		return v() && l(x, y, z) && !isPrecipitating(true);
+	}
+
+	public final uf getRandomNonGhostPlayer(boolean must_be_alive)
+	{
+		return getRandomPlayer(true, must_be_alive);
+	}
+
+	public final uf getRandomPlayer(boolean must_not_be_ghost, boolean must_be_alive)
+	{
+		if (h.size() == 0)
+			return null;
+		uf candidates[] = new uf[100];
+		int num_candidates = 0;
+		Iterator i = h.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			uf player = (uf)i.next();
+			if (!player.isZevimrgvInTournament() && (!must_not_be_ghost || !player.isGhost()) && (!must_be_alive || player.aN() > 0.0F))
+				candidates[num_candidates++] = player;
+		} while (true);
+		return num_candidates != 0 ? candidates[s.nextInt(num_candidates)] : null;
+	}
+
+	public static int[] getNeighboringBlockCoords(int x, int y, int z, EnumFace face)
+	{
+		if (face == EnumFace.BOTTOM)
+			y--;
+		else
+		if (face == EnumFace.TOP)
+			y++;
+		else
+		if (face == EnumFace.NORTH)
+			z--;
+		else
+		if (face == EnumFace.SOUTH)
+			z++;
+		else
+		if (face == EnumFace.WEST)
+			x--;
+		else
+		if (face == EnumFace.EAST)
+			x++;
+		return (new int[] {
+			x, y, z
+		});
+	}
+
+	public final aqz getBlock(int x, int y, int z)
+	{
+		return aqz.s[a(x, y, z)];
+	}
+
+	public final aqz getBlock(int coords[])
+	{
+		return getBlock(coords[0], coords[1], coords[2]);
+	}
+
+	public final aqz getBlockWithRefreshedBounds(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		if (block != null)
+			block.setBlockBoundsBasedOnStateAndNeighbors(this, x, y, z);
+		return block;
+	}
+
+	public BlockInfo getBlockInfo(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		return block != null ? new BlockInfo(block, x, y, z) : null;
+	}
+
+	public void watchAnimal(int par1, int par2, int par3, int par4, int par5)
+	{
+		for (int var6 = 0; var6 < u.size(); var6++)
+		{
+			acb var7 = (acb)u.get(var6);
+			var7.b(par1, par2, par3, par4, par5);
+		}
+
+	}
+
+	public atc getBlockCenterPos(int x, int y, int z)
+	{
+		return V().a((double)x + 0.50000001000000005D, (float)y + 0.5F, (float)z + 0.5F);
+	}
+
+	public final boolean canCastRayBetweenBlockCenters(RaycastPolicies policies, int origin_x, int origin_y, int origin_z, int target_x, int target_y, int target_z, 
+			boolean allow_collision_at_target_coords)
+	{
+		RaycastCollision rc = getBlockCollisionForPolicies(getBlockCenterPos(origin_x, origin_y, origin_z), getBlockCenterPos(target_x, target_y, target_z), policies);
+		return rc == null || allow_collision_at_target_coords && rc.isBlockAt(target_x, target_y, target_z);
+	}
+
+	public final boolean canCastRayBetweenBlockCenters(Raycast raycast, int origin_x, int origin_y, int origin_z, int target_x, int target_y, int target_z, 
+			boolean allow_collision_at_target_coords)
+	{
+		RaycastCollision rc = raycast.getBlockCollision(getBlockCenterPos(origin_x, origin_y, origin_z), getBlockCenterPos(target_x, target_y, target_z));
+		return rc == null || allow_collision_at_target_coords && rc.isBlockAt(target_x, target_y, target_z);
+	}
+
+	public void addToSpawnPendingList(nn entity, long spawn_time)
+	{
+		if (I)
+		{
+			return;
+		} else
+		{
+			pending_entity_spawns.add(new EntitySpawnPendingEntry(entity, spawn_time));
+			return;
+		}
+	}
+
+	public atc getVec3(double x, double y, double z)
+	{
+		return J.a(x, y, z);
+	}
+
+	public atc getVec3()
+	{
+		return J.a(0.0D, 0.0D, 0.0D);
+	}
+
+	public final asx getBoundingBoxFromPool(double min_x, double min_y, double min_z, double max_x, double max_y, double max_z)
+	{
+		return asx.getBoundingBoxFromPool(min_x, min_y, min_z, max_x, max_y, max_z);
+	}
+
+	public final asx getBoundingBoxFromPool(int x, int y, int z)
+	{
+		return asx.getBoundingBoxFromPool(x, y, z, x + 1, y + 1, z + 1);
+	}
+
+	public void markWorldMapPixelDirty(int i1, int j1)
+	{
+	}
+
+	public void scheduleBlockChange(int i1, int j1, int k1, int l1, int i2, int j2, int k2)
+	{
+	}
+
+	public void blockFX(EnumBlockFX kind, int x, int y, int z, SignalData data)
+	{
+		if (I)
+		{
+			atv.setErrorMessage((new StringBuilder()).append("blockFX: only valid on server (").append(kind).append(")").toString());
+			return;
+		}
+		Packet85SimpleSignal packet = (new Packet85SimpleSignal(EnumSignal.block_fx, kind)).setBlockCoords(x, y, z);
+		if (data != null)
+			packet.addData(data);
+		MinecraftServer.F().af().a(null, x, y, z, 64D, t.i, packet);
+	}
+
+	public void blockFX(EnumBlockFX kind, int x, int y, int z)
+	{
+		blockFX(kind, x, y, z, null);
+	}
+
+	public boolean isFullWaterBlock(int x, int y, int z, boolean include_moving_water)
+	{
+		return apc.isFullWaterBlock(getBlock(x, y, z), h(x, y, z), include_moving_water);
+	}
+
+	public boolean isFullLavaBlock(int x, int y, int z, boolean include_moving_lava)
+	{
+		return apc.isFullLavaBlock(getBlock(x, y, z), h(x, y, z), include_moving_lava);
+	}
+
+	public boolean isWaterBlock(int x, int y, int z)
+	{
+		return g(x, y, z) == akc.h;
+	}
+
+	public boolean isLavaBlock(int x, int y, int z)
+	{
+		return g(x, y, z) == akc.i;
+	}
+
+	public boolean isLiquidBlock(int x, int y, int z)
+	{
+		return g(x, y, z).d();
+	}
+
+	public void sendPacketToAllAssociatedPlayers(nn entity, ey packet)
+	{
+		if (I)
+			atv.setErrorMessage("sendPacketToAllAssociatedPlayers: only meant to be called on server");
+	}
+
+	public final boolean isOverworld()
+	{
+		return is_overworld;
+	}
+
+	public void douseFire(int x, int y, int z, nn dousing_entity)
+	{
+		if (I)
+		{
+			atv.setErrorMessage("douseFire: not meant to be called on client");
+			return;
+		}
+		if (getBlock(x, y, z) != aqz.aw)
+			return;
+		blockFX(EnumBlockFX.smoke_and_steam, x, y, z);
+		i(x, y, z);
+		if (dousing_entity != null)
+			dousing_entity.causeQuenchEffect();
+	}
+
+	public boolean tryConvertLavaToCobblestoneOrObsidian(int x, int y, int z)
+	{
+		if (this instanceof js)
+		{
+			if (g(x, y, z) != akc.i)
+				return false;
+			blockFX(EnumBlockFX.lava_mixing_with_water, x, y, z);
+			if (isFullLavaBlock(x, y, z, true) && !((js)this).isBlockScheduledToBecome(x, y, z, aqz.H.cF, -1))
+				f(x, y, z, aqz.au.cF, 0, 3);
+			else
+				f(x, y, z, aqz.B.cF, 0, 3);
+			return true;
+		} else
+		{
+			atv.setErrorMessage("tryConvertLavaToCobblestoneOrObsidian: only meant to be called on server");
+			return false;
+		}
+	}
+
+	public boolean tryConvertWaterToCobblestone(int x, int y, int z)
+	{
+		if (this instanceof js)
+		{
+			if (g(x, y, z) != akc.h)
+			{
+				return false;
+			} else
+			{
+				blockFX(EnumBlockFX.lava_mixing_with_water, x, y, z);
+				f(x, y, z, aqz.B.cF, 0, 3);
+				return true;
+			}
+		} else
+		{
+			atv.setErrorMessage("tryConvertWaterToCobblestone: only meant to be called on server");
+			return false;
+		}
+	}
+
+	public aqz getNeighborBlock(int x, int y, int z, EnumFace face)
+	{
+		return getBlock(face.getNeighborX(x), face.getNeighborY(y), face.getNeighborZ(z));
+	}
+
+	public aqz getNeighborBlock(int x, int y, int z, EnumDirection direction)
+	{
+		return getBlock(direction.getNeighborX(x), direction.getNeighborY(y), direction.getNeighborZ(z));
+	}
+
+	public int getNeighborBlockMetadata(int x, int y, int z, EnumFace face)
+	{
+		return h(face.getNeighborX(x), face.getNeighborY(y), face.getNeighborZ(z));
+	}
+
+	public int getNeighborBlockMetadata(int x, int y, int z, EnumDirection direction)
+	{
+		return h(direction.getNeighborX(x), direction.getNeighborY(y), direction.getNeighborZ(z));
+	}
+
+	public akc getNeighborBlockMaterial(int x, int y, int z, EnumFace face)
+	{
+		return g(face.getNeighborX(x), face.getNeighborY(y), face.getNeighborZ(z));
+	}
+
+	public final akc getNeighborBlockMaterial(int x, int y, int z, EnumDirection direction)
+	{
+		return g(direction.getNeighborX(x), direction.getNeighborY(y), direction.getNeighborZ(z));
+	}
+
+	public boolean isNeighborBlockNormalCube(int x, int y, int z, EnumFace face)
+	{
+		return u(face.getNeighborX(x), face.getNeighborY(y), face.getNeighborZ(z));
+	}
+
+	public boolean isNeighborBlockNormalCubeDefault(int x, int y, int z, EnumDirection direction, boolean return_value_if_chunk_does_not_exist)
+	{
+		return c(direction.getNeighborX(x), direction.getNeighborY(y), direction.getNeighborZ(z), return_value_if_chunk_does_not_exist);
+	}
+
+	public boolean isNeighborBlockSolidStandardFormCube(int x, int y, int z, EnumFace face)
+	{
+		return isBlockSolidStandardFormCube(face.getNeighborX(x), face.getNeighborY(y), face.getNeighborZ(z));
+	}
+
+	public boolean neighborBlockExists(int x, int y, int z, EnumDirection direction)
+	{
+		return f(direction.getNeighborX(x), direction.getNeighborY(y), direction.getNeighborZ(z));
+	}
+
+	public boolean isBlockFaceFlatAndSolid(int x, int y, int z, EnumFace face)
+	{
+		aqz block = getBlock(x, y, z);
+		return block != null && block.isFaceFlatAndSolid(h(x, y, z), face);
+	}
+
+	public final boolean isWorldClient()
+	{
+		return this instanceof bdd;
+	}
+
+	public final boolean isWorldServer()
+	{
+		return this instanceof js;
+	}
+
+	public final bdd getAsWorldClient()
+	{
+		return (bdd)this;
+	}
+
+	public final js getAsWorldServer()
+	{
+		return (js)this;
+	}
+
+	public final double getDistanceSqFromWorldSpawn(int x, int y, int z)
+	{
+		return getDistanceSqFromDeltas(x - this.x.c(), y - this.x.d(), z - this.x.e());
+	}
+
+	public final double getDistanceSqFromWorldSpawn(int x, int z)
+	{
+		return getDistanceSqFromDeltas(x - this.x.c(), 0.0F, z - this.x.e());
+	}
+
+	public final double getDistanceFromWorldSpawn(int x, int y, int z)
+	{
+		return (double)ls.a(getDistanceSqFromWorldSpawn(x, y, z));
+	}
+
+	public final double getDistanceFromWorldSpawn(int x, int z)
+	{
+		return (double)ls.a(getDistanceSqFromWorldSpawn(x, z));
+	}
+
+	public final double getDistanceSqFromWorldOrigin(int x, int z)
+	{
+		return getDistanceSqFromDeltas(x, 0.0F, z);
+	}
+
+	public final double getDistanceFromWorldOrigin(int x, int z)
+	{
+		return (double)ls.a(getDistanceSqFromWorldOrigin(x, z));
+	}
+
+	public boolean isWithinTournamentSafeZone(int x, int y, int z)
+	{
+		return is.isTournamentThatHasSafeZone() && getDistanceSqFromWorldSpawn(x, y, z) < 1024D;
+	}
+
+	public boolean isWithinTournamentArena(int x, int z)
+	{
+		if (!is.isTournament())
+		{
+			return false;
+		} else
+		{
+			int spawn_x = this.x.c();
+			int spawn_z = this.x.e();
+			int domain = is.getTournamentArenaRadius();
+			int min_x = spawn_x - domain;
+			int max_x = spawn_x + domain;
+			int min_z = spawn_z - domain;
+			int max_z = spawn_z + domain;
+			return x >= min_x && x <= max_x && z >= min_z && z <= max_z;
+		}
+	}
+
+	public final int getDimensionId()
+	{
+		return t.i;
+	}
+
+	public final boolean isUnderworld()
+	{
+		return is_underworld;
+	}
+
+	public final boolean isTheNether()
+	{
+		return is_nether;
+	}
+
+	public final boolean isTheEnd()
+	{
+		return is_the_end;
+	}
+
+	public final boolean hasSkylight()
+	{
+		return has_skylight;
+	}
+
+	public boolean areSkillsEnabled()
+	{
+		return x.areSkillsEnabled();
+	}
+
+	public boolean areCoinsEnabled()
+	{
+		return x.areCoinsEnabled();
+	}
+
+	public abw getWorld()
+	{
+		return this;
+	}
+
+	public final boolean isBiomeFreezing(int x, int z)
+	{
+		return a(x, z).isFreezing();
+	}
+
+	public String getDimensionName()
+	{
+		return t.l();
+	}
+
+	public String getClientOrServerString()
+	{
+		return I ? "client" : (this instanceof js) ? "server" : "unknown";
+	}
+
+	public final asx getCollisionBoundsCombined(int x, int y, int z, nn entity)
+	{
+		aqz block = getBlock(x, y, z);
+		return block != null ? block.getCollisionBoundsCombined(this, x, y, z, entity, true) : null;
+	}
+
+	public final asx getCollisionBoundsCombined(aqz block, int x, int y, int z, nn entity)
+	{
+		return block != null ? block.getCollisionBoundsCombined(this, x, y, z, entity, true) : null;
+	}
+
+	public final boolean isBlockSolid(int x, int y, int z)
+	{
+		return aqz.isBlockSolid(this, x, y, z);
+	}
+
+	public final boolean isBlockSolid(aqz block, int x, int y, int z)
+	{
+		return aqz.isBlockSolid(this, block, x, y, z);
+	}
+
+	public final boolean isBlockLiquid(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		return block != null && block.isLiquid();
+	}
+
+	public final boolean checkIfBlockIsNotLegal(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		if (block == null)
+			return false;
+		else
+			return block.checkIfNotLegal(this, x, y, z);
+	}
+
+	public final boolean doesBlockBlockFluids(int x, int y, int z)
+	{
+		int block_id = a(x, y, z);
+		if (block_id == 0)
+		{
+			return false;
+		} else
+		{
+			aqz block = aqz.getBlock(block_id);
+			return block.always_blocks_fluids ? true : block.never_blocks_fluids ? false : block.blocksFluids(h(x, y, z));
+		}
+	}
+
+	public final double getBlockCollisionTopY(int x, int y, int z, nn entity)
+	{
+		asx bb = getCollisionBoundsCombined(x, y, z, entity);
+		if (bb == null)
+			bb = getCollisionBoundsCombined(x, --y, z, entity);
+		return bb != null ? bb.e : y;
+	}
+
+	public final double getBlockRenderTopY(int x, int y, int z)
+	{
+		return getBlockRenderTopY(getBlock(x, y, z), x, y, z);
+	}
+
+	public final double getBlockRenderTopY(aqz block, int x, int y, int z)
+	{
+		if (block == null)
+		{
+			return (double)y;
+		} else
+		{
+			block.setBlockBoundsBasedOnStateAndNeighbors(this, x, y, z);
+			return (double)y + block.cQ[atv.getThreadIndex()];
+		}
+	}
+
+	public final boolean canBlockBePathedInto(int x, int y, int z, nn entity, boolean allow_closed_wooden_portals)
+	{
+		if (!f(x, y, z))
+		{
+			return false;
+		} else
+		{
+			int block_id = a(x, y, z);
+			return block_id == 0 || aqz.getBlock(block_id).canBePathedInto(this, x, y, z, entity, allow_closed_wooden_portals);
+		}
+	}
+
+	public final boolean isPointInsideBlockCollisionBounds(atc point)
+	{
+		int x = point.getBlockX();
+		int y = point.getBlockY();
+		int z = point.getBlockZ();
+		int block_id = a(x, y, z);
+		return block_id != 0 && aqz.getBlock(block_id).doCollisionBoundsContain(this, x, y, z, point);
+	}
+
+	public final boolean doBlockCollisionBoundsIntersectWithBB(int x, int y, int z, asx bb)
+	{
+		int block_id = a(x, y, z);
+		return block_id != 0 && aqz.getBlock(block_id).doCollisionBoundsIntersectWith(this, x, y, z, bb);
+	}
+
+	public final boolean doesBBIntersectWithBlockCollisionBounds(asx bb)
+	{
+		int min_x = bb.getBlockCoordForMinX();
+		int min_y = bb.getBlockCoordForMinY();
+		int min_z = bb.getBlockCoordForMinZ();
+		int max_x = bb.getBlockCoordForMaxX();
+		int max_y = bb.getBlockCoordForMaxY();
+		int max_z = bb.getBlockCoordForMaxZ();
+		for (int x = min_x; x <= max_x; x++)
+		{
+			for (int y = min_y; y <= max_y; y++)
+			{
+				for (int z = min_z; z <= max_z; z++)
+					if (doBlockCollisionBoundsIntersectWithBB(x, y, z, bb))
+						return true;
+
+			}
+
+		}
+
+		return false;
+	}
+
+	public boolean doesEBSExist(int x, int y, int z)
+	{
+		if (y < 0 || y > 255)
+		{
+			return false;
+		} else
+		{
+			adr chunk = d(x, z);
+			return chunk.r[y >> 4] != null;
+		}
+	}
+
+	public final int getBlockDomainRadius()
+	{
+		return block_domain_radius;
+	}
+
+	public final int getRunegateDomainRadius(akc material)
+	{
+		return material != akc.adamantium ? runegate_mithril_domain_radius : runegate_adamantium_domain_radius;
+	}
+
+	public final boolean isWithinBlockDomain(int x, int z)
+	{
+		return x >= min_block_xz && x <= max_block_xz && z >= min_block_xz && z <= max_block_xz;
+	}
+
+	public final boolean isWithinBlockBounds(int x, int y, int z)
+	{
+		return y >= 0 && y < 256 && x >= min_block_xz && x <= max_block_xz && z >= min_block_xz && z <= max_block_xz;
+	}
+
+	public final boolean isChunkWithinBlockDomain(int chunk_x, int chunk_z)
+	{
+		return chunk_x >= min_chunk_xz && chunk_x <= max_chunk_xz && chunk_z >= min_chunk_xz && chunk_z <= max_chunk_xz;
+	}
+
+	public final boolean isWithinEntityDomain(double pos_x, double pos_z)
+	{
+		return pos_x >= min_entity_pos_xz && pos_x <= max_entity_pos_xz && pos_z >= min_entity_pos_xz && pos_z <= max_entity_pos_xz;
+	}
+
+	public final void validateDomainValues()
+	{
+		int domain_radius = block_domain_radius;
+		int multiple_of = isOverworld() ? 128 : 16;
+		if (domain_radius % multiple_of != 0)
+			Debug.setErrorMessage((new StringBuilder()).append("Minecraft: domain_radius of ").append(getDimensionName()).append(" must be a multiple of ").append(multiple_of).toString());
+		if (min_block_xz != -domain_radius)
+			Debug.setErrorMessage("Minecraft: min_block_xz is invalid");
+		if (max_block_xz != domain_radius - 1)
+			Debug.setErrorMessage("Minecraft: max_block_xz is invalid");
+		if (this.min_chunk_xz != -domain_radius / 16)
+			Debug.setErrorMessage("Minecraft: min_chunk_xz is invalid");
+		if (this.max_chunk_xz != domain_radius / 16 - 1)
+			Debug.setErrorMessage("Minecraft: max_chunk_xz is invalid");
+		if (this.min_chunk_xz % 32 != 0)
+			Debug.setErrorMessage("Minecraft: min_chunk_xz must be a multiple of 32");
+		if (this.max_chunk_xz % 32 != 31)
+			Debug.setErrorMessage("Minecraft: max_chunk_xz is not aligned to a region boundary");
+		int min_chunk_xz = this.min_chunk_xz;
+		int max_chunk_xz = this.max_chunk_xz;
+		if (min_chunk_xz * 16 != min_block_xz)
+			Debug.setErrorMessage("Minecraft: min_chunk_xz vs min_block_xz discrepency");
+		if (max_chunk_xz * 16 + 15 != max_block_xz)
+			Debug.setErrorMessage("Minecraft: max_chunk_xz vs max_block_x discrepency");
+	}
+
+	public final boolean hasStandardFormOpaqueBlockAbove(int x, int y, int z)
+	{
+		for (int hmv = f(x, z); ++y < hmv;)
+			if (isBlockStandardFormOpaqueCube(x, y, z))
+				return true;
+
+		return false;
+	}
+
+	public final boolean tryToMeltBlock(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		return block != null && block.melt(this, x, y, z);
+	}
+
+	public final List generateWeatherEvents(int day)
+	{
+		if (!isOverworld())
+			Debug.setErrorMessage((new StringBuilder()).append("generateWeatherEvents: called for ").append(getDimensionName()).toString());
+		List events = new ArrayList();
+		if (day < 2)
+			return events;
+		long first_tick_of_day = (day - 1) * 24000 - 6000;
+		Random random = new Random(getWorldCreationTime() + (long)(getDimensionId() * 0xe51e9) + (long)day);
+		random.nextInt();
+		for (int i = 0; i < 3 && random.nextInt(4) <= 0; i++)
+		{
+			WeatherEvent event = new WeatherEvent(first_tick_of_day + (long)random.nextInt(24000), random.nextInt(12000) + 6000);
+			if (!isHarvestMoon(event.start, true) && !isHarvestMoon(event.end, true) && !isHarvestMoon(event.start + 6000L, true) && !isHarvestMoon(event.end - 6000L, true) && !isBloodMoon(event.start, false) && !isBloodMoon(event.end, false) && !isBlueMoon(event.start, false) && !isBlueMoon(event.end, false))
+				events.add(event);
+		}
+
+		if (isBloodMoon(first_tick_of_day + 6000L, false))
+		{
+			WeatherEvent event = new WeatherEvent(first_tick_of_day + 6000L, 13000);
+			event.setStorm(event.start, event.end);
+			events.add(event);
+		}
+		return events;
+	}
+
+	public final List generateWeatherEvents(int from_day, int to_day)
+	{
+		List events = new ArrayList();
+		for (int day = from_day; day <= to_day; day++)
+			events.addAll(generateWeatherEvents(day));
+
+		return events;
+	}
+
+	private static List mergeWeatherEvents(List events)
+	{
+		Iterator i;
+		for (i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent a = (WeatherEvent)i.next();
+			if (!a.removed)
+			{
+				Iterator j = events.iterator();
+				while (j.hasNext()) 
+				{
+					WeatherEvent b = (WeatherEvent)j.next();
+					if (b != a && !b.removed)
+					{
+						int padding = 6000;
+						if (a.end + (long)padding >= b.start && a.start <= b.end + (long)padding)
+						{
+							a.setStartAndEnd(Math.min(a.start, b.start), Math.max(a.end, b.end));
+							if (b.hasStorm() && !a.hasStorm())
+								a.setStorm(b.start_of_storm, b.end_of_storm);
+							b.removed = true;
+						}
+					}
+				}
+			}
+		}
+
+		i = events.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			WeatherEvent a = (WeatherEvent)i.next();
+			if (a.removed)
+				i.remove();
+		} while (true);
+		Collections.sort(events, new WeatherEventComparator());
+		return events;
+	}
+
+	public static List addRandomWindAndStormsToWeatherEvents(List events)
+	{
+		WeatherEvent event;
+		for (Iterator i = events.iterator(); i.hasNext(); event.addStorm())
+		{
+			event = (WeatherEvent)i.next();
+			event.randomizeType();
+		}
+
+		return events;
+	}
+
+	public final boolean canPrecipitate()
+	{
+		return isOverworld();
+	}
+
+	public final List getWeatherEventsForToday()
+	{
+		if (!canPrecipitate())
+			return null;
+		int day = getDayOfWorld();
+		if (weather_events_for_today == null || weather_events_for_day != day)
+		{
+			weather_events_for_day = day;
+			weather_events_for_today = addRandomWindAndStormsToWeatherEvents(mergeWeatherEvents(generateWeatherEvents(day - 1, day)));
+		}
+		return weather_events_for_today;
+	}
+
+	public final WeatherEvent getWeatherEventAt(long unadjusted_tick, boolean must_have_storm, boolean must_have_storm_at_unadjusted_tick)
+	{
+		int day = getDayOfWorld();
+		if (unadjusted_tick < getTotalWorldTimeAtStartOfDay(day - 1) || unadjusted_tick > getTotalWorldTimeAtEndOfDay(day))
+			Debug.setErrorMessage("getWeatherEventAt: params out of bounds");
+		if (!must_have_storm && must_have_storm_at_unadjusted_tick)
+			Debug.setErrorMessage("getWeatherEventAt: must_have_storm_at_specified_time=true but must_have_storm=false");
+		List events = getWeatherEventsForToday();
+		if (events == null)
+			return null;
+		for (Iterator i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent event = (WeatherEvent)i.next();
+			if (event.isOccurringAt(unadjusted_tick) && (!must_have_storm || event.hasStorm()) && (!must_have_storm_at_unadjusted_tick || event.isStormingAt(unadjusted_tick)))
+				return event;
+		}
+
+		return null;
+	}
+
+	public final WeatherEvent getCurrentWeatherEvent(boolean with_storm, boolean with_storm_at_unadjusted_tick)
+	{
+		return getWeatherEventAt(I(), with_storm, with_storm_at_unadjusted_tick);
+	}
+
+	public final WeatherEvent getCurrentWeatherEvent()
+	{
+		return getCurrentWeatherEvent(false, false);
+	}
+
+	public final WeatherEvent getNextWeatherEvent(boolean with_storm)
+	{
+		return getNextWeatherEvent(with_storm, I());
+	}
+
+	public final WeatherEvent getNextWeatherEvent(boolean with_storm, long from_tick)
+	{
+		List events = getWeatherEventsForToday();
+		if (events == null)
+			return null;
+		for (Iterator i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent event = (WeatherEvent)i.next();
+			if ((!with_storm || event.hasStorm()) && event.start >= from_tick)
+				return event;
+		}
+
+		return null;
+	}
+
+	public final WeatherEvent getPreviousWeatherEvent(boolean with_storm)
+	{
+		List events = getWeatherEventsForToday();
+		if (events == null)
+			return null;
+		WeatherEvent previous_event = null;
+		long latest_end = 0L;
+		Iterator i = events.iterator();
+		do
+		{
+			if (!i.hasNext())
+				break;
+			WeatherEvent event = (WeatherEvent)i.next();
+			if ((!with_storm || event.hasStorm()) && (event.end > latest_end && event.end < I()))
+			{
+				latest_end = event.end;
+				previous_event = event;
+			}
+		} while (true);
+		return previous_event;
+	}
+
+	public final boolean isPrecipitating(boolean based_on_rain_strength)
+	{
+		if (based_on_rain_strength)
+			return (double)i(1.0F) > 0.20000000000000001D;
+		else
+			return is_precipitating;
+	}
+
+	public final boolean isThundering(boolean based_on_thunder_strength)
+	{
+		if (based_on_thunder_strength)
+			return (double)h(1.0F) > 0.90000000000000002D;
+		else
+			return is_storming;
+	}
+
+	public final int getPrecipitationType(int default_type)
+	{
+		WeatherEvent event = getCurrentWeatherEvent();
+		return event != null ? event.type : default_type;
+	}
+
+	public final boolean willPrecipitationStart(long unadjusted_tick_from, long unadjusted_tick_to)
+	{
+		int day = getDayOfWorld();
+		if (unadjusted_tick_from < getTotalWorldTimeAtStartOfDay(day - 1) || unadjusted_tick_to > getTotalWorldTimeAtEndOfDay(day))
+			Debug.setErrorMessage("willPrecipitationStart: params out of bounds");
+		List events = getWeatherEventsForToday();
+		if (events == null)
+			return false;
+		for (Iterator i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent event = (WeatherEvent)i.next();
+			if (event.startsPrecipitating(unadjusted_tick_from, unadjusted_tick_to))
+				return true;
+		}
+
+		return false;
+	}
+
+	public final boolean willStormStart(long unadjusted_tick_from, long unadjusted_tick_to)
+	{
+		int day = getDayOfWorld();
+		if (unadjusted_tick_from < getTotalWorldTimeAtStartOfDay(day - 1) || unadjusted_tick_to > getTotalWorldTimeAtEndOfDay(day))
+			Debug.setErrorMessage("willStormStart: params out of bounds");
+		List events = getWeatherEventsForToday();
+		if (events == null)
+			return false;
+		for (Iterator i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent event = (WeatherEvent)i.next();
+			if (event.startsStorming(unadjusted_tick_from, unadjusted_tick_to))
+				return true;
+		}
+
+		return false;
+	}
+
+	public final boolean willPrecipitationStartToday(int time_offset_from_start_of_day)
+	{
+		if (time_offset_from_start_of_day < 0 || time_offset_from_start_of_day > 24000)
+			Debug.setErrorMessage((new StringBuilder()).append("willPrecipitationStartToday: time_offset out of bounds ").append(time_offset_from_start_of_day).toString());
+		return willPrecipitationStart(getTotalWorldTimeAtStartOfToday() + (long)time_offset_from_start_of_day, getTotalWorldTimeAtEndOfToday());
+	}
+
+	public final boolean willStormStartToday(int time_offset_from_start_of_day)
+	{
+		if (time_offset_from_start_of_day < 0 || time_offset_from_start_of_day >= 24000)
+			Debug.setErrorMessage((new StringBuilder()).append("willStormStartToday: time_offset out of bounds ").append(time_offset_from_start_of_day).toString());
+		return willStormStart(getTotalWorldTimeAtStartOfToday() + (long)time_offset_from_start_of_day, getTotalWorldTimeAtEndOfToday());
+	}
+
+	public final boolean willPrecipitationStartToday()
+	{
+		return willPrecipitationStartToday(0);
+	}
+
+	public final boolean willStormStartToday()
+	{
+		return willStormStartToday(0);
+	}
+
+	public final boolean isPrecipitatingAt(long unadjusted_tick)
+	{
+		int day = getDayOfWorld();
+		if (unadjusted_tick < getTotalWorldTimeAtStartOfDay(day - 1) || unadjusted_tick > getTotalWorldTimeAtEndOfDay(day))
+			Debug.setErrorMessage("willBePrecipitatingAt: params out of bounds");
+		List events = getWeatherEventsForToday();
+		for (Iterator i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent event = (WeatherEvent)i.next();
+			if (event.isPrecipitatingAt(unadjusted_tick))
+				return true;
+		}
+
+		return false;
+	}
+
+	public final boolean isStormingAt(long unadjusted_tick)
+	{
+		int day = getDayOfWorld();
+		if (unadjusted_tick < getTotalWorldTimeAtStartOfDay(day - 1) || unadjusted_tick > getTotalWorldTimeAtEndOfDay(day))
+			Debug.setErrorMessage("isStormingAt: params out of bounds");
+		List events = getWeatherEventsForToday();
+		for (Iterator i = events.iterator(); i.hasNext();)
+		{
+			WeatherEvent event = (WeatherEvent)i.next();
+			if (event.isStormingAt(unadjusted_tick))
+				return true;
+		}
+
+		return false;
+	}
+
+	public final boolean isPrecipitatingTodayAt(int time_offset_from_start_of_day)
+	{
+		return isPrecipitatingAt(getTotalWorldTimeAtStartOfToday() + (long)time_offset_from_start_of_day);
+	}
+
+	public final boolean isStormingTodayAt(int time_offset_from_start_of_day)
+	{
+		return isStormingAt(getTotalWorldTimeAtStartOfToday() + (long)time_offset_from_start_of_day);
+	}
+
+	public final long getWorldCreationTime()
+	{
+		return x.getWorldCreationTime();
+	}
+
+	public final boolean isOpenPortal(int x, int y, int z)
+	{
+		aqz block = getBlock(x, y, z);
+		return block != null && block.isOpenPortal(this, x, y, z);
+	}
+
+	public void generateWeatherReport(int from_day, int to_day)
+	{
+		WeatherEvent.printWeatherEvents(addRandomWindAndStormsToWeatherEvents(mergeWeatherEvents(generateWeatherEvents(from_day, to_day))));
+	}
+
+	public final void updateTickFlags()
+	{
+		long total_world_time = I();
+		if (tick_flags_last_updated == total_world_time)
+			return;
+		total_time = total_world_time;
+		if (isOverworld())
+		{
+			updateWeatherFlags(total_world_time);
+			updateMoonFlags(total_world_time);
+		}
+		tick_flags_last_updated = total_world_time;
+	}
+
+	public final void updateWeatherFlags(long total_world_time)
+	{
+		if (!isOverworld())
+		{
+			atv.setErrorMessage((new StringBuilder()).append("updateWeatherFlags: Why called for ").append(getDimensionName()).toString());
+			return;
+		}
+		if (current_weather_event != null && !current_weather_event.isOccurringAt(total_world_time))
+			current_weather_event = null;
+		if (current_weather_event == null)
+			current_weather_event = getWeatherEventAt(total_world_time, false, false);
+		if (current_weather_event == null)
+		{
+			is_precipitating = false;
+			is_storming = false;
+		} else
+		{
+			is_precipitating = true;
+			is_storming = current_weather_event.isStormingAt(total_world_time);
+		}
+	}
+
+	public final void updateMoonFlags(long total_world_time)
+	{
+		if (!isOverworld())
+		{
+			atv.setErrorMessage((new StringBuilder()).append("updateMoonFlags: Why called for ").append(getDimensionName()).toString());
+			return;
+		} else
+		{
+			boolean is_daytime = isDaytime(total_world_time);
+			is_harvest_moon_24_hour_period = isHarvestMoon(total_world_time, false);
+			is_harvest_moon_day = is_harvest_moon_24_hour_period && is_daytime;
+			is_harvest_moon_night = is_harvest_moon_24_hour_period && !is_harvest_moon_day;
+			is_blood_moon_24_hour_period = isBloodMoon(total_world_time, false);
+			is_blood_moon_day = is_blood_moon_24_hour_period && is_daytime;
+			is_blood_moon_night = is_blood_moon_24_hour_period && !is_blood_moon_day;
+			is_blue_moon_24_hour_period = isBlueMoon(total_world_time, false);
+			is_blue_moon_day = is_blue_moon_24_hour_period && is_daytime;
+			is_blue_moon_night = is_blue_moon_24_hour_period && !is_blue_moon_day;
+			is_moon_dog_24_hour_period = isMoonDog(total_world_time, false);
+			is_moon_dog_day = is_moon_dog_24_hour_period && is_daytime;
+			is_moon_dog_night = is_moon_dog_24_hour_period && !is_moon_dog_day;
+			return;
+		}
+	}
+
+	public final boolean isHarvestMoon24HourPeriod()
+	{
+		return is_harvest_moon_24_hour_period;
+	}
+
+	public final boolean isHarvestMoonDay()
+	{
+		return is_harvest_moon_day;
+	}
+
+	public final boolean isHarvestMoonNight()
+	{
+		return is_harvest_moon_night;
+	}
+
+	public final boolean isBloodMoon24HourPeriod()
+	{
+		return is_blood_moon_24_hour_period;
+	}
+
+	public final boolean isBloodMoonDay()
+	{
+		return is_blood_moon_day;
+	}
+
+	public final boolean isBloodMoonNight()
+	{
+		return is_blood_moon_night;
+	}
+
+	public final boolean isBlueMoon24HourPeriod()
+	{
+		return is_blue_moon_24_hour_period;
+	}
+
+	public final boolean isBlueMoonDay()
+	{
+		return is_blue_moon_day;
+	}
+
+	public final boolean isBlueMoonNight()
+	{
+		return is_blue_moon_night;
+	}
+
+	public final boolean isMoonDog24HourPeriod()
+	{
+		return is_moon_dog_24_hour_period;
+	}
+
+	public final boolean isMoonDogDay()
+	{
+		return is_moon_dog_day;
+	}
+
+	public final boolean isMoonDogNight()
+	{
+		return is_moon_dog_night;
+	}
+
+	public final void tryRemoveFromWorldUniques(ye item_stack)
+	{
+		if (I)
+		{
+			atv.setErrorMessage("tryRemoveFromWorldUniques: called on client");
+			return;
+		}
+		if (item_stack.hasSignature())
+			x.removeSignature(item_stack.getSignature());
+	}
+
+	public boolean doesLavaFlowQuicklyInThisWorld()
+	{
+		return isTheNether();
+	}
+
+	public boolean isCeilingBedrock(int x, int y, int z)
+	{
+		return y > 31 && a(x, y, z) == aqz.E.cF;
+	}
+
+	public final aqz getBottomBlock()
+	{
+		return bottom_block;
+	}
+
+	public final int getBottomBlockMetadata()
+	{
+		return bottom_block_metadata;
+	}
+
+	public final boolean isBottomBlock(aqz block, int metadata)
+	{
+		if (bottom_block == null)
+			return false;
+		if (block != bottom_block)
+			return false;
+		else
+			return bottom_block_metadata < 0 || metadata == bottom_block_metadata;
+	}
+
+	public final boolean isBottomBlock(int x, int y, int z)
+	{
+		return isBottomBlock(getBlock(x, y, z), h(x, y, z));
+	}
+}
+
+    </code></pre>
+</body>
+</html>

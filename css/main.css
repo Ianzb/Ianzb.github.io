@@ -18,15 +18,15 @@ body {
 
 @media only screen and (orientation:portrait) {
     body {
-        font-size: 24px;
-    }
-
-    h3 {
         font-size: 40px;
     }
 
+    h3 {
+        font-size: 56px;
+    }
+
     h5 {
-        font-size: 32px;
+        font-size: 48px;
     }
 }
 

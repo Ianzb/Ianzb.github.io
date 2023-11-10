@@ -8,6 +8,26 @@ body {
     background-size: cover;
     text-align: center;
 }
+
+@media only screen and (min-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 24px;
+    }
+    h3{
+        font-size: 40px;
+    }
+    h5{
+        font-size: 32px;
+    }
+}
+
 .zb-top {
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);

@@ -28,15 +28,12 @@ body {
     h5 {
         font-size: 48px;
     }
-
-    a {
-        font-size: 40px;
-    }
 }
 
 .zb-top {
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .zb {
@@ -45,7 +42,6 @@ body {
     margin: 15px;
     border-radius: 7px;
     backdrop-filter: blur(10px);
-
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
@@ -56,6 +52,7 @@ body {
     margin: 15px;
     border-radius: 7px;
     backdrop-filter: blur(10px);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 .zb-img {
@@ -64,6 +61,7 @@ body {
     margin: 15px;
     border-radius: 7px;
     backdrop-filter: blur(10px);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 .logo {
@@ -71,6 +69,7 @@ body {
     background-color: rgba(255, 255, 255, 1.0);
     margin: 15px;
     border-radius: 50px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 ul {

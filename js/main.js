@@ -6,3 +6,5 @@ function copyString(string) {
     document.execCommand("copy");
     document.body.removeChild(input);
 }
+$('#header').load('/template/header.html')
+$('#footer').load('/template/footer.html')

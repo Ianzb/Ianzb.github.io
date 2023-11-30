@@ -3,59 +3,20 @@
 <head>
     <title>关于</title>
     <meta charset="utf-8">
-    <link href="img/logo1.png" rel="icon">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script src="js/bootstrap.js"></script>
-    <script src="js/main.js"></script>
+    <link href="/img/logo1.png" rel="icon">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/main.js"></script>
 </head>
 
 <body>
-    <nav class="shadow p-1 navbar navbar-expand-sm sticky-top zb-top">
-        <img src="img/title.png" class="d-inline-block align-text-top" style="margin: 5px;" height="30">
-        <a class="navbar-brand">个人网站</a>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="background-color: rgba(255, 255, 255, 0);">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="index.html">主页</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    计算机
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="https://ianzb.github.io/program/">zb小程序</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="phone.html">手机</a></li>
-                    <li><a class="dropdown-item" href="computer.html">电脑</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    游戏
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="game.html">Minecraft</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="https://ianzb.github.io/zbcraft/">zbCraft</a></li>
-                    <li><a class="dropdown-item" href="https://ianzb.github.io/cm/">CM官网</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="tool.html">工具</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active disabled" aria-current="page" href="about.html">关于</a>
-            </li>
-        </ul>
-    </nav>
-    <h3 class="zb"><img src="svg/about.svg" height="30" width="25">关于</h3>
+    <div id="header" class="sticky-top">
+        <script src="/js/main.js"></script>
+    </div>
+    
+    <h3 class="zb"><img src="/svg/about.svg" height="30" width="25">关于</h3>
     <div class="zb">
         <h5>开发</h5>
         作者：Ianzb<br>
@@ -64,6 +25,7 @@
         语言：HTML 5，CSS 3，JavaScript<br>
         <a href="https://github.com/Ianzb/ianzb.github.io" target="_blank">Github</a>提供网站服务器<br>
         <a href="https://v5.bootcss.com/" target="_blank">Bootstrap</a>提供网站UI组件<br>
+        <a href="https://jquery.com/" target="_blank">jQuery</a>提供网站JS高级功能<br>
     </div>
     <div class="zb">
         <h5>更新日志</h5>
@@ -118,14 +80,11 @@
         2023-10-28：4.0.5：更新工具名称，更新js内容<br>
         2023-10-29：4.1.0：更新Bootstrap图标，微调图标显示效果，更新页脚文本<br>
         2023-11-11：4.1.1：优化显示效果<br>
+        2023-11-30：4.2.0：添加jQuery.js，分离导航栏和尾栏<br>
     </div>
-    <ul class="nav nav-pills nav-justified zb-top">
-        <li class="nav-item">
-            <a class="nav-link disabled">
-                <font color="black">© 2021-2023 Ianzb. MIT License.</font>
-            </a>
-        </li>
-    </ul>
+    <div id="footer">
+        <script src="/js/main.js"></script>
+    </div>
 </body>
 
 </html>

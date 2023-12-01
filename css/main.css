@@ -33,7 +33,7 @@ body {
 .zb-top {
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .zb {
@@ -42,7 +42,7 @@ body {
     margin: 15px;
     border-radius: 7px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 
@@ -52,7 +52,7 @@ body {
     margin: 15px;
     border-radius: 7px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .zb-img {
@@ -61,7 +61,7 @@ body {
     margin: 15px;
     border-radius: 7px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .logo {
@@ -69,7 +69,7 @@ body {
     background-color: rgba(255, 255, 255, 1.0);
     margin: 15px;
     border-radius: 50px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 ul {

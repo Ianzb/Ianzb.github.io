@@ -7,8 +7,8 @@ function copyString(string) {
     document.body.removeChild(input);
 }
 function load() {
-    $("#header").load("../template/header.html")
-    $("#footer").load("../template/footer.html")
+    $("#header").load("./template/header.html")
+    $("#footer").load("./template/footer.html")
 }
 function loadPage(name, page) {
     $(name).load(page)

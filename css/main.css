@@ -9,27 +9,6 @@ body {
     text-align: center;
 }
 
-@media only screen and (orientation:landscape) {
-    body {
-        font-size: 16px;
-    }
-
-}
-
-@media only screen and (orientation:portrait) {
-    body {
-        font-size: 40px;
-    }
-
-    h3 {
-        font-size: 56px;
-    }
-
-    h5 {
-        font-size: 48px;
-    }
-}
-
 .zb-blur {
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);

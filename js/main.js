@@ -14,6 +14,11 @@ function loadTemplate() {
 function addPage(name, page) {
     pageList[name] = page
 }
+function addPages(pages) {
+    for (const [k, v] of Object.entries(pages)) {
+        addPage(k, v)
+    }
+}
 
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -23,4 +28,5 @@ function getUrlParam(name) {
 function loadPage() {
     var page = getUrlParam("page")
     $("body").load(pageList[page])
+    $("head").append('<meta name="viewport" content="width=device-width, initial-scale=1">')
 }

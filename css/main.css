@@ -15,7 +15,7 @@ body {
 }
 
 .zb-top {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }

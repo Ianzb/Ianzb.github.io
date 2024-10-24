@@ -8,6 +8,7 @@ function copyString(string) {
     document.body.removeChild(input);
 }
 function loadTemplate() {
+    $("head").append('<meta name="viewport" content="width=device-width, initial-scale=1">')
     $("#header").load("./template/header.html")
     $("#footer").load("./template/footer.html")
 }
@@ -28,5 +29,4 @@ function getUrlParam(name) {
 function loadPage() {
     var page = getUrlParam("page")
     $("body").load(pageList[page])
-    $("head").append('<meta name="viewport" content="width=device-width, initial-scale=1">')
 }

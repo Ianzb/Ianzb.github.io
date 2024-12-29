@@ -40,13 +40,6 @@
                 document.getElementById("g79_ios_oldest").textContent = "手游版启动器iOS服最低支持正式版：" + data1.app_store.min_ver;
                 document.getElementById("g79_android_newest").textContent = "手游版启动器Android渠道服正式版：" + data1.xiaomi_app.version;
                 document.getElementById("g79_android_oldest").textContent = "手游版启动器Android渠道服最低支持正式版：" + data1.xiaomi_app.min_ver;
-
-
-
-
-                document.getElementById("g79_test_new").textContent = "手游版测试版启动器最新版本（" + data2.data.pe + "）：";
-                document.getElementById("g79_test_old").textContent = "手游版测试版启动器上一版本（" + data2.data.pe_old + "）：";
-
             } catch (error) {
                 document.getElementById("mc_version").textContent = "发生错误" + error;
             }
@@ -65,7 +58,6 @@
                 document.getElementById(id).textContent = "发生错误" + error;
             }
         }
-        // 调用异步函数
         fetchDataG79();
         fetchDataX19("https://x19.update.netease.com/pl/x19_java_patchlist", "x19", "端游版启动器正式版");
         fetchDataX19("https://x19.update.netease.com/pl/x19_patch_list_debug", "x19_debug", "端游版启动器调试版");

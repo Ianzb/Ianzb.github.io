@@ -3,9 +3,12 @@
     <h3 class="zb"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版最新版本</h3>
     <div class="zb mc_version">
         <div id="g79_newest"></div>
+        <div id="g79_newest_patch"></div>
         <div id="g79_preview"></div>
+        <div id="g79_preview_patch"></div>
         <div id="g79_oldest"></div>
         <div id="g79_ios_newest"></div>
+        <div id="g79_ios_newest_patch"></div>
         <div id="g79_ios_oldest"></div>
         <div id="g79_android_newest"></div>
         <div id="g79_android_oldest"></div>
@@ -33,15 +36,29 @@
                     document.getElementById("mc_version").textContent = "网络连接失败";
                 }
                 const data1 = await response1.json();
+
+                const response2 = await fetch("https://g79.update.netease.com/patch_list/production/g79_rn_patchlist");
+                if (!response2.ok) {
+                    document.getElementById("mc_version").textContent = "网络连接失败";
+                }
+                const data2 = await response2.json();
+                const data2_old = data2.android.filter(i =>
+                    data1["netease.taptap2_cps_dev"].version.split(".").slice(0, 2).join('.') === i.split(".").slice(0, 2).join('.')
+                );
                 document.getElementById("g79_newest").textContent = "手游版启动器官服正式版：" + (data1.netease.text == "" ? data1.netease.version : data1["netease.taptap2_cps_dev"].version);
+                document.getElementById("g79_newest_patch").textContent = "手游版启动器最新补丁：" + data2_old.at(-1);
                 document.getElementById("g79_preview").textContent = "手游版启动器官服抢先体验版：" + (data1.netease.text != "" ? data1.netease.version : "暂无");
+                document.getElementById("g79_preview_patch").textContent = "手游版启动器官服抢先体验版最新补丁：" + data2.android.at(-1);
                 document.getElementById("g79_oldest").textContent = "手游版启动器官服最低支持正式版：" + data1.netease.min_ver;
                 document.getElementById("g79_ios_newest").textContent = "手游版启动器iOS服正式版：" + data1.app_store.version;
+                document.getElementById("g79_ios_newest_patch").textContent = "手游版启动器iOS服正式版最新补丁：" + data2.ios.at(-1);
                 document.getElementById("g79_ios_oldest").textContent = "手游版启动器iOS服最低支持正式版：" + data1.app_store.min_ver;
                 document.getElementById("g79_android_newest").textContent = "手游版启动器Android渠道服正式版：" + data1.xiaomi_app.version;
                 document.getElementById("g79_android_oldest").textContent = "手游版启动器Android渠道服最低支持正式版：" + data1.xiaomi_app.min_ver;
+
             } catch (error) {
-                document.getElementById("mc_version").textContent = "发生错误" + error;
+                document.getElementById("g79_preview")
+                document.getElementById("mc_version").textContent = "发生错误";
             }
         }
         async function fetchDataX19(url, id, name) {

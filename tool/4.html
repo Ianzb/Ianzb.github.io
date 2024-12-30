@@ -1,0 +1,36 @@
+<body>
+    <div class="sticky-top" id="header"></div>
+    <h3 class="zb"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版下载链接破解</h3>
+    <script>
+        function generate_key(url) {
+            var private_key = "mEE7Cot48r9j2AvEL2N6jpXEc";
+            var current_time = Math.floor(Date.now() / 1000);
+            var expiration_time = current_time + 43200;
+            var expiration_time_hex = expiration_time.toString(16);
+
+            var signature = private_key + (new URL(url)).pathname + expiration_time_hex;
+            var key1 = $.md5(signature).toString();
+            return url + "?key1=" + key1 + "&key2=" + expiration_time_hex;
+        }
+        function mc_download() {
+            var input = document.getElementById("mc_input");
+            var text = input.value;
+            window.open(generate_key(text), '_blank');
+        }
+        function mc_copy() {
+            var input = document.getElementById("mc_input");
+            var text = input.value;
+            copyString(generate_key(text));
+        }
+    </script>
+    <div class="zb">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="请输入中国版资源文件下载链接" id="mc_input"></input>
+            <button class="btn btn-outline-secondary" type="button" onclick="mc_copy()">复制</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="mc_download()">下载</button>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <script>loadTemplate()</script>
+</body>

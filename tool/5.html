@@ -68,7 +68,7 @@
                 ctx.fillText(textInput.value, textX + fontSize * shadowOffsetX, textY + fontSize * shadowOffsetY);
 
                 ctx.strokeStyle = strokeColor;
-                ctx.lineWidth = strokeWidth;
+                ctx.lineWidth = fontSize / 15 * strokeWidth;
                 ctx.strokeText(textInput.value, textX, textY);
 
                 ctx.fillStyle = fontColor;
@@ -156,9 +156,9 @@
             <div class="col">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">文本描边粗细</span>
+                        <span class="input-group-text">文本描边粗细倍率</span>
                     </div>
-                    <input type="number" class="form-control" id="strokeWidth" step="1" value="5">
+                    <input type="number" class="form-control" id="strokeWidth" step="0.1" value="1.0">
                 </div>
             </div>
             <div class="col">
@@ -178,7 +178,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">阴影X偏移量</span>
                     </div>
-                    <input type="number" class="form-control" id="shadowOffsetX" step="0.01" value="-0.1">
+                    <input type="number" class="form-control" id="shadowOffsetX" step="0.01" value="-0.10">
                 </div>
             </div>
             <div class="col">
@@ -192,11 +192,12 @@
         </div>
         <div class="row">
         </div>
+        注：建议使用横屏模式操作。图片适配各种比例字体默认为汉仪力量黑。
         <div class="col">
             <button class="btn btn-primary" type="button" onclick="generateImage()">生成图片</button>
         </div>
     </div>
-    <img id="myImage" width="25%"></img>
+    <div class="zb"><img id="myImage" width="40%" src="None"></img></div>
     <div id="footer"></div>
     <script>loadTemplate()</script>
 </body>

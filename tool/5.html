@@ -14,7 +14,6 @@
 
                 ctx.drawImage(image, 0, 0);
 
-                // Load custom font
                 const fontInput = document.getElementById('fontInput');
                 const customFont = fontInput.files.length > 0
                     ? new FontFace('CustomFont', `url(${URL.createObjectURL(fontInput.files[0])})`)
@@ -22,9 +21,6 @@
                 await customFont.load();
                 document.fonts.add(customFont);
 
-                // Load and draw mask image
-
-                // Get input values
                 const fontColor = document.getElementById('fontColor').value;
                 const strokeColor = document.getElementById('strokeColor').value;
                 const shadowColor = document.getElementById('shadowColor').value;
@@ -35,18 +31,16 @@
                 const shadowOffsetY = document.getElementById('shadowOffsetY').value;
                 const maskColor = document.getElementById('maskColor').value;
 
-                const fontSize = (canvas.height / 6.5) * fontSizeScale;
+                const fontSize = (canvas.width / 6.5) * fontSizeScale;
                 ctx.font = `${fontSize}px CustomFont`;
 
-                // Set text style
                 ctx.fillStyle = fontColor;
 
-                // Calculate text position
                 const textMetrics = ctx.measureText(textInput.value);
                 const textWidth = textMetrics.width;
                 const textHeight = textMetrics.actualBoundingBoxAscent;
                 const textX = (canvas.width - textWidth) / 2;
-                const textY = canvas.height - (canvas.height * bottomMargin) - (textHeight / 5);
+                const textY = canvas.height - (canvas.width * bottomMargin) - (textHeight / 5);
 
                 const maskImage = new Image();
                 maskImage.src = './tool/5/mask.png';
@@ -54,15 +48,11 @@
                     maskImage.onload = resolve;
                 });
 
-
-                // Draw red rectangle over the mask area
                 const maskHeight = canvas.width * maskImage.height / maskImage.width;
                 const maskY = canvas.height - maskHeight;
 
-                // Draw the mask image
                 ctx.drawImage(maskImage, 0, maskY, canvas.width, maskHeight);
 
-                // Get the image data of the mask
                 const maskImageData = ctx.getImageData(0, maskY, canvas.width, maskHeight + 1);
                 const maskData = maskImageData.data;
 
@@ -72,32 +62,24 @@
                     maskData[i + 2] = (maskData[i + 2] * 0.94 + 123) * parseInt(maskColor.slice(5, 7), 16) / 255; // Blue
                 }
 
-
-                // Put the modified image data back on the canvas
                 ctx.putImageData(maskImageData, 0, maskY);
 
-                // Draw shadow
                 ctx.fillStyle = shadowColor;
                 ctx.fillText(textInput.value, textX + fontSize * shadowOffsetX, textY + fontSize * shadowOffsetY);
 
-                // Set stroke style
                 ctx.strokeStyle = strokeColor;
                 ctx.lineWidth = strokeWidth;
                 ctx.strokeText(textInput.value, textX, textY);
 
-                // Draw text
                 ctx.fillStyle = fontColor;
                 ctx.fillText(textInput.value, textX, textY);
 
                 const imgData = canvas.toDataURL('image/png');
 
-                // Set the src of the specified img element to the generated image data
                 const imgElement = document.getElementById('myImage');
                 imgElement.src = imgData;
             };
         }
-
-
     </script>
     <div class="sticky-top" id="header"></div>
     <h3 class="zb"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版风格头像制作</h3>
@@ -161,10 +143,8 @@
                     <input type="color" class="form-control" id="shadowColor" value="#5a3210">
                 </div>
             </div>
-
         </div>
         <div class="row">
-
             <div class="col">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -189,11 +169,8 @@
                     <input type="number" class="form-control" id="bottomMargin" step="0.01" value="0.05">
                 </div>
             </div>
-
         </div>
         <div class="row">
-
-
         </div>
         <div class="row">
             <div class="col">
@@ -214,15 +191,12 @@
             </div>
         </div>
         <div class="row">
-
-
         </div>
         <div class="col">
             <button class="btn btn-primary" type="button" onclick="generateImage()">生成图片</button>
         </div>
     </div>
-    <img id="myImage" width="50%"></img>
-
+    <img id="myImage" width="25%"></img>
     <div id="footer"></div>
     <script>loadTemplate()</script>
 </body>

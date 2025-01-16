@@ -1,10 +1,175 @@
 <body>
     <script>
+        const presets = {
+            贺新春: {
+                "text": "贺 新 春",
+                "maskColor": "#b62616",
+                "fontColor": "#ffec7e",
+                "strokeColor": "#f23924",
+                "shadowColor": "#640f0a",
+                "fontSizeScale": "1.0",
+                "strokeWidth": "0.25",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "-0.075",
+                "shadowOffsetY": "0.05"
+            },
+            周年庆: {
+                "text": "周 年 庆",
+                "maskColor": "#ff780e",
+                "fontColor": "#ffffff",
+                "strokeColor": "#c87028",
+                "shadowColor": "#5a3210",
+                "fontSizeScale": "1.0",
+                "strokeWidth": "1.0",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "-0.10",
+                "shadowOffsetY": "0.05"
+            },
+            感恩季: {
+                "text": "感 恩 季",
+                "maskColor": "#faaa29",
+                "fontColor": "#ffffff",
+                "strokeColor": "#d7780c",
+                "shadowColor": "#9c4c13",
+                "fontSizeScale": "1.0",
+                "strokeWidth": "0.25",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "-0.10",
+                "shadowOffsetY": "0.05"
+            },
+            下界更新: {
+                "text": "下界更新",
+                "maskColor": "#f9c610",
+                "fontColor": "#ffffff",
+                "strokeColor": "#cfcfcf",
+                "shadowColor": "#8f4025",
+                "fontSizeScale": "1",
+                "strokeWidth": "0",
+                "bottomMargin": "0.0475",
+                "shadowOffsetX": "-0.08",
+                "shadowOffsetY": "0.10"
+            },
+            冒险与足迹: {
+                "text": "冒险与足迹",
+                "maskColor": "#4592f7",
+                "fontColor": "#ffffff",
+                "strokeColor": "#44a3f1",
+                "shadowColor": "#357de5",
+                "fontSizeScale": "0.95",
+                "strokeWidth": "1",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "-0.09",
+                "shadowOffsetY": "0.05"
+            },
+            海洋夏日: {
+                "text": "海 洋 夏 日",
+                "maskColor": "#0fa5f0",
+                "fontColor": "#ffffff",
+                "strokeColor": "#44a3f1",
+                "shadowColor": "#1a5593",
+                "fontSizeScale": "0.95",
+                "strokeWidth": "0",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "0.04",
+                "shadowOffsetY": "0.08"
+            },
+            夏日派对: {
+                "text": "夏日派对",
+                "maskColor": "#1dd6f7",
+                "fontColor": "#ffffff",
+                "strokeColor": "#54b1f8",
+                "shadowColor": "#367ee5",
+                "fontSizeScale": "0.95",
+                "strokeWidth": "1",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "0",
+                "shadowOffsetY": "0.085"
+            },
+            老周年庆: {
+                "text": "周年庆",
+                "maskColor": "#7945a5",
+                "fontColor": "#ffffff",
+                "strokeColor": "#3f225c",
+                "shadowColor": "#3f225c",
+                "fontSizeScale": "1",
+                "strokeWidth": "0",
+                "bottomMargin": "0.05",
+                "shadowOffsetX": "-0.08",
+                "shadowOffsetY": "0.07"
+            },
+        };
+        function selectPreset(presetName) {
+            const preset = presets[presetName];
+            if (preset) {
+                document.getElementById("textInput").value = preset.text;
+                document.getElementById("maskColor").value = preset.maskColor;
+                document.getElementById("fontColor").value = preset.fontColor;
+                document.getElementById("strokeColor").value = preset.strokeColor;
+                document.getElementById("shadowColor").value = preset.shadowColor;
+                document.getElementById("fontSizeScale").value = preset.fontSizeScale;
+                document.getElementById("strokeWidth").value = preset.strokeWidth;
+                document.getElementById("bottomMargin").value = preset.bottomMargin;
+                document.getElementById("shadowOffsetX").value = preset.shadowOffsetX;
+                document.getElementById("shadowOffsetY").value = preset.shadowOffsetY;
+            }
+        }
+
+        function exportCurrentOptions() {
+            const presetName = prompt("保存当前设置，请输入预设名称：");
+            if (presetName) {
+                const newPreset = {
+                    text: document.getElementById("textInput").value,
+                    maskColor: document.getElementById("maskColor").value,
+                    fontColor: document.getElementById("fontColor").value,
+                    strokeColor: document.getElementById("strokeColor").value,
+                    shadowColor: document.getElementById("shadowColor").value,
+                    fontSizeScale: document.getElementById("fontSizeScale").value,
+                    strokeWidth: document.getElementById("strokeWidth").value,
+                    bottomMargin: document.getElementById("bottomMargin").value,
+                    shadowOffsetX: document.getElementById("shadowOffsetX").value,
+                    shadowOffsetY: document.getElementById("shadowOffsetY").value
+                };
+
+                const json = JSON.stringify(newPreset, null, 4);
+
+                const blob = new Blob([json], { type: "application/json" });
+
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${presetName}.json`;
+                a.click();
+
+                URL.revokeObjectURL(url);
+            }
+        }
+        function importPreset() {
+            const fileInput = document.getElementById("importPresetInput");
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const preset = JSON.parse(event.target.result);
+                    document.getElementById("maskColor").value = preset.maskColor;
+                    document.getElementById("fontColor").value = preset.fontColor;
+                    document.getElementById("strokeColor").value = preset.strokeColor;
+                    document.getElementById("shadowColor").value = preset.shadowColor;
+                    document.getElementById("fontSizeScale").value = preset.fontSizeScale;
+                    document.getElementById("strokeWidth").value = preset.strokeWidth;
+                    document.getElementById("bottomMargin").value = preset.bottomMargin;
+                    document.getElementById("shadowOffsetX").value = preset.shadowOffsetX;
+                    document.getElementById("shadowOffsetY").value = preset.shadowOffsetY;
+                };
+                reader.readAsText(file);
+            }
+        }
+
+
         function generateImage() {
-            const imageInput = document.getElementById('imageInput');
-            const textInput = document.getElementById('textInput');
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+            const imageInput = document.getElementById("imageInput");
+            const textInput = document.getElementById("textInput");
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
 
             const image = new Image();
             image.src = URL.createObjectURL(imageInput.files[0]);
@@ -14,22 +179,22 @@
 
                 ctx.drawImage(image, 0, 0);
 
-                const fontInput = document.getElementById('fontInput');
+                const fontInput = document.getElementById("fontInput");
                 const customFont = fontInput.files.length > 0
-                    ? new FontFace('CustomFont', `url(${URL.createObjectURL(fontInput.files[0])})`)
-                    : new FontFace('CustomFont', 'url(./tool/5/汉仪力量黑简.ttf)');
+                    ? new FontFace("CustomFont", `url(${URL.createObjectURL(fontInput.files[0])})`)
+                    : new FontFace("CustomFont", "url(./tool/5/汉仪力量黑简.ttf)");
                 await customFont.load();
                 document.fonts.add(customFont);
 
-                const fontColor = document.getElementById('fontColor').value;
-                const strokeColor = document.getElementById('strokeColor').value;
-                const shadowColor = document.getElementById('shadowColor').value;
-                const fontSizeScale = document.getElementById('fontSizeScale').value;
-                const strokeWidth = document.getElementById('strokeWidth').value;
-                const bottomMargin = document.getElementById('bottomMargin').value;
-                const shadowOffsetX = document.getElementById('shadowOffsetX').value;
-                const shadowOffsetY = document.getElementById('shadowOffsetY').value;
-                const maskColor = document.getElementById('maskColor').value;
+                const fontColor = document.getElementById("fontColor").value;
+                const strokeColor = document.getElementById("strokeColor").value;
+                const shadowColor = document.getElementById("shadowColor").value;
+                const fontSizeScale = document.getElementById("fontSizeScale").value;
+                const strokeWidth = document.getElementById("strokeWidth").value;
+                const bottomMargin = document.getElementById("bottomMargin").value;
+                const shadowOffsetX = document.getElementById("shadowOffsetX").value;
+                const shadowOffsetY = document.getElementById("shadowOffsetY").value;
+                const maskColor = document.getElementById("maskColor").value;
 
                 const fontSize = (canvas.width / 6.5) * fontSizeScale;
                 ctx.font = `${fontSize}px CustomFont`;
@@ -43,7 +208,7 @@
                 const textY = canvas.height - (canvas.width * bottomMargin) - (textHeight / 5);
 
                 const maskImage = new Image();
-                maskImage.src = './tool/5/mask.png';
+                maskImage.src = "./tool/5/mask.png";
                 await new Promise((resolve) => {
                     maskImage.onload = resolve;
                 });
@@ -64,28 +229,51 @@
 
                 ctx.putImageData(maskImageData, 0, maskY);
 
+                ctx.strokeStyle = shadowColor;
+                ctx.lineWidth = strokeWidth > 0 ? fontSize / 15 * strokeWidth : 0;
+                ctx.strokeText(textInput.value, textX + fontSize * shadowOffsetX, textY + fontSize * shadowOffsetY);
+
                 ctx.fillStyle = shadowColor;
                 ctx.fillText(textInput.value, textX + fontSize * shadowOffsetX, textY + fontSize * shadowOffsetY);
 
                 ctx.strokeStyle = strokeColor;
-                ctx.lineWidth = fontSize / 15 * strokeWidth;
+                ctx.lineWidth = strokeWidth > 0 ? fontSize / 15 * strokeWidth : 0;
                 ctx.strokeText(textInput.value, textX, textY);
 
                 ctx.fillStyle = fontColor;
                 ctx.fillText(textInput.value, textX, textY);
 
-                const imgData = canvas.toDataURL('image/png');
+                const imgData = canvas.toDataURL("image/png");
 
-                const imgElement = document.getElementById('myImage');
+                const imgElement = document.getElementById("myImage");
                 imgElement.src = imgData;
             };
         }
     </script>
     <div class="sticky-top" id="header"></div>
-    <h3 class="zb"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版风格头像制作</h3>
+    <h3 class="zb"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版风格头像生成器</h3>
     <div class="zb">
         <div class="row">
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
+                <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="true">预设</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('贺新春')">贺新春（红色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('周年庆')">周年庆（橙红色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('感恩季')">感恩季（橙黄色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('下界更新')">下界更新（黄色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('冒险与足迹')">冒险与足迹（深蓝色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('海洋夏日')">海洋夏日（蓝色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('夏日派对')">夏日派对（浅蓝色）</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectPreset('老周年庆')">老周年庆（紫色）</a></li>
+                    </ul>
+                    <button class="btn btn-secondary" type="button" onclick="exportCurrentOptions()">导出预设</button>
+                    <button class="btn btn-secondary" type="button"
+                        onclick="document.getElementById('importPresetInput').click()">导入预设</button>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">头像图片</span>
@@ -93,7 +281,7 @@
                     <input type="file" class="form-control" id="imageInput" accept="image/*">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">输入文本</span>
@@ -101,7 +289,7 @@
                     <input type="text" class="form-control" id="textInput" placeholder="输入文本" value="贺 新 春">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">字体</span>
@@ -111,15 +299,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">遮罩颜色</span>
                     </div>
-                    <input type="color" class="form-control" id="maskColor" value="#ff780e">
+                    <input type="color" class="form-control" id="maskColor" value="#ffffff">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">字体颜色</span>
@@ -127,25 +315,25 @@
                     <input type="color" class="form-control" id="fontColor" value="#ffffff">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">描边颜色</span>
                     </div>
-                    <input type="color" class="form-control" id="strokeColor" value="#c87028">
+                    <input type="color" class="form-control" id="strokeColor" value="#ffffff">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">阴影颜色</span>
                     </div>
-                    <input type="color" class="form-control" id="shadowColor" value="#5a3210">
+                    <input type="color" class="form-control" id="shadowColor" value="#ffffff">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">字体大小倍率</span>
@@ -153,7 +341,7 @@
                     <input type="number" class="form-control" id="fontSizeScale" step="0.1" value="1.0">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">文本描边粗细倍率</span>
@@ -161,7 +349,7 @@
                     <input type="number" class="form-control" id="strokeWidth" step="0.1" value="1.0">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">文本距离底边距离</span>
@@ -173,7 +361,7 @@
         <div class="row">
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">阴影X偏移量</span>
@@ -181,7 +369,7 @@
                     <input type="number" class="form-control" id="shadowOffsetX" step="0.01" value="-0.10">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-3 col-sm-12">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">阴影Y偏移量</span>
@@ -190,14 +378,20 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-        </div>
-        注：国内加载略有缓慢，请耐心等待！建议使用横屏模式操作，图片适配各种比例，字体默认为汉仪力量黑。
+
+        <input type="file" id="importPresetInput" accept=".json" style="display: none;" onchange="importPreset()">
         <div class="col">
             <button class="btn btn-primary" type="button" onclick="generateImage()">生成图片</button>
         </div>
+        注：国内加载略有缓慢，请耐心等待！建议使用横屏模式操作，图片适配各种比例，字体默认为汉仪力量黑。
     </div>
+
     <div class="zb"><img id="myImage" width="40%" src="None"></img></div>
+    <div class="zb">
+        <h5>更新日志</h5>
+        2025-01-15：1.0.0：正式发布。<br>
+        2025-01-16：1.1.0：添加8款预设和导入导出预设功能，尝试适配移动端布局，添加阴影大小跟随描边大小变化效果，修复描边粗细设置为0的时候仍然有描边的Bug。<br>
+    </div>
     <div id="footer"></div>
     <script>loadTemplate()</script>
 </body>

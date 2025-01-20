@@ -11,7 +11,8 @@
                 "strokeWidth": "0.25",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "-0.075",
-                "shadowOffsetY": "0.05"
+                "shadowOffsetY": "0.05",
+                "maskPos": "1.0",
             },
             周年庆: {
                 "text": "周 年 庆",
@@ -23,7 +24,8 @@
                 "strokeWidth": "1.0",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "-0.10",
-                "shadowOffsetY": "0.05"
+                "shadowOffsetY": "0.05",
+                "maskPos": "1.0",
             },
             感恩季: {
                 "text": "感 恩 季",
@@ -35,7 +37,8 @@
                 "strokeWidth": "0.25",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "-0.10",
-                "shadowOffsetY": "0.05"
+                "shadowOffsetY": "0.05",
+                "maskPos": "1.0",
             },
             下界更新: {
                 "text": "下界更新",
@@ -47,7 +50,8 @@
                 "strokeWidth": "0",
                 "bottomMargin": "0.0475",
                 "shadowOffsetX": "-0.08",
-                "shadowOffsetY": "0.10"
+                "shadowOffsetY": "0.10",
+                "maskPos": "1.0",
             },
             冒险与足迹: {
                 "text": "冒险与足迹",
@@ -59,7 +63,8 @@
                 "strokeWidth": "1",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "-0.09",
-                "shadowOffsetY": "0.05"
+                "shadowOffsetY": "0.05",
+                "maskPos": "1.0",
             },
             海洋夏日: {
                 "text": "海 洋 夏 日",
@@ -71,7 +76,8 @@
                 "strokeWidth": "0",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "0.04",
-                "shadowOffsetY": "0.08"
+                "shadowOffsetY": "0.08",
+                "maskPos": "1.0",
             },
             夏日派对: {
                 "text": "夏日派对",
@@ -83,7 +89,8 @@
                 "strokeWidth": "1",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "0",
-                "shadowOffsetY": "0.085"
+                "shadowOffsetY": "0.085",
+                "maskPos": "1.0",
             },
             老周年庆: {
                 "text": "周年庆",
@@ -95,7 +102,8 @@
                 "strokeWidth": "0",
                 "bottomMargin": "0.05",
                 "shadowOffsetX": "-0.08",
-                "shadowOffsetY": "0.07"
+                "shadowOffsetY": "0.07",
+                "maskPos": "1.0",
             },
         };
         function selectPreset(presetName) {
@@ -111,6 +119,7 @@
                 document.getElementById("bottomMargin").value = preset.bottomMargin;
                 document.getElementById("shadowOffsetX").value = preset.shadowOffsetX;
                 document.getElementById("shadowOffsetY").value = preset.shadowOffsetY;
+                document.getElementById("maskPos").value = preset.maskPos;
             }
         }
 
@@ -127,7 +136,8 @@
                     strokeWidth: document.getElementById("strokeWidth").value,
                     bottomMargin: document.getElementById("bottomMargin").value,
                     shadowOffsetX: document.getElementById("shadowOffsetX").value,
-                    shadowOffsetY: document.getElementById("shadowOffsetY").value
+                    shadowOffsetY: document.getElementById("shadowOffsetY").value,
+                    maskPos: document.getElementById("maskPos").value,
                 };
 
                 const json = JSON.stringify(newPreset, null, 4);
@@ -159,6 +169,7 @@
                     document.getElementById("bottomMargin").value = preset.bottomMargin;
                     document.getElementById("shadowOffsetX").value = preset.shadowOffsetX;
                     document.getElementById("shadowOffsetY").value = preset.shadowOffsetY;
+                    document.getElementById("maskPos").value = preset.maskPos;
                 };
                 reader.readAsText(file);
             }
@@ -213,12 +224,13 @@
                     maskImage.onload = resolve;
                 });
 
-                const maskHeight = canvas.width * maskImage.height / maskImage.width;
-                const maskY = canvas.height - maskHeight;
+                const maskPos = document.getElementById("maskPos").value;
+                const maskHeight = Math.floor(canvas.width * maskImage.height / maskImage.width);
+                const maskY = canvas.height - maskHeight + Math.floor((1-maskPos)*maskHeight);
 
                 ctx.drawImage(maskImage, 0, maskY, canvas.width, maskHeight);
 
-                const maskImageData = ctx.getImageData(0, maskY, canvas.width, maskHeight + 1);
+                const maskImageData = ctx.getImageData(0, maskY, canvas.width, maskHeight);
                 const maskData = maskImageData.data;
 
                 for (let i = 0; i < maskData.length; i += 4) {
@@ -370,6 +382,14 @@
                     <input type="number" class="form-control" id="shadowOffsetY" step="0.01" value="0.05">
                 </div>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">遮罩位置</span>
+                    </div>
+                    <input type="number" class="form-control" id="maskPos" step="0.01" value="1.0">
+                </div>
+            </div>
         </div>
 
         <input type="file" id="importPresetInput" accept=".json" style="display: none;" onchange="importPreset()">
@@ -378,8 +398,7 @@
         </div>
         注：国内加载略有缓慢，请耐心等待！建议使用横屏模式操作，图片适配各种比例。字体默认为汉仪力量黑，如需商用请联系原作者！
         <p>
-            温馨提示：<br>
-            本站是个人网站，以个人研究、学习的目的在图片中展示第三方字体。图片使用的字体是本站收集于网络的，本站不享有任何版权，仅提供给本站网友进行爱好交流。如您想通过包含字体的图片进行商业用途使用，本站强烈提醒您联系对应厂商或原作者进行版权授权购买，如因为使用了包含字体的图片引起了版权诉讼纠纷，本站不承担任何责任。
+            温馨提示：本站是个人网站，以个人研究、学习的目的在图片中展示第三方字体。图片使用的字体是本站收集于网络的，本站不享有任何版权，仅提供给本站网友进行爱好交流。如您想通过包含字体的图片进行商业用途使用，本站强烈提醒您联系对应厂商或原作者进行版权授权购买，如因为使用了包含字体的图片引起了版权诉讼纠纷，本站不承担任何责任。
         </p>
     </div>
 
@@ -388,6 +407,7 @@
         <h5>更新日志</h5>
         2025-01-15：1.0.0：正式发布。<br>
         2025-01-16：1.1.0：添加8款预设和导入导出预设功能，适配移动端布局，添加阴影大小跟随描边大小变化效果，修复描边粗细设置为0的时候仍然有描边的Bug，添加字体版权说明。<br>
+        2025-01-20：1.2.0：添加自定义遮罩位置功能。<br>
     </div>
     <div id="footer"></div>
     <script>loadTemplate()</script>

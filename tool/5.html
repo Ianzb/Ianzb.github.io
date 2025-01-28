@@ -226,7 +226,7 @@
 
                 const maskPos = document.getElementById("maskPos").value;
                 const maskHeight = Math.floor(canvas.width * maskImage.height / maskImage.width);
-                const maskY = canvas.height - maskHeight + Math.floor((1-maskPos)*maskHeight);
+                const maskY = canvas.height - maskHeight + Math.floor((1 - maskPos) * maskHeight);
 
                 ctx.drawImage(maskImage, 0, maskY, canvas.width, maskHeight);
 
@@ -263,7 +263,7 @@
         }
     </script>
     <div class="sticky-top" id="header"></div>
-    <h3 class="zb"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版风格头像生成器</h3>
+    <h3 class="zb-title"><img height="30" src="./svg/tool.svg" width="25">我的世界中国版风格头像生成器</h3>
     <div class="zb">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-12">
@@ -396,8 +396,8 @@
         <div class="col">
             <button class="btn btn-primary" type="button" onclick="generateImage()">生成图片</button>
         </div>
-        注：国内加载略有缓慢，请耐心等待！建议使用横屏模式操作，图片适配各种比例。字体默认为汉仪力量黑，如需商用请联系原作者！
         <p>
+            注：国内加载略有缓慢，请耐心等待！建议使用横屏模式操作，图片适配各种比例。字体默认为汉仪力量黑，如需商用请联系原作者！
             温馨提示：本站是个人网站，以个人研究、学习的目的在图片中展示第三方字体。图片使用的字体是本站收集于网络的，本站不享有任何版权，仅提供给本站网友进行爱好交流。如您想通过包含字体的图片进行商业用途使用，本站强烈提醒您联系对应厂商或原作者进行版权授权购买，如因为使用了包含字体的图片引起了版权诉讼纠纷，本站不承担任何责任。
         </p>
     </div>

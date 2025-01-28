@@ -23,27 +23,38 @@ body {
 .zb {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
-    margin: 15px;
-    border-radius: 7px;
+    margin: 16px;
+    border-radius: 8px;
     backdrop-filter: blur(10px);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    padding: 8px;
 }
 
+.zb-title {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 16px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    padding: 4px;
+}
 
 .zb-left {
     text-align: left;
     background-color: rgba(255, 255, 255, 0.5);
-    margin: 15px;
-    border-radius: 7px;
+    margin: 16px;
+    border-radius: 8px;
     backdrop-filter: blur(10px);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    padding: 8px;
 }
 
 .zb-img {
     text-align: center;
     background-color: rgba(255, 255, 255, 1.0);
-    margin: 15px;
-    border-radius: 7px;
+    margin: 16px;
+    border-radius: 8px;
     backdrop-filter: blur(10px);
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
@@ -51,8 +62,8 @@ body {
 .logo {
     text-align: left;
     background-color: rgba(255, 255, 255, 1.0);
-    margin: 15px;
-    border-radius: 50px;
+    margin: 16px;
+    border-radius: 48px;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 

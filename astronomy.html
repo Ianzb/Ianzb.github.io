@@ -21,14 +21,111 @@
     </div>
     <div class="zb">
         <h5>设备说明</h5>
-        望远镜：1、探索科学90EQ3 DX高阶 90mm 折射式单筒望远镜。2、星特朗远扬10x42 双筒望远镜。<br>
-        拍摄设备：1、<a href="phone.html">手机</a>主摄像头+望远镜目镜。2、30W像素电子目镜。3、佳能EOS 650D数码单反相机<br>
-        赤道仪：探索科学原配EQ3赤道仪，搭配探索科学单轴电动跟踪器。<br>
-        目镜：10mm、25mm。<br>
-        后期处理：PIPP、AutoStakkert!4软件<br>
+        设备：1、振旺Seestar S50智能望远镜。2、探索科学90EQ3 90mm折射式单筒望远镜。3、星特朗远扬10x42双筒望远镜。4、佳能EOS 650D数码单反相机。<br>
+        后期工具：PIPP稳像，ASIStudio叠加，Siril叠加+图像处理，Adobe Photoshop 2025图像处理，Topaz DeNoise AI降噪，Stellarium星图<br>
+    </div>
+    <div class="zb">
+        <h5>作品分享</h5>
+        <div class="container-fluid">
+            <div id="gallery" class="row"></div>
+        </div>
     </div>
     <div id="footer"></div>
+
+    <script>
+        // 自动生成作品卡片 —— 文件名数组（位于 /astronomy/ 目录）
+        // ...existing code...
+        const images = [
+            "谷神星 2025年8月17日 4min.png",
+            "国际空间站凌日 2025年7月22日.png",
+            "鹿舔星系群 + 史蒂芬五重奏 2025年8月22日 57min 标注版.png",
+            "鹿舔星系群 + 史蒂芬五重奏 2025年8月22日 57min.png",
+            "满月后 2025年8月10日.jpg",
+            "冥王星 2025年7月30日 7min.jpg",
+            "木星 2024年12月8日.png",
+            "太阳 2025年7月21日.png",
+            "天王星 天卫四+天卫三 2025年8月4日 2min.png",
+            "土星合月 2024年12月8日.jpg",
+            "下弦月 2025年8月17日.jpg",
+            "星链 2024年11月30日.jpg",
+            "月球环形山特写 2024年12月8日.jpg",
+            "织女星 2025年7月21日 90s.png",
+            "IC 1318 蝴蝶星云局部 2025年7月21日 14min.png",
+            "IC 1396 象鼻星云 局部 2025年8月10日 12min.png",
+            "IC 5070 鹈鹕星云 2025年7月30日 15min.png",
+            "IC 5146 茧星云 2025年7月30日 18min.png",
+            "M 1 蟹状星云 2025年8月17日 65min.png",
+            "M 101 风车星系 2025年7月21日+8月9日 34min.png",
+            "M 103 仙后座疏散星团 2025年8月10日 12min.png",
+            "M 106 + NGC 4217 2025年8月9日 18min.png",
+            "M 13 武仙座球状星团 2025年7月21日 5min.png",
+            "M 16 鹰状星云 2025年7月21日 10min.png",
+            "M 2 宝瓶座球状星团 2025年7月22日 6min.png",
+            "M 27 哑铃星云 2025年7月21日 10min.png",
+            "M 31 仙女座星系 + M 32 + M 110 2025年8月10日 52min.png",
+            "M 31 仙女座星系局部 2025年8月23日 累计多次观星图像.png",
+            "M 33 三角座星系 2025年8月17日 6min.png",
+            "M 39 天鹅座疏散星团 2025年7月22日 9min.png",
+            "M 42 猎户座大星云 2025年1月18日.png",
+            "M 45 昂宿星团 2025年8月4日 33min.png",
+            "M 51 涡状星系 2025年8月9日 15min.png",
+            "M 57 环状星云 2025年7月21日 2min.png",
+            "M 76 小哑铃星云 2025年8月4日 15min.png",
+            "M 92 武仙座球状星团 2025年7月22日+8月9日 15min.png",
+            "NGC 1333 2025年8月4日 13min.png",
+            "NGC 1579 北三叶星云 2025年8月10日 14min.png",
+            "NGC 281 吃豆人星云 2025年7月30日 15min.png",
+            "NGC 5906 5907 刀锋星系 2025年8月9日 19min.png",
+            "NGC 6888 眉月星云 2025年7月21日 6min.png",
+            "NGC 6946 烟花星系 2025年8月9日 18min.png",
+            "NGC 6960 西面纱星云 2025年7月22日 7min.png",
+            "NGC 6992 东面纱星云 2025年7月22日 13min.png",
+            "NGC 7000 北美洲星云 局部 2025年7月30日 15min.png",
+            "NGC 7023 鸢尾花星云 2025年8月9日 23min.png",
+            "NGC 7293 上帝之眼 2025年8月4日 14min.png",
+            "NGC 7635 气泡星云 2025年7月30日 12min.png"
+        ];
+
+        function buildGallery() {
+            const gallery = document.getElementById('gallery');
+            images.forEach(name => {
+                const col = document.createElement('div');
+                col.className = 'col-6 col-sm-4 col-md-3 mb-4';
+
+                const card = document.createElement('div');
+                // 移除强制等高，允许图片按比例显示不同高度
+                card.className = 'zb-blur card';
+
+                const img = document.createElement('img');
+                img.className = 'card-img-top'; // 使用上面定义的类
+                // 使用 encodeURIComponent 处理文件名里的空格和特殊字符
+                img.src = '/astronomy/' + encodeURIComponent(name);
+                img.alt = name;
+                // 不再设置固定高度或 object-fit，保留原始纵横比
+
+                const body = document.createElement('div');
+                body.className = 'card-body p-2';
+
+                const title = document.createElement('p');
+                title.className = 'card-text small mb-0';
+                title.title = name;
+                title.textContent = name;
+
+                const link = document.createElement('a');
+                link.href = '/astronomy/' + encodeURIComponent(name);
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.appendChild(img);
+
+                body.appendChild(title);
+                card.appendChild(link);
+                card.appendChild(body);
+                col.appendChild(card);
+                gallery.appendChild(col);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', buildGallery);
+    </script>
     <script>loadTemplate()</script>
 </body>
-
-</html>

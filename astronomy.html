@@ -33,13 +33,9 @@
     <div id="footer"></div>
 
     <script>
-        // 自动生成作品卡片 —— 文件名数组（位于 /astronomy/ 目录）
-        // ...existing code...
         const images = [
             "谷神星 2025年8月17日 4min.png",
             "国际空间站凌日 2025年7月22日.png",
-            "鹿舔星系群 + 史蒂芬五重奏 2025年8月22日 57min 标注版.png",
-            "鹿舔星系群 + 史蒂芬五重奏 2025年8月22日 57min.png",
             "满月后 2025年8月10日.jpg",
             "冥王星 2025年7月30日 7min.jpg",
             "木星 2024年12月8日.png",
@@ -50,10 +46,18 @@
             "星链 2024年11月30日.jpg",
             "月球环形山特写 2024年12月8日.jpg",
             "织女星 2025年7月21日 90s.png",
+            "C 11 NGC 7635 气泡星云 2025年7月30日 12min.png",
+            "C 19 IC 5146 茧星云 2025年7月30日 18min.png",
+            "C 20 NGC 7000 北美洲星云 局部 2025年7月30日 15min.png",
+            "C 30 鹿舔星系群 + 史蒂芬五重奏 2025年8月22日 57min 标注版.png",
+            "C 30 鹿舔星系群 + 史蒂芬五重奏 2025年8月22日 57min.png",
+            "C 33 NGC 6992 东面纱星云 2025年7月22日 13min.png",
+            "C 34 NGC 6960 西面纱星云 2025年7月22日 7min.png",
+            "C 4 NGC 7023 鸢尾花星云 2025年8月9日 23min.png",
+            "C 63 NGC 7293 上帝之眼 2025年8月4日 14min.png",
             "IC 1318 蝴蝶星云局部 2025年7月21日 14min.png",
             "IC 1396 象鼻星云 局部 2025年8月10日 12min.png",
             "IC 5070 鹈鹕星云 2025年7月30日 15min.png",
-            "IC 5146 茧星云 2025年7月30日 18min.png",
             "M 1 蟹状星云 2025年8月17日 65min.png",
             "M 101 风车星系 2025年7月21日+8月9日 34min.png",
             "M 103 仙后座疏散星团 2025年8月10日 12min.png",
@@ -64,9 +68,10 @@
             "M 27 哑铃星云 2025年7月21日 10min.png",
             "M 31 仙女座星系 + M 32 + M 110 2025年8月10日 52min.png",
             "M 31 仙女座星系局部 2025年8月23日 累计多次观星图像.png",
-            "M 33 三角座星系 2025年8月17日 6min.png",
+            "M 33 三角座星系 2025年8月25日 25min.png",
             "M 39 天鹅座疏散星团 2025年7月22日 9min.png",
             "M 42 猎户座大星云 2025年1月18日.png",
+            "M 42 猎户座大星云 2025年8月23日 4min.png",
             "M 45 昂宿星团 2025年8月4日 33min.png",
             "M 51 涡状星系 2025年8月9日 15min.png",
             "M 57 环状星云 2025年7月21日 2min.png",
@@ -77,13 +82,7 @@
             "NGC 281 吃豆人星云 2025年7月30日 15min.png",
             "NGC 5906 5907 刀锋星系 2025年8月9日 19min.png",
             "NGC 6888 眉月星云 2025年7月21日 6min.png",
-            "NGC 6946 烟花星系 2025年8月9日 18min.png",
-            "NGC 6960 西面纱星云 2025年7月22日 7min.png",
-            "NGC 6992 东面纱星云 2025年7月22日 13min.png",
-            "NGC 7000 北美洲星云 局部 2025年7月30日 15min.png",
-            "NGC 7023 鸢尾花星云 2025年8月9日 23min.png",
-            "NGC 7293 上帝之眼 2025年8月4日 14min.png",
-            "NGC 7635 气泡星云 2025年7月30日 12min.png"
+            "NGC 6946 烟花星系 2025年8月9日 18min.png"
         ];
 
         function buildGallery() {
@@ -93,23 +92,22 @@
                 col.className = 'col-6 col-sm-4 col-md-3 mb-4';
 
                 const card = document.createElement('div');
-                // 移除强制等高，允许图片按比例显示不同高度
                 card.className = 'zb-blur card';
 
                 const img = document.createElement('img');
-                img.className = 'card-img-top'; // 使用上面定义的类
-                // 使用 encodeURIComponent 处理文件名里的空格和特殊字符
+                img.className = 'card-img-top';
                 img.src = '/astronomy/' + encodeURIComponent(name);
                 img.alt = name;
-                // 不再设置固定高度或 object-fit，保留原始纵横比
 
                 const body = document.createElement('div');
                 body.className = 'card-body p-2';
 
+                const titleText = name.replace(/\.[^.]+$/, '');
                 const title = document.createElement('p');
                 title.className = 'card-text small mb-0';
-                title.title = name;
-                title.textContent = name;
+                title.title = titleText;
+                title.textContent = titleText;
+
 
                 const link = document.createElement('a');
                 link.href = '/astronomy/' + encodeURIComponent(name);

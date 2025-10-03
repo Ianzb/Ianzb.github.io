@@ -34,18 +34,7 @@
 
     <script>
         const images = [
-            "谷神星 2025年8月17日 4min.png",
-            "国际空间站凌日 2025年7月22日.png",
-            "满月后 2025年8月10日.jpg",
-            "冥王星 2025年7月30日 7min.jpg",
-            "木星 2024年12月8日.png",
-            "太阳 2025年7月21日.png",
-            "天王星 天卫四+天卫三 2025年8月4日 2min.png",
-            "土星合月 2024年12月8日.jpg",
-            "下弦月 2025年8月17日.jpg",
-            "星链 2024年11月30日.jpg",
-            "月球环形山特写 2024年12月8日.jpg",
-            "织女星 2025年7月21日 90s.png",
+            "2025年9月8日月全食.png",
             "C 11 NGC 7635 气泡星云 2025年7月30日 12min.png",
             "C 19 IC 5146 茧星云 2025年7月30日 18min.png",
             "C 20 NGC 7000 北美洲星云 局部 2025年7月30日 15min.png",
@@ -57,6 +46,7 @@
             "C 63 NGC 7293 上帝之眼 2025年8月4日 14min.png",
             "IC 1318 蝴蝶星云局部 2025年7月21日 14min.png",
             "IC 1396 象鼻星云 局部 2025年8月10日 12min.png",
+            "IC 1805 心脏星云 IC 1848 灵魂星云 5h.png",
             "IC 5070 鹈鹕星云 2025年7月30日 15min.png",
             "M 1 蟹状星云 2025年8月17日 65min.png",
             "M 101 风车星系 2025年7月21日+8月9日 34min.png",
@@ -67,10 +57,9 @@
             "M 2 宝瓶座球状星团 2025年7月22日 6min.png",
             "M 27 哑铃星云 2025年7月21日 10min.png",
             "M 31 仙女座星系 + M 32 + M 110 2025年8月10日 52min.png",
-            "M 31 仙女座星系局部 2025年8月23日 累计多次观星图像.png",
+            "M 31 仙女座星系 广域 累计叠加2.5h.png",
             "M 33 三角座星系 2025年8月25日 25min.png",
             "M 39 天鹅座疏散星团 2025年7月22日 9min.png",
-            "M 42 猎户座大星云 2025年1月18日.png",
             "M 42 猎户座大星云 2025年8月23日 4min.png",
             "M 45 昂宿星团 2025年8月4日 33min.png",
             "M 51 涡状星系 2025年8月9日 15min.png",
@@ -82,7 +71,22 @@
             "NGC 281 吃豆人星云 2025年7月30日 15min.png",
             "NGC 5906 5907 刀锋星系 2025年8月9日 19min.png",
             "NGC 6888 眉月星云 2025年7月21日 6min.png",
-            "NGC 6946 烟花星系 2025年8月9日 18min.png"
+            "NGC 6946 烟花星系 2025年8月9日 18min.png",
+            "下弦月 2025年8月17日.jpg",
+            "中国空间站凌月 2025年9月9日.jpg",
+            "冥王星 2025年7月30日 7min.jpg",
+            "国际空间站凌日 2025年7月22日.png",
+            "土星合月 2024年12月8日.jpg",
+            "天王星 天卫四+天卫三 2025年8月4日 2min.png",
+            "太阳 2025年7月21日.png",
+            "星链 2024年11月30日.jpg",
+            "月球 2025年10月2日.jpg",
+            "月球 2025年9月9日.jpg",
+            "月球环形山特写 2024年12月8日.jpg",
+            "木星 2024年12月8日.png",
+            "满月后 2025年8月10日.jpg",
+            "织女星 2025年7月21日 90s.png",
+            "谷神星 2025年8月17日 4min.png"
         ];
 
         function buildGallery() {
@@ -96,7 +100,7 @@
 
                 const img = document.createElement('img');
                 img.className = 'card-img-top';
-                img.src = '/astronomy/' + encodeURIComponent(name);
+                img.src = 'http://123pan.ianzb.cn/%E5%A4%A9%E6%96%87%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81/' + encodeURIComponent(name);
                 img.alt = name;
 
                 const body = document.createElement('div');
@@ -110,7 +114,7 @@
 
 
                 const link = document.createElement('a');
-                link.href = '/astronomy/' + encodeURIComponent(name);
+                link.href = 'http://123pan.ianzb.cn/%E5%A4%A9%E6%96%87%E6%91%84%E5%BD%B1%E4%BD%9C%E5%93%81/' + encodeURIComponent(name);
                 link.target = '_blank';
                 link.rel = 'noopener';
                 link.appendChild(img);
